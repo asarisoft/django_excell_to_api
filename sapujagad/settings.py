@@ -29,6 +29,17 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+APPS = [
+    'sapujagad.apps.banner',
+    'sapujagad.apps.blog',
+    'sapujagad.apps.menu',
+    'sapujagad.apps.portfolio',
+    'sapujagad.apps.pricing',
+    'sapujagad.apps.service',
+    'sapujagad.apps.settings',
+    'sapujagad.apps.team',
+    # 'sapujagad.apps.user',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+] + APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
