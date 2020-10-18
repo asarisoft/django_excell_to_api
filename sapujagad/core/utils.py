@@ -1,3 +1,4 @@
+import os
 from django.conf import settings
 from slugify import slugify
 from django.utils import timezone
