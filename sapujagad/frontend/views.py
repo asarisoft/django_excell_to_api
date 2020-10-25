@@ -13,6 +13,7 @@ from sapujagad.core.serializer import serialize_settings
 
 def index(request):
     settings = Settings.objects.all()
+    serialize_settings_dict={}
     for setting in settings:
         serialize_settings_dict[setting.name] = serialize_settings(setting)
     context = {
@@ -23,6 +24,7 @@ def index(request):
         "pricings" : Pricing.objects.filter(is_active=True).order_by('-id'),
         "services" : Service.objects.filter(is_active=True).order_by('-id'),
         "teams" : Team.objects.filter(is_active=True).order_by('-id'),
+        "settings" : serialize_settings_dict,
     }
     return TemplateResponse(request, 'frontend/index.html', context)
 

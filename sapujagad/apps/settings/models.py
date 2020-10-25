@@ -10,6 +10,8 @@ class Settings(models.Model):
         ('about_us_img', 'about_us_img'),
         ('our_portfolio_title', 'our_portfolio_title'),
         ('our_portfolio_description', 'our_portfolio_description'),
+        ('our_service_title', 'Our Service Title'),
+        ('our_service_description', 'Our Service Description'),
         ('price_title', 'price_title'),
         ('price_description', 'price_description'),
         ('blog_title', 'blog_title'),
@@ -24,11 +26,12 @@ class Settings(models.Model):
         ('phone', 'phone'),
         ('email', 'email'),
         ('website', 'website'),
+        ('logo', 'logo'),
     )
     name = models.CharField(max_length=254, choices=TYPE, unique=True)
     text_value = models.CharField(max_length=254, blank=True, null=True)
     img_value =  models.ImageField(upload_to=FilenameGenerator(
-        prefix='settings'))
+        prefix='settings'), blank=True, null=True)
 
     def __str__(self):
         return self.name
