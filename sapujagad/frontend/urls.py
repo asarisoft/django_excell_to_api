@@ -3,5 +3,6 @@ from .views import *
 
 app_name = "frontend"
 urlpatterns = [
-    path('', index, name='index')
+    path('', index, name='index'),
+    path('contact-us/', contactus, name='contactus')
 ]
