@@ -8,10 +8,11 @@ class Settings(models.Model):
         ('about_us_title', 'about_us_title'),
         ('about_us_description', 'about_us_description'),
         ('about_us_img', 'about_us_img'),
+        ('about_us_background', 'about_us_background'),
         ('our_portfolio_title', 'our_portfolio_title'),
         ('our_portfolio_description', 'our_portfolio_description'),
-        ('our_service_title', 'Our Service Title'),
-        ('our_service_description', 'Our Service Description'),
+        ('our_service_title', 'our_service_title'),
+        ('our_service_description', 'our_service_description'),
         ('price_title', 'price_title'),
         ('price_description', 'price_description'),
         ('blog_title', 'blog_title'),
@@ -29,7 +30,7 @@ class Settings(models.Model):
         ('logo', 'logo'),
     )
     name = models.CharField(max_length=254, choices=TYPE, unique=True)
-    text_value = models.CharField(max_length=254, blank=True, null=True)
+    text_value = models.TextField(blank=True, null=True)
     img_value =  models.ImageField(upload_to=FilenameGenerator(
         prefix='settings'), blank=True, null=True)
 

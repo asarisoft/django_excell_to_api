@@ -20,7 +20,7 @@ def index(request):
         "banners" : Banner.objects.filter(is_active=True).order_by('-id'),
         "blogs" : Blog.objects.filter(is_active=True).order_by('-id')[:6],
         "menus" : Menu.objects.filter(is_active=True).order_by('order'),
-        "portfolios" : Portfolio.objects.filter(is_active=True).order_by('-id'),
+        "portfolios" : Portfolio.objects.filter(is_active=True).order_by('id'),
         "pricings" : Pricing.objects.filter(is_active=True).order_by('-id'),
         "services" : Service.objects.filter(is_active=True).order_by('-id'),
         "teams" : Team.objects.filter(is_active=True).order_by('-id'),
