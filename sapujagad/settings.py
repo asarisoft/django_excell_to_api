@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_summernote',
 ] + APPS
 
 MIDDLEWARE = [
@@ -125,6 +127,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static_files'),
 ]
+
+# django summernote
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

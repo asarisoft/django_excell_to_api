@@ -1,23 +1,24 @@
 from sapujagad.core.utils import FilenameGenerator, custom_slugify
 from django.db import models
+from django.utils.safestring import mark_safe
+
 
 
 class Blog(models.Model):
     img1 =  models.ImageField(upload_to=FilenameGenerator(
         prefix='banner'))
-    img2 =  models.ImageField(upload_to=FilenameGenerator(
-        prefix='banner'), blank=True, null=True)
-    img3 =  models.ImageField(upload_to=FilenameGenerator(
-        prefix='banner'), blank=True, null=True)
     title = models.CharField(max_length=254, blank=True, null=True)
     date = models.DateField()
     short_desc = models.CharField(max_length=254, blank=True, null=True)
     long_desc = models.TextField(blank=True, null=True)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField("is published", default=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
     
     def __str__(self):
         return self.title
+
+    def preview(self):
+        return mark_safe('<a href="/blog/%s" target="_blank"/> preview </a>' % self.slug)
 
     def save(self, *args, **kwargs):
         if not self.slug:

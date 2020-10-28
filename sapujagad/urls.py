@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('backoffice/', admin.site.urls),
     path('', include('sapujagad.frontend.urls', namespace='frontend')),
+    path('summernote/', include('django_summernote.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # di server saat settings debug true

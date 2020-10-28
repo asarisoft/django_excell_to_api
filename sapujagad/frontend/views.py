@@ -47,10 +47,17 @@ def contactus(request):
 
 
 def blogdetail(request, slug):
-    blog = Blog.objects.object.get(slug=slug)
+    settings = Settings.objects.all()
+    serialize_settings_dict={}
+    for setting in settings:
+        serialize_settings_dict[setting.name] = serialize_settings(setting)
+        
+    blog = Blog.objects.get(slug=slug)
     blogs = Blog.objects.filter(is_active=True)\
-        .exclude(slug=slug).order_by('order')[0:4]
-    return TemplateResponse(request, 'blog-detail.html', {
+        .exclude(slug=slug).order_by('-id')[0:4]
+    return TemplateResponse(request, 'frontend/blog-detail.html', {
         "blog": blog, 
         "blogs": blogs, 
+        "menus" : Menu.objects.filter(is_active=True).order_by('order'),
+        "settings" : serialize_settings_dict,
     })

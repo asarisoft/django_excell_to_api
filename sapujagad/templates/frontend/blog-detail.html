@@ -75,284 +75,41 @@
     </div><!--/#main-nav-->
   </header><!--/#home-->
 
-  <section id="services">
+
+  <section id="blog" style="padding: 30px 0; ">
     <div class="container">
-      <div class="heading wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-        <div class="row">
-          <div class="text-center col-sm-8 col-sm-offset-2">
-            <h2>{{settings.our_service_title.text_value}}</h2>
-            <p>{{settings.our_service_description.text_value}}</p>
+      <div class="row blog-posts" style="display: flex; justify-content: center;">
+        <div class="col-sm-9 wow fadeInUp" data-wow-duration="1000ms" 
+            data-wow-delay="400ms" >
+          <div class="entry-header" >
+              <h1><a href="#">{{blog.title}}</a></h1>
+              <span class="date">{{blog.date}}</span>
           </div>
-        </div> 
-      </div>
-
-      <div class="text-center our-services">
-        <div class="row">
-          {% for service in services%}
-          <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-            <div class="service-icon">
-              <i class="{{service.fa_icon}}"></i>
-            </div>
-            <div class="service-info">
-              <h3>{{service.title}}</h3>
-              <p>{{service.desc}}</p>
-            </div>
+          <div class="post-thumb" style="text-align: center;">
+            <img class="img-responsive" src="{{blog.img1.url}}" alt="" style="display: initial;">
           </div>
-          {% endfor %}
-          
-          {% comment %} 
-          <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="450ms">
-            <div class="service-icon">
-              <i class="fa fa-umbrella"></i>
-            </div>
-            <div class="service-info">
-              <h3>Creative Idea</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
-            </div>
+          <div class="entry-content" style="margin-top: 30px; margin-top: 30px;
+              font-size: 1.1em;
+              letter-spacing: 0.5px;
+              color: black;
+              line-height: 1.7em;">
+            {{blog.long_desc|safe}}
           </div>
-
-          <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="550ms">
-            <div class="service-icon">
-              <i class="fa fa-cloud"></i>
-            </div>
-            <div class="service-info">
-              <h3>Awesome Support</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
-            </div>
-          </div>
-
-          <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="650ms">
-            <div class="service-icon">
-              <i class="fa fa-coffee"></i>
-            </div>
-            <div class="service-info">
-              <h3>Professional Design</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
-            </div>
-          </div>
-
-          <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="750ms">
-            <div class="service-icon">
-              <i class="fa fa-bitbucket"></i>
-            </div>
-            <div class="service-info">
-              <h3>App Development</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
-            </div>
-          </div>
-
-          <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="850ms">
-            <div class="service-icon">
-              <i class="fa fa-gift"></i>
-            </div>
-            <div class="service-info">
-              <h3>Clean Code</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
-            </div>
-          </div>
-           {% endcomment %}
-        </div>
+        </div>                          
       </div>
     </div>
-  </section><!--/#services-->
-
-  <section id="about-us" class="parallax" style="background-image: url({{settings.about_us_background.img_value}});">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="about-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-            <h2>{{settings.about_us_title.text_value}}</h2>
-            {{settings.about_us_description.text_value|safe}}
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="our-skills wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-            <img src="{{settings.about_us_img.img_value}}" style="max-width: 100%"/>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section><!--/#about-us-->
-
-  <section id="portfolio">
-    <div class="container">
-      <div class="row">
-        <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-          <h2>{{settings.our_portfolio_title.text_value}}</h2>
-          <p>{{settings.our_portfolio_description.text_value}}</p>
-        </div>
-      </div> 
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        {% for portfolio in portfolios %}
-        <div class="col-sm-3">
-          <div class="folio-item wow fadeInRightBig" data-wow-duration="1000ms" data-wow-delay="300ms">
-            <div class="folio-image">
-              <img class="img-responsive" src="{{portfolio.img.url}}" alt="">
-            </div>
-            <div class="overlay">
-              <div class="overlay-content">
-                <div class="overlay-text">
-                  <div class="folio-info">
-                    <h3>{{portfolio.title}}</h3>
-                    <p>{{portfolio.sub_title}}</p>
-                  </div>
-                  <div class="folio-overview">
-                    {% comment %} <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="portfolio-single.html" ><i class="fa fa-link"></i></a></span> {% endcomment %}
-                    <span class="folio-expand"><a href="{{portfolio.img_detail.url}}" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-    <div id="portfolio-single-wrap">
-      <div id="portfolio-single">
-      </div>
-    </div><!-- /#portfolio-single-wrap -->
-  </section><!--/#portfolio-->
-
-  <section id="team">
-    <div class="container">
-      <div class="row">
-        <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="300ms">
-          <h2>{{settings.our_team_title.text_value}}</h2>
-          <p>{{settings.our_team_description.text_value}}</p>
-        </div>
-      </div>
-      <div class="team-members">
-        <div class="row">
-          {% for team in teams%}
-          <div class="col-sm-3">
-            <div class="team-member wow flipInY" data-wow-duration="1000ms" data-wow-delay="300ms">
-              <div class="member-image">
-                <img class="img-responsive" src="{{team.img.url}}" alt="">
-              </div>
-              <div class="member-info">
-                <h3>{{team.name}}</h3>
-                <h4>{{team.position}}</h4>
-                <p>{{team.motto}}</p>
-              </div>
-              <div class="social-icons">
-                <ul>
-                  <li><a class="facebook" href="{{team.fb_link}}" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                  <li><a class="twitter" href="{{team.twitter}}" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                  <li><a class="linkedin" href="{{team.linkedin}}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-                  {% comment %} <li><a class="dribbble" href="#" target="_blank"><i class="fa fa-dribbble"></i></a></li>
-                  <li><a class="rss" href="#"><i class="fa fa-rss"></i></a></li> {% endcomment %}
-                </ul>
-              </div>
-            </div>
-          </div> 
-          {% endfor%}
-
-        </div>
-      </div>            
-    </div>
-  </section><!--/#team-->
-
-  {% comment %} <section id="features" class="parallax">
-    <div class="container">
-      <div class="row count">
-        <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="300ms">
-          <i class="fa fa-user"></i>
-          <h3 class="timer">4000</h3>
-          <p>Happy Clients</p>
-        </div>
-        <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="500ms">
-          <i class="fa fa-desktop"></i>
-          <h3 class="timer">200</h3>                    
-          <p>Modern Websites</p>
-        </div> 
-        <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="700ms">
-          <i class="fa fa-trophy"></i>
-          <h3 class="timer">10</h3>                    
-          <p>WINNING AWARDS</p>
-        </div> 
-        <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="900ms">
-          <i class="fa fa-comment-o"></i>                    
-          <h3>24/7</h3>
-          <p>Fast Support</p>
-        </div>                 
-      </div>
-    </div>
-  </section><!--/#features--> {% endcomment %}
-
-  <section id="pricing">
-    <div class="container">
-      <div class="row">
-        <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="300ms">
-          <h2>{{settings.price_title.text_value}}</h2>
-          <p>{{settings.price_description.text_value}}</p>
-        </div>
-      </div>
-      <div class="pricing-table">
-        <div class="row">
-          
-          {% for price in pricings %}
-            <div class="col-sm-3">
-              <div class="single-table wow flipInY" data-wow-duration="1000ms" data-wow-delay="300ms">
-                <h3>{{price.name}}</h3>
-                <div class="price">
-                  <h4>Rp. {{price.price}} </h4>                       
-                </div>
-                 {{price.desc_list|safe}}
-                {% comment %} <a href="#" class="btn btn-lg btn-primary">Sign up</a> {% endcomment %}
-              </div>
-            </div>
-          {% endfor %}
-          
-          </div>
-        </div>
-      </div>
-    </div>
-  </section><!--/#pricing-->
-
-  <section id="twitter" class="parallax">
-    <div>
-      <a class="twitter-left-control" href="#twitter-carousel" role="button" data-slide="prev"><i class="fa fa-angle-left"></i></a>
-      <a class="twitter-right-control" href="#twitter-carousel" role="button" data-slide="next"><i class="fa fa-angle-right"></i></a>
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-sm-offset-2">
-            <div class="twitter-icon text-center">
-              <i class="fa fa-twitter"></i>
-              <h4>{{settings.themium_title.text_value}}</h4>
-            </div>
-            <div id="twitter-carousel" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="item active wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
-                  <p>Introducing Shortcode generator for Helix V2 based templates <a href="#"><span>#helixframework #joomla</span> http://bit.ly/1qlgwav</a></p>
-                </div>
-                <div class="item">
-                  <p>Introducing Shortcode generator for Helix V2 based templates <a href="#"><span>#helixframework #joomla</span> http://bit.ly/1qlgwav</a></p>
-                </div>
-                <div class="item">                                
-                  <p>Introducing Shortcode generator for Helix V2 based templates <a href="#"><span>#helixframework #joomla</span> http://bit.ly/1qlgwav</a></p>
-                </div>
-              </div>                        
-            </div>                    
-          </div>
-        </div>
-      </div>
-    </div>
-  </section><!--/#twitter-->
+  </section><!--/#blog-->
 
   <section id="blog">
     <div class="container">
       <div class="row">
-        <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1200ms" data-wow-delay="300ms">
-          <h2>{{settings.blog_title.text_value}}</h2>
-          <p>{{settings.blog_desc.text_value}}</p>
+        <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" 
+            data-wow-duration="1200ms" data-wow-delay="300ms" style="padding-bottom: 30px;">
+          <h2>Artikel Lainnya</h2>
         </div>
       </div>
       <div class="blog-posts">
         <div class="row">
-
         {% for blog in blogs%}
           <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="400ms">
             <div class="post-thumb">
@@ -361,9 +118,6 @@
                 <span><i class="fa fa-comments-o"></i> 3 Comments</span>
                 <span><i class="fa fa-heart"></i> 0 Likes</span> 
               </div> {% endcomment %}
-              <div class="post-icon">
-                <i class="fa fa-pencil"></i>
-              </div>
             </div>
             <div class="entry-header">
               <h3><a href="#">{{blog.title}}</a></h3>
@@ -383,91 +137,6 @@
     </div>
   </section><!--/#blog-->
 
-  <section id="contact">
-    <div id="google-map" class="wow fadeIn" data-latitude="52.365629" data-longitude="4.871331" data-wow-duration="1000ms" data-wow-delay="400ms"></div>
-    <div id="contact-us" class="parallax">
-      <div class="container">
-        <div class="row">
-          <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-            <h2>{{settings.contact_us_title.text_value}}</h2>
-            <p>{{settings.contact_us_description.text_value}}</p>
-          </div>
-        </div>
-        <div class="contact-form wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
-          <div class="row">
-            <div class="col-sm-6">
-              <form method="POST" action="{% url 'frontend:contactus' %}" 
-                id="main-contact-form" name="contact-form" method="post" action="#">
-                {% csrf_token %}
-                <div class="row  wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <input type="text" name="name" class="form-control" placeholder="Name" >
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <input type="email" name="email" class="form-control" placeholder="Email Address" required="required">
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <input type="text" name="subject" class="form-control" placeholder="Subject" required="required">
-                </div>
-                <div class="form-group">
-                  <textarea name="message" id="message" class="form-control" rows="4" placeholder="Enter your message" required="required"></textarea>
-                </div>                        
-                <div class="form-group">
-                  <button type="submit" class="btn-submit">Send Now</button>
-                </div>
-              </form>   
-            </div>
-            <div class="col-sm-6">
-              <div class="contact-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-                <p>{{settings.contact_us_description_2.text_value}}</p>
-                <ul class="address">
-                  <li><i class="fa fa-map-marker"></i> <span> Aalamat:</span> {{settings.address.text_value}} </li>
-                  <li><i class="fa fa-phone"></i> <span> Phone:</span> {{settings.phone.text_value}}  </li>
-                  <li><i class="fa fa-envelope"></i> <span> Email:</span><a href="mailto:{{settings.email.text_value}}">  {{settings.email.text_value}}</a></li>
-                  <li><i class="fa fa-globe"></i> <span> Website:</span> <a href="#">{{settings.website.text_value}}</a></li>
-                </ul>
-              </div>                            
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>        
-  </section><!--/#contact-->
-
-  <footer id="footer">
-    <div class="footer-top wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-      <div class="container text-center">
-        <div class="footer-logo">
-          <a href="index.html"><img class="img-responsive" src="{{settings.logo.img_value}}" alt=""></a>
-        </div>
-        <div class="social-icons">
-          <ul>
-            <li><a class="twitter" href="{{settings.twitter_url.text_value}}" target="_blank"><i class="fa fa-twitter"></i></a></li> 
-            <li><a class="facebook" href="{{settings.facebook_url.text_value}}" target="_blank"><i class="fa fa-facebook"></i></a></li>
-            <li><a class="facebook" href="{{settings.instagram_url.text_value}}" target="_blank"><i class="fa fa-instagram"></i></a></li>
-            <li><a class="facebook" href="{{settings.youtube_url.text_value}}" target="_blank"><i class="fa fa-youtube"></i></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6">
-            <p>&copy; 2020 Sapujagad</p>
-          </div>
-          <div class="col-sm-6">
-            {% comment %} <p class="pull-right">Crafted by <a href="http://designscrazed.org/">Allie</a></p> {% endcomment %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
 
   <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
