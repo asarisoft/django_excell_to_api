@@ -2,7 +2,7 @@ import os
 from django.conf import settings
 from slugify import slugify
 from django.utils import timezone
-
+from time import time
 
 class FilenameGenerator(object):
     def __init__(self, prefix):
@@ -29,3 +29,8 @@ try:
     FilenameGenerator = deconstructible(FilenameGenerator)
 except ImportError:
     pass
+
+
+def custom_slugify(string):
+    string = "%s-%s" % (string, str(time())[11:])
+    return slugify(string)

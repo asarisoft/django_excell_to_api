@@ -44,3 +44,13 @@ def contactus(request):
         form.save()
     data={"success": "true", "message":""}
     return JsonResponse(data)
+
+
+def blogdetail(request, slug):
+    blog = Blog.objects.object.get(slug=slug)
+    blogs = Blog.objects.filter(is_active=True)\
+        .exclude(slug=slug).order_by('order')[0:4]
+    return TemplateResponse(request, 'blog-detail.html', {
+        "blog": blog, 
+        "blogs": blogs, 
+    })
