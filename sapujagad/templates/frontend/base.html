@@ -27,7 +27,7 @@
     <div id="home-slider" class="carousel slide carousel-fade" data-ride="carousel">
       <div class="carousel-inner">
         {% for banner in banners %}
-          <div class="item active" style="background-image: url('{{ banner.img.url }}')">
+          <div class="item {% if forloop.counter == 1 %} active {% endif %}" style="background-image: url('{{ banner.img.url }}')">
             <div class="caption">
               <h1 class="animated fadeInLeftBig">{{ banner.big_text|safe }}</h1>
               <p class="animated fadeInRightBig">{{ banner.small_text|safe }} </p>
