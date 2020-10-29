@@ -5,10 +5,10 @@ from django.utils.safestring import mark_safe
 
 
 class Blog(models.Model):
-    img1 =  models.ImageField(upload_to=FilenameGenerator(
+    img1 =  models.ImageField("img 300px 200px", upload_to=FilenameGenerator(
         prefix='banner'))
-    title = models.CharField(max_length=254, blank=True, null=True)
-    date = models.DateField()
+    title = models.CharField(max_length=254)
+    date = models.DateField(blank=True, null=True)
     short_desc = models.CharField(max_length=254, blank=True, null=True)
     long_desc = models.TextField(blank=True, null=True)
     is_active = models.BooleanField("is published", default=True)

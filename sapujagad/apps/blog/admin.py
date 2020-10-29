@@ -6,7 +6,7 @@ from .models import *
 
 class BlogAdmin(SummernoteModelAdmin):    
     summernote_fields = '__all__'
-    list_display = ('title', 'preview')
+    list_display = ('title', 'preview', 'is_active')
 
 admin.site.register(Blog, BlogAdmin)
 
