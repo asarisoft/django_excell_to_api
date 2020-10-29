@@ -9,6 +9,7 @@ class Settings(models.Model):
         ('about_us_description', 'about_us_description'),
         ('about_us_img', 'about_us_img'),
         ('about_us_background', 'about_us_background'),
+        ('testimoni_background', 'testimoni_background'),
         ('our_portfolio_title', 'our_portfolio_title'),
         ('our_portfolio_description', 'our_portfolio_description'),
         ('our_service_title', 'our_service_title'),
