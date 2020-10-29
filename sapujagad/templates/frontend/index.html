@@ -251,16 +251,12 @@
             </div>
             <div id="twitter-carousel" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
-                <div class="item active wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
-                  <p>Introducing Shortcode generator for Helix V2 based templates <a href="#"><span>#helixframework #joomla</span> http://bit.ly/1qlgwav</a></p>
-                </div>
-                <div class="item">
-                  <p>Introducing Shortcode generator for Helix V2 based templates <a href="#"><span>#helixframework #joomla</span> http://bit.ly/1qlgwav</a></p>
-                </div>
-                <div class="item">                                
-                  <p>Introducing Shortcode generator for Helix V2 based templates <a href="#"><span>#helixframework #joomla</span> http://bit.ly/1qlgwav</a></p>
-                </div>
-              </div>                        
+                {% for test in testimonies %}
+                  <div class="item {% if forloop.counter == 1 %} active wow fadeIn {% endif %} " data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <p>{{ test.testimony|safe }}</p>
+                  </div>
+                {% endfor %}
+              </div>                       
             </div>                    
           </div>
         </div>

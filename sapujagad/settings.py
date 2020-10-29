@@ -40,6 +40,7 @@ APPS = [
     'sapujagad.apps.settings',
     'sapujagad.apps.team',
     'sapujagad.apps.contactus',
+    'sapujagad.apps.testimoni',
 ]
 
 INSTALLED_APPS = [
