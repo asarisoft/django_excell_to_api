@@ -22,16 +22,14 @@ def index(request):
     settings = Settings.objects.all()
     serialize_settings_dict={}
     for setting in settings:
-        serialize_settings_dict[setting.name] = serialize_settings(setting)
-    
+        serialize_settings_dict[setting.name] = serialize_settings(setting)    
     form = ContactusForm(data=request.POST or None)
-    if request.POST and form.is_valid():
-        form.save()
-
+    menus = Menu.objects.filter(is_active=True).order_by('order')
     context = {
         "banners" : Banner.objects.filter(is_active=True).order_by('-id'),
         "blogs" : Blog.objects.filter(is_active=True).order_by('-id')[:3],
-        "menus" : Menu.objects.filter(is_active=True).order_by('order'),
+        "menus" : menus,
+        "menu_list" : [menu.one_page_url for menu in menus],
         "portfolios" : Portfolio.objects.filter(is_active=True).order_by('id'),
         "pricings" : Pricing.objects.filter(is_active=True).order_by('-id'),
         "services" : Service.objects.filter(is_active=True).order_by('-id'),
@@ -60,10 +58,12 @@ def blogdetail(request, slug):
     blog = Blog.objects.get(slug=slug)
     blogs = Blog.objects.filter(is_active=True)\
         .exclude(slug=slug).order_by('-id')[:3]
+    menus = Menu.objects.filter(is_active=True).order_by('order')
     return TemplateResponse(request, 'frontend/blog-detail.html', {
         "blog": blog, 
         "blogs": blogs, 
-        "menus" : Menu.objects.filter(is_active=True).order_by('order'),
+        "menus" : menus,
+        "menu_list" : [menu.one_page_url for menu in menus],
         "settings" : serialize_settings_dict,
         "homepage": False
     })
@@ -71,7 +71,7 @@ def blogdetail(request, slug):
 
 def lazy_load_blogs(request):
     page = request.POST.get('page')
-    blogs = Blog.objects.filter(is_active=True).all()
+    blogs = Blog.objects.filter(is_active=True).all().order_by('-id')
     results_per_page = 3
     paginator = Paginator(blogs, results_per_page)
     try:

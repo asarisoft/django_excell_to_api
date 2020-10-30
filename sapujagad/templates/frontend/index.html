@@ -1,6 +1,9 @@
 
 {% extends 'frontend/base.html' %}
+{% load humanize %}
 {% block content %}
+
+{% if '/#services' in menu_list %}
   <section id="services">
     <div class="container">
       <div class="heading wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
@@ -81,7 +84,9 @@
       </div>
     </div>
   </section><!--/#services-->
+{% endif %}
 
+{% if '/#about-us' in menu_list %}
   <section id="about-us" class="parallax" style="background-image: url({{settings.about_us_background.img_value}});">
     <div class="container">
       <div class="row">
@@ -99,7 +104,9 @@
       </div>
     </div>
   </section><!--/#about-us-->
+{% endif %}
 
+{% if '/#portfolio' in menu_list %}
   <section id="portfolio">
     <div class="container">
       <div class="row">
@@ -141,7 +148,9 @@
       </div>
     </div><!-- /#portfolio-single-wrap -->
   </section><!--/#portfolio-->
+{% endif %}
 
+{% if '/#team' in menu_list %}
   <section id="team">
     <div class="container">
       <div class="row">
@@ -180,8 +189,10 @@
       </div>            
     </div>
   </section><!--/#team-->
+{% endif %}
 
-  {% comment %} <section id="features" class="parallax">
+{% if '/#features' in menu_list %}
+  <section id="features" class="parallax">
     <div class="container">
       <div class="row count">
         <div class="col-sm-3 col-xs-6 wow fadeInLeft" data-wow-duration="1000ms" data-wow-delay="300ms">
@@ -206,8 +217,10 @@
         </div>                 
       </div>
     </div>
-  </section><!--/#features--> {% endcomment %}
+  </section>
+{% endif %}
 
+{% if '/#pricing' in menu_list %}
   <section id="pricing">
     <div class="container">
       <div class="row">
@@ -224,7 +237,7 @@
               <div class="single-table wow flipInY" data-wow-duration="1000ms" data-wow-delay="300ms">
                 <h3>{{price.name}}</h3>
                 <div class="price">
-                  <h4>Rp. {{price.price}} </h4>                       
+                  <h4>Rp. {{price.price|floatformat:"0"|intcomma}} </h4>                       
                 </div>
                  {{price.desc_list|safe}}
                 {% comment %} <a href="#" class="btn btn-lg btn-primary">Sign up</a> {% endcomment %}
@@ -237,6 +250,8 @@
       </div>
     </div>
   </section><!--/#pricing-->
+{% endif %}
+
 
   <section id="twitter" class="parallax" style="background-image: url({{settings.testimoni_background.img_value}});">
     <div>
@@ -246,8 +261,8 @@
         <div class="row">
           <div class="col-sm-8 col-sm-offset-2">
             <div class="twitter-icon text-center">
-              <i class="fa fa-twitter"></i>
-              <h4>{{settings.themium_title.text_value}}</h4>
+              <!-- <i class="fa fa-twitter"></i> -->
+              <h4>{{settings.testimoni_title.text_value}}</h4>
             </div>
             <div id="twitter-carousel" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
@@ -264,6 +279,8 @@
     </div>
   </section><!--/#twitter-->
 
+
+{% if '/#blog' in menu_list %}
   <section id="blog">
     <div class="container">
       <div class="row">
@@ -285,7 +302,9 @@
       </div>
     </div>
   </section><!--/#blog-->
+{% endif %}
 
+{% if '/#contact' in menu_list %}
   <section id="contact">
     <div id="google-map" class="wow fadeIn" 
       data-latitude="52.365629" 
@@ -344,6 +363,8 @@
       </div>
     </div>        
   </section><!--/#contact-->
+{% endif %}
+
   {% endblock %}
 
    
