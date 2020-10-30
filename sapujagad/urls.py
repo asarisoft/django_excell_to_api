@@ -18,6 +18,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin.site.site_header = "Sapu Jagad Admin"
+admin.site.site_title = "Sapu Jagad Admin Portal"
+admin.site.index_title = "Welcome to Sapu Jagad Admin Portal"
+
 urlpatterns = [
     path('backoffice/', admin.site.urls),
     path('', include('sapujagad.frontend.urls', namespace='frontend')),
