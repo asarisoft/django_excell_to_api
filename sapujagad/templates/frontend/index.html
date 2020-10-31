@@ -307,8 +307,9 @@
 {% if '/#contact' in menu_list %}
   <section id="contact">
     <div id="google-map" class="wow fadeIn" 
-      data-latitude="52.365629" 
-      data-longitude="4.871331" data-wow-duration="1000ms" data-wow-delay="400ms">
+      data-latitude="{{settings.latitude.text_value}}" 
+      data-longitude="{{settings.longitude.text_value}}" 
+      data-wow-duration="1000ms" data-wow-delay="400ms">
     </div>
     <div id="contact-us" class="parallax">
       <div class="container">

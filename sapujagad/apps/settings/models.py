@@ -33,7 +33,9 @@ class Settings(models.Model):
         ('facebook_url', 'facebook_url'),
         ('youtube_url', 'youtube_url'),
         ('twitter_url', 'twitter_url'),
-
+        ('latitude', 'latitude'),
+        ('longitude', 'longitude'),
+        ('favicon', 'favicon'),
     )
     name = models.CharField(max_length=254, choices=TYPE, unique=True)
     text_value = models.TextField(blank=True, null=True)

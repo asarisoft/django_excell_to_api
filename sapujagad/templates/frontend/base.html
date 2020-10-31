@@ -5,9 +5,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>Sapujagad</title>
+  <meta name="description" content="sapu jagad website">
+  <meta name="keywords" content="sapujagad, sapu jagad, cuci kendaraan, cuci mobil jakarta">
+  <meta name="author" content="Imam As">
+  <title>sapujagad</title>
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/animate.min.css' %}" rel="stylesheet"> 
   <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
@@ -16,7 +17,7 @@
   <link id="css-preset" href="{% static 'css/presets/preset1.css' %}" rel="stylesheet">
   <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
-  <link rel="shortcut icon" href="images/favicon.ico">
+  <link rel="shortcut icon" href="{{settings.favicon.img_value}}">
   <script type="text/javascript">
     window.CSRF_TOKEN = "{{ csrf_token }}";
   </script>
