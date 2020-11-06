@@ -5,10 +5,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="sapu jagad website">
-  <meta name="keywords" content="sapujagad, sapu jagad, cuci kendaraan, cuci mobil jakarta">
-  <meta name="author" content="Imam As">
-  <title>sapujagad</title>
+  <meta name="author" content="Imam Asari">
+  <title>{{settings.seo_title.text_value}}</title>
+  {% include "./meta.html" %}
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/animate.min.css' %}" rel="stylesheet"> 
   <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
@@ -33,7 +32,7 @@
             <div class="caption">
               <h1 class="animated fadeInLeftBig">{{ banner.big_text|safe }}</h1>
               <p class="animated fadeInRightBig">{{ banner.small_text|safe }} </p>
-              <a data-scroll class="btn btn-start animated fadeInUpBig" href="#services">Start now</a>
+              <!-- <a data-scroll class="btn btn-start animated fadeInUpBig" href="#services">Start now</a> -->
             </div>
           </div>
         {% endfor %}
