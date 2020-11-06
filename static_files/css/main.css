@@ -253,7 +253,7 @@ section {
 }
 
 .navbar-right li a {
-  color: #fff;
+  color: #6c9832;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 600;
@@ -555,6 +555,15 @@ section {
 .team-member:hover .social-icons ul li a.rss {
   background-color: #ff6b00;
 }
+
+.team-member:hover .social-icons ul li a.instagram {
+  background-color: #f13f32;
+}
+
+.team-member:hover .social-icons ul li a.youtube {
+  background-color: rgb(223, 9, 9);
+}
+
 
 #team .img-responsive {
   width: 100%;
@@ -967,6 +976,14 @@ ul.address {
 }
 #footer .social-icons ul li a.tumblr:hover {
   background-color: #ff6b00;
+}
+
+#footer .social-icons ul li a.instagram:hover {
+  background-color: #f36459;
+}
+
+#footer .social-icons ul li a.youtube:hover {
+  background-color: rgb(223, 9, 9);
 }
 
 /*Presets*/
