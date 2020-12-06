@@ -31,16 +31,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 APPS = [
-    'sapujagad.apps.banner',
-    'sapujagad.apps.blog',
-    'sapujagad.apps.menu',
-    'sapujagad.apps.portfolio',
-    'sapujagad.apps.pricing',
-    'sapujagad.apps.service',
-    'sapujagad.apps.settings',
-    'sapujagad.apps.team',
-    'sapujagad.apps.contactus',
-    'sapujagad.apps.testimoni',
+    'sapujagad.apps.formulir',
 ]
 
 INSTALLED_APPS = [
