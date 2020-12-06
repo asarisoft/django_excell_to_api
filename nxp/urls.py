@@ -23,7 +23,6 @@ admin.site.site_title = "NXP Admin Portal"
 admin.site.index_title = "Welcome to NXP Admin Portal"
 
 urlpatterns = [
-    path('backoffice/', admin.site.urls),
     path('', include('nxp.frontend.urls', namespace='frontend')),
     path('summernote/', include('django_summernote.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
