@@ -1,4 +1,4 @@
-from sapujagad.core.utils import FilenameGenerator, custom_slugify
+from nxp.core.utils import FilenameGenerator, custom_slugify
 from django.db import models
 from django.utils.safestring import mark_safe
 

@@ -1,4 +1,4 @@
-from sapujagad.core.utils import FilenameGenerator
+from nxp.core.utils import FilenameGenerator
 from django.db import models
 
 

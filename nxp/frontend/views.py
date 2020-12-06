@@ -4,16 +4,16 @@ from django.template import loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-from sapujagad.apps.banner.models import Banner
-from sapujagad.apps.blog.models import Blog
-from sapujagad.apps.menu.models import Menu
-from sapujagad.apps.portfolio.models import Portfolio
-from sapujagad.apps.pricing.models import Pricing
-from sapujagad.apps.service.models import Service
-from sapujagad.apps.settings.models import Settings
-from sapujagad.apps.team.models import Team
-from sapujagad.apps.testimoni.models import Testimoni
-from sapujagad.core.serializer import serialize_settings
+from nxp.apps.banner.models import Banner
+from nxp.apps.blog.models import Blog
+from nxp.apps.menu.models import Menu
+from nxp.apps.portfolio.models import Portfolio
+from nxp.apps.pricing.models import Pricing
+from nxp.apps.service.models import Service
+from nxp.apps.settings.models import Settings
+from nxp.apps.team.models import Team
+from nxp.apps.testimoni.models import Testimoni
+from nxp.core.serializer import serialize_settings
 
 from .forms import ContactusForm
 

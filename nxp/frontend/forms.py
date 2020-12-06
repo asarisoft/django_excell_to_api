@@ -1,4 +1,4 @@
-from sapujagad.apps.contactus.models import Contactus
+from nxp.apps.contactus.models import Contactus
 from django import forms
 
 

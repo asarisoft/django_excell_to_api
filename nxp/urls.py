@@ -1,4 +1,4 @@
-"""sapujagad URL Configuration
+"""nxp URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -18,13 +18,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-admin.site.site_header = "Sapu Jagad Admin"
-admin.site.site_title = "Sapu Jagad Admin Portal"
-admin.site.index_title = "Welcome to Sapu Jagad Admin Portal"
+admin.site.site_header = "NXP Admin"
+admin.site.site_title = "NXP Admin Portal"
+admin.site.index_title = "Welcome to NXP Admin Portal"
 
 urlpatterns = [
     path('backoffice/', admin.site.urls),
-    path('', include('sapujagad.frontend.urls', namespace='frontend')),
+    path('', include('nxp.frontend.urls', namespace='frontend')),
     path('summernote/', include('django_summernote.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
