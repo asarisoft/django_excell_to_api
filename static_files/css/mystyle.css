@@ -1,3 +1,8 @@
+.row {
+  /* margin-right: -15px; */
+  /* margin-left: -15px; */
+}
+
 .logo-container {
   text-align: center;
   padding: 16px;
@@ -48,7 +53,7 @@
 
 .formcontent {
   background-color: gray;
-  min-height: 390px;
+  min-height: 550px;
   border: none;
 }
 .formcontent form {
@@ -65,31 +70,39 @@
   border-radius: 6px;
 }
 .formcontent .form-check {
-  display: block;
-  display: flex;
   margin: 0;
   padding: 6px;
+  float: left;
+  width: 50%;
 }
 .formcontent .form-check .from-check-wrapper {
   border: 1px solid green;
   border-radius: 4px;
-  padding: 10px 16px;
+  padding: 16px 16px;
   min-width: 100%;
   margin-bottom: 0px;
+  float: left;
+  display: block;
 }
 .formcontent .form-check .from-check-wrapper .payment-img {
   margin-left: 8px;
+  max-width: 60%;
 }
 .formcontent .btn-submit {
   background-color: #eb1b24;
   color: white;
-  border-radius: 20px;
-  padding: 10px 16px;
+  border-radius: 30px;
+  padding: 16px 16px;
   border: none;
   margin: 0 auto;
   display: block;
   min-width: 250px;
   margin-top: 40px;
+  font-size: 1.2em;
+}
+.formcontent .fl-input {
+  margin-bottom: 6px !important;
+  padding: 8px;
 }
 
 .privasi {
@@ -135,10 +148,13 @@
   background-color: white;
   border-top: 2px solid #eb1b24;
   padding-top: 25px;
-  padding-bottom: 25px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 .backto-main p {
   color: #eb1b24;
+  font-size: 1.3em;
 }
 
 .footer {

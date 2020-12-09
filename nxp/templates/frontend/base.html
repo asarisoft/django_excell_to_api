@@ -12,6 +12,7 @@
   <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/lightbox.css' %}" rel="stylesheet">
   <link href="{% static 'css/mystyle.css' %}" rel="stylesheet">
+  <link href="{% static 'css/float-labels.css' %}" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
   <link rel="shortcut icon" href="{{settings.favicon.img_value}}">
   <script type="text/javascript">
@@ -37,6 +38,10 @@
   <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/wow.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/float-labels.min.js' %}"></script>
+  <script type="text/javascript">
+    new FloatLabels( '.my-form');
+  </script>
   {% block extra_js %} {% endblock %}
 </body>
 </html>
