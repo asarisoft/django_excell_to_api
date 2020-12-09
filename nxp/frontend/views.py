@@ -1,10 +1,10 @@
 from django.template.response import TemplateResponse
 from nxp.apps.formulir.models import Formulir
-from .forms import ContactusForm
+from .forms import FormulirForm
 
 
 def index(request):
-    form = ContactusForm(data=request.POST or None)
+    form = FormulirForm(data=request.POST or None)
     context = {
         "form": form,
     }

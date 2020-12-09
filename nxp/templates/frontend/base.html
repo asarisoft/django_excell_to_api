@@ -6,15 +6,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Imam Asari">
-  <title>{{settings.seo_title.text_value}}</title>
-  {% include "./meta.html" %}
+  <title>NXP OIL Rewards</title>
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/animate.min.css' %}" rel="stylesheet"> 
   <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/lightbox.css' %}" rel="stylesheet">
-  <link href="{% static 'css/main.css' %}" rel="stylesheet">
-  <link id="css-preset" href="{% static 'css/presets/preset1.css' %}" rel="stylesheet">
-  <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'css/mystyle.css' %}" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
   <link rel="shortcut icon" href="{{settings.favicon.img_value}}">
   <script type="text/javascript">
@@ -23,96 +20,23 @@
   {% block extra_header %} {% endblock %}
 </head>
 <body>
-  <div class="preloader"> <i class="fa fa-circle-o-notch fa-spin"></i></div>
-  <header id="home">
-    <div id="home-slider" class="carousel slide carousel-fade" data-ride="carousel">
-      <div class="carousel-inner">
-        {% for banner in banners %}
-          <div class="item {% if forloop.counter == 1 %} active {% endif %}" style="background-image: url('{{ banner.img.url }}')">
-            <div class="caption">
-              <h1 class="animated fadeInLeftBig">{{ banner.big_text|safe }}</h1>
-              <p class="animated fadeInRightBig">{{ banner.small_text|safe }} </p>
-              <!-- <a data-scroll class="btn btn-start animated fadeInUpBig" href="#services">Start now</a> -->
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-      <a class="left-control" href="#home-slider" data-slide="prev"><i class="fa fa-angle-left"></i></a>
-      <a class="right-control" href="#home-slider" data-slide="next"><i class="fa fa-angle-right"></i></a>
-      <a id="tohash" href="#services"><i class="fa fa-angle-down"></i></a>
+  <section id="form" class="centersection">
+    <div class="col-sm-12 col-md-6 col-lg-4 logo-container">
+      <img src="{% static '/images/logo.png' %}" />
     </div>
-
-    <div class="main-nav">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">
-            <h1><img class="img-responsive logo-header" src="{{ settings.logo.img_value }}" alt="logo"></h1>
-          </a>                    
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">   
-            {% for menu in menus %}
-              {% if menu.name == 'home' and homepage %}
-                <li class="scroll"><a href="#home">{{menu.name}}</a></li>
-              {% else %}
-                <li class="scroll"><a href="{{menu.one_page_url}}">{{menu.name}}</a></li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-    </div><!--/#main-nav-->
-  </header><!--/#home-->
+  </section>
 
   {% block content %} {% endblock %}
 
-  <footer id="footer">
-    <div class="footer-top wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-      <div class="container text-center">
-        <div class="footer-logo">
-          <a href="index.html"><img class="img-responsive footer-img" src="{{settings.logo.img_value}}" alt=""></a>
-        </div>
-        <div class="social-icons">
-          <ul>
-            <li><a class="twitter" href="{{settings.twitter_url.text_value}}" target="_blank"><i class="fa fa-twitter"></i></a></li> 
-            <li><a class="facebook" href="{{settings.facebook_url.text_value}}" target="_blank"><i class="fa fa-facebook"></i></a></li>
-            <li><a class="instagram" href="{{settings.instagram_url.text_value}}" target="_blank"><i class="fa fa-instagram"></i></a></li>
-            <li><a class="youtube" href="{{settings.youtube_url.text_value}}" target="_blank"><i class="fa fa-youtube"></i></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6">
-            <p>&copy; 2020 nxp</p>
-          </div>
-          <div class="col-sm-6">
-            {% comment %} <p class="pull-right">Crafted by <a href="http://designscrazed.org/">Allie</a></p> {% endcomment %}
-          </div>
-        </div>
-      </div>
+  <footer id="footer" class="row centersection">
+    <div class="col-sm-12 col-md-6 col-lg-4">
+      <p>&copy; 2020 nxp</p>
     </div>
   </footer>
   
   <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
-  <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true&key=AIzaSyCoVB52bTd3g_s0RGR7PZSqfStKxX6eYUI"></script>
-  <script type="text/javascript" src="{% static 'js/jquery.inview.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/wow.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/mousescroll.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/smoothscroll.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/jquery.countTo.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/lightbox.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/loadmore.js' %}"></script>
   {% block extra_js %} {% endblock %}
 </body>
 </html>

@@ -1,9 +1,7 @@
-from nxp.apps.contactus.models import Contactus
+from nxp.apps.formulir.models import Formulir
 from django import forms
 
-
-class ContactusForm(forms.ModelForm):
+class FormulirForm(forms.ModelForm):
     class Meta:
-        model = Contactus
+        model = Formulir
         fields = '__all__'
-

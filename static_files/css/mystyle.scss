@@ -1,0 +1,42 @@
+$darkRed: #dc1b24;
+$lightRed: #eb1b24;
+
+.centersection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-container {
+    text-align: center;
+    padding: 16px;
+}
+
+.scan-qrcode {
+    background-color: $darkRed;
+    padding:10px 16px;
+
+    p {
+        color: white;
+        margin: 0;
+        letter-spacing: 1px;
+    }
+}
+
+.content {
+    background-color: $lightRed;
+    padding:10px 16px;
+
+    p {
+        color: white;
+        margin: 0;
+    }
+
+}
+
+.apreciation {
+    display: flex;
+    .reward-text {
+        margin-left: 20px;
+    }
+}

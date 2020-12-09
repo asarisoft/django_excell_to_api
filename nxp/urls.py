@@ -24,10 +24,10 @@ admin.site.index_title = "Welcome to NXP Admin Portal"
 
 urlpatterns = [
     path('', include('nxp.frontend.urls', namespace='frontend')),
-    path('summernote/', include('django_summernote.urls')),
+    path('adminnxp/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # di server saat settings debug true
 if settings.DEBUG:
-    urlpatterns + static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)
-
+    urlpatterns + static(settings.STATIC_URL,
+                         document_root=settings.MEDIA_ROOT)
