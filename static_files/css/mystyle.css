@@ -17,17 +17,18 @@
   color: white;
   margin: 0;
 }
-.content form {
-  width: calc(100% - 64px);
-  background-color: white;
-  display: block;
-  margin: 0 auto;
-  padding: 16px;
-  position: absolute;
-  top: -70px;
-  left: 0;
-  right: 0;
-  margin: auto;
+
+.present .checklist-img {
+  width: 35px;
+  margin: 20px 0 16px;
+}
+.present .hallo {
+  font-size: 1.1em;
+  margin-bottom: 16px;
+}
+.present .thank-you {
+  font-size: 1.5em;
+  letter-spacing: 1px;
 }
 
 .scan-qrcode {
@@ -49,6 +50,19 @@
   background-color: #d3d3d3;
   min-height: 370px;
 }
+.formcontent form {
+  width: calc(100% - 64px);
+  background-color: white;
+  display: block;
+  margin: 0 auto;
+  padding: 20px;
+  position: absolute;
+  top: -70px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 6px;
+}
 
 .privasi {
   background-color: gray;
@@ -65,9 +79,12 @@
 
 .apreciation {
   display: flex;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 .apreciation .reward-text {
   margin-left: 20px;
+  line-height: 1.5em;
 }
 
 .imageinfowrapper {
@@ -75,6 +92,7 @@
 }
 .imageinfowrapper .imageinfo {
   max-width: 100%;
+  margin-bottom: 8px;
 }
 
 .fillcontent {
