@@ -4,36 +4,38 @@
 {% load static %}
 {% block content %}
 <section  class="row justify-content-lg-center">
-  <div class="col-sm-12 col-md-6 col-lg-4 scan-qrcode">
+  <div class="col-sm-12 col-md-6 col-lg-4 content scan-qrcode">
     <p> Scan Reward QR Code! </p>
+    <img class="infomation-img" src="{% static '/images/information.png' %}" />
   </div>
 </section>
-<section  class="row centersection">
+<section  class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content">
+    <img class="infomation-img" src="{% static '/images/information.png' %}" />
     <p>Hallo Sahabat NXP,</p>
     <p>Terima kasih sudah <br/> memilih oli NXP sebagai <br/> produk bengkel mu!</p>
   </div>
 </section>
-<section  class="row centersection " >
+<section  class="row  " >
   <div class="col-sm-12 col-md-6 col-lg-4 content apreciation">
     <img class="reward-img" src="{% static '/images/reward.png' %}" />
     <p class="reward-text">Sebagai bentuk apresiasi NXP, kamu <br/> mendapatkan e-wallet sebesar</p>
   </div>
 </section>
-<section  class="row centersection " >
+<section  class="row  " >
   <div class="col-sm-12 col-md-6 col-lg-4 content imageinfowrapper">
     <img class="imageinfo" src="{% static '/images/idr.png' %}" />
     <img class="imageinfo" src="{% static '/images/group_pay.png' %}" />
   </div>
 </section>
-<section  class="row centersection">
+<section  class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content fillcontent">
     <p>Mohon mengisi formulir dibawah ini</p>
   </div>
 </section>
 
-<section  class="row centersection" >
-  <div class="col-sm-12 col-md-6 col-lg-4 content graycontent" >
+<section  class="row" >
+  <div class="col-sm-12 col-md-6 col-lg-4 content formcontent" >
     <form method="POST" action="{% url 'frontend:index' %}" 
       id="main-contact-form" name="contact-form" method="post" action="#">
       {% csrf_token %}
@@ -81,4 +83,19 @@
     </form>   
   </div>
 </section>
+
+<section  class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4 content privasi">
+    <img class="nxp-gray" src="{% static '/images/gray_logo.png' %}" />
+    <p>Kami menjaga privasi segala bentuk <br/> informasi yang diterima</p>
+    <p class="privasi-title">KEBIJAKAN PRIVASI</p>
+  </div>
+</section>
+
+<section  class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4 content backto-main">
+    <p>Halaman Utama</p>
+  </div>
+</section>
+
 {% endblock %}

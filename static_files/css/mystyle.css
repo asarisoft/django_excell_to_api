@@ -1,26 +1,9 @@
-.centersection {
-  position: relative;
-}
-
 .logo-container {
   text-align: center;
   padding: 16px;
   margin: 0 auto;
   display: block;
   float: none;
-}
-
-.scan-qrcode {
-  background-color: #dc1b24;
-  padding: 10px 32px;
-  margin: 0 auto;
-  display: block;
-  float: none;
-}
-.scan-qrcode p {
-  color: white;
-  margin: 0;
-  letter-spacing: 1px;
 }
 
 .content {
@@ -47,9 +30,37 @@
   margin: auto;
 }
 
-.graycontent {
+.scan-qrcode {
+  background-color: #dc1b24;
+  padding: 20px 32px;
+  position: relative;
+}
+.scan-qrcode p {
+  font-weight: 1.4em;
+  font-weight: bold;
+}
+.scan-qrcode .infomation-img {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}
+
+.formcontent {
   background-color: #d3d3d3;
-  min-height: 400px;
+  min-height: 370px;
+}
+
+.privasi {
+  background-color: gray;
+  text-align: center;
+}
+.privasi .nxp-gray {
+  padding: 16px 0;
+}
+.privasi .privasi-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  padding: 16px 0;
 }
 
 .apreciation {
@@ -72,6 +83,25 @@
 }
 .fillcontent p {
   font-size: 1.2em;
+}
+
+.backto-main {
+  background-color: white;
+  border-top: 2px solid #eb1b24;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+.backto-main p {
+  color: #eb1b24;
+}
+
+.footer {
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.footer p {
+  margin: 0;
 }
 
 /*# sourceMappingURL=mystyle.css.map */

@@ -1,13 +1,7 @@
 $darkRed: #dc1b24;
 $lightRed: #eb1b24;
-$gray: #d3d3d3;
-
-.centersection {
-    // display: flex;
-    // align-items: center;
-    // justify-content: center;
-    position: relative;
-}
+$lightGray: #d3d3d3;
+$darkGray: gray;
 
 .logo-container {
     text-align: center;
@@ -15,20 +9,6 @@ $gray: #d3d3d3;
     margin: 0 auto;
     display: block;
     float: none;
-}
-
-.scan-qrcode {
-    background-color: $darkRed;
-    padding:10px 32px;
-    margin: 0 auto;
-    display: block;
-    float: none;
-
-    p {
-        color: white;
-        margin: 0;
-        letter-spacing: 1px;
-    }
 }
 
 .content {
@@ -57,9 +37,40 @@ $gray: #d3d3d3;
     }
 }
 
-.graycontent {
-    background-color: $gray;
-    min-height: 400px;
+.scan-qrcode {
+    background-color: $darkRed;
+    padding: 20px 32px;
+    position: relative;
+
+    p {
+        font-weight: 1.4em;
+        font-weight: bold;
+    }
+
+    .infomation-img {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+    }
+}
+
+
+.formcontent {
+    background-color: $lightGray;
+    min-height: 370px;
+}
+
+.privasi {
+    background-color: $darkGray;
+    text-align: center;
+    .nxp-gray {
+        padding: 16px 0;
+    }
+    .privasi-title {
+        font-size: 1.1em;
+        font-weight: bold;
+        padding: 16px 0;
+    }
 }
 
 .apreciation {
@@ -81,5 +92,24 @@ $gray: #d3d3d3;
     text-align: center;
     p {
         font-size: 1.2em;
+    }
+}
+
+.backto-main {
+    background-color: white;
+    border-top: 2px solid $lightRed;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    p {
+        color: $lightRed;
+    }
+}
+
+.footer {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    p {
+        margin: 0;
     }
 }
