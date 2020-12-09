@@ -1,17 +1,21 @@
 .centersection {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
 }
 
 .logo-container {
   text-align: center;
   padding: 16px;
+  margin: 0 auto;
+  display: block;
+  float: none;
 }
 
 .scan-qrcode {
   background-color: #dc1b24;
-  padding: 10px 16px;
+  padding: 10px 32px;
+  margin: 0 auto;
+  display: block;
+  float: none;
 }
 .scan-qrcode p {
   color: white;
@@ -21,11 +25,31 @@
 
 .content {
   background-color: #eb1b24;
-  padding: 10px 16px;
+  padding: 10px 32px;
+  margin: 0 auto;
+  display: block;
+  float: none;
 }
 .content p {
   color: white;
   margin: 0;
+}
+.content form {
+  width: calc(100% - 64px);
+  background-color: white;
+  display: block;
+  margin: 0 auto;
+  padding: 16px;
+  position: absolute;
+  top: -70px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.graycontent {
+  background-color: #d3d3d3;
+  min-height: 400px;
 }
 
 .apreciation {
@@ -33,6 +57,21 @@
 }
 .apreciation .reward-text {
   margin-left: 20px;
+}
+
+.imageinfowrapper {
+  text-align: center;
+}
+.imageinfowrapper .imageinfo {
+  max-width: 100%;
+}
+
+.fillcontent {
+  padding: 24px 0 100px;
+  text-align: center;
+}
+.fillcontent p {
+  font-size: 1.2em;
 }
 
 /*# sourceMappingURL=mystyle.css.map */
