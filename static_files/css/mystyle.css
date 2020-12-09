@@ -47,8 +47,9 @@
 }
 
 .formcontent {
-  background-color: #d3d3d3;
-  min-height: 370px;
+  background-color: gray;
+  min-height: 390px;
+  border: none;
 }
 .formcontent form {
   width: calc(100% - 64px);
@@ -62,6 +63,33 @@
   right: 0;
   margin: auto;
   border-radius: 6px;
+}
+.formcontent .form-check {
+  display: block;
+  display: flex;
+  margin: 0;
+  padding: 6px;
+}
+.formcontent .form-check .from-check-wrapper {
+  border: 1px solid green;
+  border-radius: 4px;
+  padding: 10px 16px;
+  min-width: 100%;
+  margin-bottom: 0px;
+}
+.formcontent .form-check .from-check-wrapper .payment-img {
+  margin-left: 8px;
+}
+.formcontent .btn-submit {
+  background-color: #eb1b24;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 16px;
+  border: none;
+  margin: 0 auto;
+  display: block;
+  min-width: 250px;
+  margin-top: 40px;
 }
 
 .privasi {

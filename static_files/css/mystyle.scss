@@ -62,8 +62,9 @@ $darkGray: gray;
 
 
 .formcontent {
-    background-color: $lightGray;
-    min-height: 370px;
+    background-color: $darkGray;
+    min-height: 390px;
+    border: none;
 
     form {
         width: calc(100% - 64px);
@@ -77,6 +78,37 @@ $darkGray: gray;
         right: 0;
         margin: auto;
         border-radius: 6px;
+    }
+
+    .form-check {
+        display: block;
+        display: flex;
+        margin: 0;
+        padding: 6px;
+       
+        .from-check-wrapper {
+            border: 1px solid green;
+            border-radius: 4px;
+            padding: 10px 16px;
+            min-width: 100%;
+            margin-bottom: 0px;
+
+            .payment-img {
+                margin-left: 8px;
+            }
+        }
+    }
+
+    .btn-submit {
+        background-color: $lightRed;
+        color: white;
+        border-radius: 20px;
+        padding: 10px 16px;
+        border: none;
+        margin: 0 auto;
+        display: block;
+        min-width: 250px;
+        margin-top: 40px;
     }
 }
 
