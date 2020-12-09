@@ -1,6 +1,6 @@
 .row {
-  /* margin-right: -15px; */
-  /* margin-left: -15px; */
+  max-width: 100% !important;
+  margin: 0 !important;
 }
 
 .logo-container {
@@ -71,7 +71,7 @@
 }
 .formcontent .form-check {
   margin: 0;
-  padding: 6px;
+  padding: 2px;
   float: left;
   width: 50%;
 }
@@ -164,6 +164,63 @@
 }
 .footer p {
   margin: 0;
+}
+
+.modal {
+  padding-top: 80px;
+  top: 30%;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.modal .modal-dialog {
+  max-width: 400px;
+}
+.modal .top-body1 {
+  background-image: url("../images/bg_popup.png");
+  text-align: center;
+  position: relative;
+  min-height: 130px;
+}
+.modal .top-body1 .image1 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: -60px;
+  max-width: 300px;
+  max-height: 100px;
+  z-index: 2;
+}
+.modal .top-body1 .image2 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 50px;
+  max-width: 300px;
+  z-index: 2;
+}
+.modal .bottom-body .btn-submit {
+  background-color: #eb1b24;
+  color: white;
+  border-radius: 30px;
+  padding: 10px 16px;
+  border: none;
+  margin: 0 auto;
+  display: block;
+  min-width: 90%;
+  margin-top: 8px;
+  font-size: 1.2em;
+}
+.modal .bottom-body .btn-close {
+  color: gray;
+  padding: 10px 16px;
+  background-color: white;
+  border: none;
+  margin: 0 auto;
+  margin-top: 16px;
+  text-align: center;
+  min-width: 100%;
 }
 
 /*# sourceMappingURL=mystyle.css.map */

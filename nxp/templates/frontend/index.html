@@ -55,7 +55,7 @@
         <label for="olitype" >Jenis Oli</label>
         <input type="text" id="olitype" name="oil_type" placeholder="Jenis Oli" required="required">
       </div>
-      <div class="row" style="padding: 0 10px">
+      <div class="row" >
         <div class="col-sm-6 form-check">
           <label class="from-check-wrapper">
             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="oppo" checked>
@@ -102,6 +102,23 @@
     <img class="payment-img" src="{% static '/images/back.png' %}" />
   </div>
 </section>
+
+<div class="modal fade" id="exampleModalCenter"  >
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-body top-body1">
+        <img class="image1" src="{% static '/images/icon_big.png' %}" />
+        <img class="image2" src="{% static '/images/reward_green.png' %}" />
+      </div>
+
+      <div class="modal-body bottom-body">
+        <button type="button" class="btn-submit">Bagikan ke teman kamu</button>
+        <button type="button" class="btn-close" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}
 

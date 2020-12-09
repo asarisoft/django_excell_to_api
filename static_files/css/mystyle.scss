@@ -4,8 +4,8 @@ $lightGray: #d3d3d3;
 $darkGray: gray;
 
 .row {
-    /* margin-right: -15px; */
-    /* margin-left: -15px; */
+    max-width: 100% !important;
+    margin: 0 !important;
 }
 
 .logo-container {
@@ -87,7 +87,7 @@ $darkGray: gray;
 
     .form-check {
         margin: 0;
-        padding: 6px;
+        padding: 2px;
         float: left;
         width: 50%;
        
@@ -194,4 +194,69 @@ $darkGray: gray;
     p {
         margin: 0;
     }
+}
+
+.modal {
+    padding-top: 80px;
+    top: 30%;
+    padding-left: 8px;
+    padding-right: 8px;
+    
+    .modal-dialog {
+        max-width: 400px;
+    }
+
+    .top-body1 {
+        background-image: url('../images/bg_popup.png');
+        text-align: center;
+        position: relative;
+        min-height: 130px;
+
+        .image1 {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            top: -60px;
+            max-width: 300px;
+            max-height: 100px;
+            z-index: 2;
+        }
+        .image2 {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            top: 50px;
+            max-width: 300px;
+            z-index: 2;
+        }
+    }
+
+    .bottom-body {
+        .btn-submit {
+            background-color: $lightRed;
+            color: white;
+            border-radius: 30px;
+            padding: 10px 16px;
+            border: none;
+            margin: 0 auto;
+            display: block;
+            min-width: 90%;
+            margin-top: 8px;
+            font-size: 1.2em;
+        }
+
+        .btn-close {
+            color: $darkGray;
+            padding: 10px 16px;
+            background-color: white;
+            border: none;
+            margin: 0 auto;
+            margin-top: 16px;
+            text-align: center;
+            min-width: 100%;
+        }
+    }
+       
 }
