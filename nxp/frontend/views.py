@@ -2,6 +2,7 @@ from django.template.response import TemplateResponse
 from nxp.apps.formulir.models import Formulir
 from .forms import FormulirForm
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request):
@@ -11,7 +12,7 @@ def index(request):
     }
     return TemplateResponse(request, 'frontend/index.html', context)
 
-
+@csrf_exempt
 def post_formulir(request):
     if request.is_ajax and request.method == "POST":
         form = FormulirForm(request.POST)
