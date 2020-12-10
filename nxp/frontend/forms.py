@@ -5,3 +5,5 @@ class FormulirForm(forms.ModelForm):
     class Meta:
         model = Formulir
         fields = '__all__'
+        exclude = ('status',)
+

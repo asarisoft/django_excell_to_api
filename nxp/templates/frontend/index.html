@@ -36,7 +36,7 @@
 
 <section  class="row" >
   <div class="col-sm-12 col-md-6 col-lg-4 content formcontent" >
-    <form class="my-form" method="POST" action="{% url 'frontend:index' %}" 
+    <form class="my-form"  id="formulir-form" method="POST" action="{% url 'frontend:index' %}" 
       id="main-contact-form" name="contact-form" method="post" action="#">
       {% csrf_token %}
       <div class="form-group">
@@ -58,25 +58,25 @@
       <div class="row" >
         <div class="col-sm-6 form-check">
           <label class="from-check-wrapper">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="oppo" checked>
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios1" value="gopay" checked>
             <img class="payment-img" src="{% static '/images/gopay.png' %}" />
           </label>
         </div>
         <div class="col-sm-6 form-check ">
           <label class="from-check-wrapper">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios2" value="ovo">
             <img class="payment-img" src="{% static '/images/ovo.png' %}" />
           </label>
         </div>
         <div class="col-sm-6 form-check ">
           <label class="from-check-wrapper">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios2" value="dana">
             <img class="payment-img" src="{% static '/images/dana.png' %}" />
           </label>
         </div>
         <div class="col-sm-6 form-check ">
           <label class="from-check-wrapper">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios2" value="shopee">
             <img class="payment-img" src="{% static '/images/shopee.png' %}" />
           </label>
         </div>
@@ -121,4 +121,26 @@
 
 
 {% endblock %}
+
+{% block extra_js %}
+<script>
+    $("#formulir-form").submit(function (e) {
+        e.preventDefault();
+        var serializedData = $(this).serialize();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'frontend:post_formulir' %}",
+            data: serializedData,
+            success: function (response) {
+              $('#exampleModalCenter').modal('show');
+              document.getElementById("formulir-form").reset();
+            },
+            error: function (response) {
+              console.log(response)
+              alert(response["message"]);
+            }
+        })
+    })
+</script>
+{% endblock extra_js %}
 
