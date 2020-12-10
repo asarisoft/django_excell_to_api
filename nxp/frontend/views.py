@@ -20,5 +20,5 @@ def post_formulir(request):
             form.save()
             return JsonResponse({"message": "sukses"}, status=200)
         else:
-            return JsonResponse({"error": "form.errors.responseText"}, status=400)
+            return JsonResponse({"error": form.errors.responseText}, status=400)
     return JsonResponse({"error": "error gk jelas hehe"}, status=400)
