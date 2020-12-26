@@ -1,0 +1,162 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>{% block title %} {% endblock %}</title>
+    {% block extra_header %} {% endblock %}
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+    <link href="{% static 'css/trackpad-scroll-emulator.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/chartist.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/jquery.raty.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/nouislider.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/explorer.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/sweetalert2.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="/static/autocomplete_light/select2.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/ico/sahabatelvine.ico'%}">
+  </head>
+  <body class="">
+    <div class="admin-wrapper">
+      <div class="admin-sidebar">
+        <div class="admin-sidebar-header">
+          <div class="admin-sidebar-logo">
+            <a href="/">
+              <img src="{% static 'img/logo/logo.png' %}" class="svg" alt="Home">
+            </a>
+            <a href="/" class="admin-sidebar-logo-title">
+              <strong>NXP OILD</strong>
+              <span>-------------------------------</span>
+            </a>
+          </div>
+          <!-- /.admin-sidebar-logo -->
+        </div>
+        <!-- /.admin-sidebar-header -->
+        <div class="admin-sidebar-content">
+          
+          <ul class="nav flex-column">
+            <li class="nav-item">
+                <a href="{% url 'backoffice:index' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:index' %} active {% endif %}">
+                  <i class="fa fa-tachometer"></i><span>Dashboard</span>
+                </a>
+            </li>
+          <h3>Laporan</h3>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a href="{% url 'backoffice:formulir:index' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:formulir:index' %} active {% endif %}">
+                <i class="fa fa-check-square"></i><span>Formulir</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.admin-sidebar-content -->
+        <div class="admin-sidebar-footer">
+          <strong></strong>
+          <span>Copyrihgt @NXP Oild 2020</span>
+        </div>
+        <!-- /.admin-sidebar-footer -->
+      </div>
+      <!-- /.admin-sidebar -->
+      <div class="admin-main">
+        <div class="admin-header">
+          <div class="container-fluid">
+            <div class="admin-header-sidebar-toggle toggle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="admin-header-avatar">
+              <span class="avatar" style="background-image: url('/static_files/{{ user.picture }}');"></span>
+              <span class="admin-header-avatar-name">{{ user.name }}<i class="fa fa-chevron-down"></i></span>
+              <ul class="admin-header-avatar-menu">
+                <li><a href="#">{{ user.name }}</a></li>
+                <li><a href="{% url 'backoffice:log_out' %}">Sign Out</a></li>
+              </ul>
+              <!-- /.admin-header-avatar-menu -->
+            </div>
+            <!-- /.admin-header-actions -->
+          </div>
+          <!-- /.container -->
+        </div>
+        <!-- /.admin-header -->
+        <div class="admin-content">
+          <div class="container-fluid">
+            {% block breadcrumb %}
+            <nav class="breadcrumb">
+              <a class="breadcrumb-item" href="#">Home</a>
+              <a class="breadcrumb-item" href="#">Library</a>
+              <a class="breadcrumb-item" href="#">Data</a>
+              <span class="breadcrumb-item active">Bootstrap</span>
+            </nav>
+            {% endblock %}
+
+            {% block content %} {% endblock %}
+            <!-- /.box -->
+          </div>
+          <!-- /.container -->
+        </div>
+        {% block footer %}
+        <!-- /.admin-content -->
+        <div class="admin-footer">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-6">
+                &copy; Babanggi IT Solution
+              </div>
+              <!-- /.col-* -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        {% endblock %}
+      </div>
+      <!-- /.admin-main -->
+    </div>
+    <!-- /.admin-wrapper -->
+    
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/chartist.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.trackpad-scroll-emulator.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.inlinesvg.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.affix.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.scrollTo.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/nouislider.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.raty.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/wNumb.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'js/explorer.js' %}"></script> -->
+    <script type="text/javascript" src="{% static 'js/sweetalert2.min.js' %}"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $(".delete").on('click', function(e) {
+        e.preventDefault();
+        swal({
+          text: "Apakah anda yakin ?",
+          cancelButtonColor: '#d33',
+          showCancelButton: true,
+          type: "info",
+          customClass: 'swal-wide',
+          confirmButtonColor: 'green',
+          confirmButtonText: 'Yes'
+          }).then((result) => {
+              if (result.value) {
+                window.location.href = this.getAttribute('href');
+              } else {
+                e.preventDefault();
+                return false
+              }
+          })
+        })
+      })  
+    </script>
+    {% block script %}
+    {% endblock %}
+  </body>
+</html>

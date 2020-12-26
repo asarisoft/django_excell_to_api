@@ -127,6 +127,7 @@
     $("#formulir-form").submit(function (e) {
         e.preventDefault();
         var serializedData = $(this).serialize();
+        console.log(serializedData);
         $.ajax({
             type: 'POST',
             url: "{% url 'frontend:post_formulir' %}",

@@ -1,0 +1,31 @@
+{% extends 'backoffice/base.html' %}
+{% load static %}
+{% block title%} {{ title }} {% endblock %}
+{% block content %}
+{% comment %}<a href="{% url 'backoffice:news:add'%}" class="btn btn-primary">Tambah Berita</a> {% endcomment %}
+<div class="box">
+    <div class="box-inner">
+      <div class="box-title">
+        <h2>Table Berita / Informasi</h2>
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Picture</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for formulir in formulirs %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ formulir.name }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+{% endblock %}
+
