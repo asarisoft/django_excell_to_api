@@ -9,7 +9,7 @@
     <div class="col-md-6 col-lg-4">
       <a href="{% url 'backoffice:formulir:index'%}?status=new">
         <div class="stat-box" style="background-color: #eea73f;">
-          <div class="stat-box-icon"><i class="fa fa-users"></i></div>
+          <div class="stat-box-icon"><i class="fa fa-file"></i></div>
           <strong> {{ new_count | default:'0' }}</strong>
           <span>Formulir baru</span>
         </div>
@@ -19,7 +19,7 @@
     <div class="col-md-6 col-lg-4">
       <a href="{% url 'backoffice:formulir:index'%}?status=paid">
         <div class="stat-box" style="background-color: #60a853;">
-          <div class="stat-box-icon"><i class="fa fa-users"></i></div>
+          <div class="stat-box-icon"><i class="fa fa-file"></i></div>
           <strong> {{ paid_count | default:'0' }}</strong>
           <span>Formulir dibayar</span>
         </div>
@@ -28,8 +28,8 @@
 
     <div class="col-md-6 col-lg-4">
       <a href="{% url 'backoffice:formulir:index'%}?status=cancelled">
-        <div class="stat-box" style="background-color: #e0342f;">
-          <div class="stat-box-icon"><i class="fa fa-users"></i></div>
+        <div class="stat-box" style="background-color: hsl(2, 74%, 53%);">
+          <div class="stat-box-icon"><i class="fa fa-file"></i></div>
           <strong>{{ cancelled_count | default:'0' }}</strong>
           <span>Formulir di tolak</span>
         </div>
@@ -42,7 +42,7 @@
     <div class="col-md-6 col-lg-3">
       <a href="{% url 'backoffice:formulir:index'%}?ewallet=ovo">
         <div class="stat-box" style="background-color: #755dad;">
-          <div class="stat-box-icon"><i class="fa fa-female"></i></div>
+          <div class="stat-box-icon"><i class="fa fa-map"></i></div>
           <strong>{{ ovo_count | default:'0'}}</strong>
           <span>OVO</span>
         </div>
@@ -52,7 +52,7 @@
     <div class="col-md-6 col-lg-3">
       <a href="{% url 'backoffice:formulir:index'%}?ewallet=gopay">
         <div class="stat-box" style="background-color: #44aad0;">
-          <div class="stat-box-icon"><i class="fa fa-male"></i></div>
+          <div class="stat-box-icon"><i class="fa fa-map"></i></div>
           <strong> {{ gopay_count | default:'0' }}</strong>
           <span>Gopay</span>
         </div>

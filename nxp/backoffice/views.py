@@ -16,7 +16,7 @@ def login_view(request):
     if auth_form.is_valid():
         login(request, auth_form.get_user())
         auth_form.get_user()
-        return redirect("backoffice:formulir:index")
+        return redirect("backoffice:index")
     else:
         messages.error(request, "Username and Password are incorrect")
 
