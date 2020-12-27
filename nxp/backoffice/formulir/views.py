@@ -3,34 +3,40 @@
 # from .forms import AddNewsForm
 # from django.urls import reverse
 # from django.shortcuts import redirect, get_object_or_404
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Q
 from django.template.response import TemplateResponse
+
 from nxp.apps.formulir.models import Formulir
 from nxp.apps.user.decorators import login_validate
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_validate
 def index(request):
     formulirs = Formulir.objects.all()
-    page = request.GET.get('page', "")
-    # search = request.GET.get('search', "")
-    # ewallet = request.GET.get('ewallet')
-    # status = request.GET.get('status')
+    page = request.GET.get("page")
+    search = request.GET.get("search", "")
+    if search:
+        formulirs = formulirs.filter(Q(name=search) | Q(mobile_number=search))
+    ewallet = request.GET.get("ewallet")
+    if ewallet:
+        formulirs = formulirs.filter(wallet_type=ewallet)
+    status = request.GET.get("status")
+    if status:
+        formulirs = formulirs.filter(status=status)
 
-    results_per_page = 1
+    results_per_page = 2
     paginator = Paginator(formulirs, results_per_page)
     try:
-        formulirs = paginator.page(page)
+        formulirs = paginator.get_page(page)
     except PageNotAnInteger:
-        formulirs = paginator.page(2)
+        formulirs = paginator.get_page(1)
     except EmptyPage:
-        formulirs = paginator.page(paginator.num_pages)
+        formulirs = paginator.get_page(paginator.num_pages)
 
-    context = dict(
-        formulirs=formulirs,
-        title='Fromulir'
-    )
-    return TemplateResponse(request, 'backoffice/formulir/index.html', context)
+    context = dict(formulirs=formulirs, title="Fromulir")
+    return TemplateResponse(request, "backoffice/formulir/index.html", context)
+
 
 # @login_validate
 # def add(request):
