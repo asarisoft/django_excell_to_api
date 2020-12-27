@@ -37,7 +37,7 @@
         </div>
         <!-- /.admin-sidebar-header -->
         <div class="admin-sidebar-content">
-          
+
           <ul class="nav flex-column">
             <li class="nav-item">
                 <a href="{% url 'backoffice:index' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:index' %} active {% endif %}">
@@ -70,10 +70,10 @@
               <span></span>
             </div>
             <div class="admin-header-avatar">
-              <span class="avatar" style="background-image: url('/static_files/{{ user.picture }}');"></span>
-              <span class="admin-header-avatar-name">{{ user.name }}<i class="fa fa-chevron-down"></i></span>
+              <span class="avatar" style="background-image: url('/static_files/images/user.png')"></span>
+              <span class="admin-header-avatar-name">{{ request.user.username }}<i class="fa fa-chevron-down"></i></span>
               <ul class="admin-header-avatar-menu">
-                <li><a href="#">{{ user.name }}</a></li>
+                <li><a href="#">{{ request.user.username }}</a></li>
                 <li><a href="{% url 'backoffice:log_out' %}">Sign Out</a></li>
               </ul>
               <!-- /.admin-header-avatar-menu -->
@@ -105,7 +105,7 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-6">
-               
+
               </div>
               <!-- /.col-* -->
             </div>
@@ -118,7 +118,7 @@
       <!-- /.admin-main -->
     </div>
     <!-- /.admin-wrapper -->
-    
+
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -154,7 +154,7 @@
               }
           })
         })
-      })  
+      })
     </script>
     {% block script %}
     {% endblock %}
