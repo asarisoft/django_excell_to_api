@@ -7,7 +7,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('formulir', '0003_auto_20201226_0939'),
-        ('formulir', '0002_remove_formulir_job'),
     ]
 
     operations = [
