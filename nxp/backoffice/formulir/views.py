@@ -1,7 +1,8 @@
-from django.contrib import messages
+# -*- coding: utf-8 -*-
+# from django.contrib import messages
 # from .forms import AddNewsForm
-from django.urls import reverse
-from django.shortcuts import redirect, get_object_or_404
+# from django.urls import reverse
+# from django.shortcuts import redirect, get_object_or_404
 from django.template.response import TemplateResponse
 from nxp.apps.formulir.models import Formulir
 from nxp.apps.user.decorators import login_validate
@@ -11,7 +12,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 @login_validate
 def index(request):
     formulirs = Formulir.objects.all()
-    page = request.GET.get('page')
+    page = request.GET.get('page', "")
+    # search = request.GET.get('search', "")
+    # ewallet = request.GET.get('ewallet')
+    # status = request.GET.get('status')
+
     results_per_page = 1
     paginator = Paginator(formulirs, results_per_page)
     try:
@@ -45,7 +50,8 @@ def index(request):
 # @login_validate
 # def edit(request, id):
 #     news = get_object_or_404(News, id=id)
-#     form = AddNewsForm(request.POST or None, request.FILES or None, instance=news)
+#     form = AddNewsForm(
+#       request.POST or None, request.FILES or None, instance=news)
 #     if form.is_valid():
 #         form.save()
 #         return redirect(reverse('backoffice:news:index'))

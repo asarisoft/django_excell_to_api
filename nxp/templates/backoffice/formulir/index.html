@@ -10,26 +10,45 @@
         <h2>Formulir</h2>
       </div>
       <div class="box-title">
+
         <form method="GET" action="">
           <div class="row">
-            <div class="col-sm-4 no-pad">
+            <div class="col-sm-3">
               <div class="input-group">
                 <input type="text" name="search" class="form-control" placeholder="Search ...">
               </div>
-              <!-- /.form-group -->
             </div>
-            <!-- /.col-* -->
-            <div class="col-sm-2 no-pad">
+
+            <div class="col-sm-3">
+              <div class="input-group">
+                <select class="form-control" name="ewallet">
+                  <option value="gopay">Gopay</option>
+                  <option value="ovo">OVO</option>
+                  <option value="dana">Dana</option>
+                  <option value="shopee_pay">Shopee Pay</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <div class="input-group">
+                <select class="form-control" name="status">
+                  <option value="new">New</option>
+                  <option value="paid">Paid</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-2">
               <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
-                <i class="fa fa-search fa-search-fix-position"></i>
+                submit
               </button>
             </div>
-            <!-- /.col-* -->
           </div>
-          <!-- /.row -->
         </form>
       </div>
-      
+
       <table class="table table-striped">
         <thead>
           <tr>
@@ -76,4 +95,3 @@
 
   </div>
 {% endblock %}
-
