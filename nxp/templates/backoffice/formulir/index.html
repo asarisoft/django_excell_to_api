@@ -10,7 +10,6 @@
         <h2>Formulir</h2>
       </div>
       <div class="box-title">
-
         <form method="GET" action="">
           <div class="row">
             <div class="col-sm-3">
@@ -19,7 +18,7 @@
               </div>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <div class="input-group">
                 <select class="form-control" name="ewallet">
                   <option value=""> .. eWallet .. </option>
@@ -31,7 +30,7 @@
               </div>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <div class="input-group">
                 <select class="form-control" name="status">
                   <option value=""> .. status .. </option>
@@ -47,6 +46,12 @@
                 submit
               </button>
             </div>
+
+            <div class="col-sm-3">
+              <P>Status Redeem: {{paid_count}}</P>
+              <P>Status New: {{new_count}}</P>
+            </div>
+
           </div>
         </form>
       </div>

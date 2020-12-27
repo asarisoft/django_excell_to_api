@@ -26,6 +26,9 @@ def index(request):
         formulirs = formulirs.filter(status=status)
 
     results_per_page = 20
+    new_count = (formulirs.filter(status="new").count(),)
+    paid_count = (formulirs.filter(status="paid").count(),)
+
     paginator = Paginator(formulirs, results_per_page)
     try:
         formulirs = paginator.get_page(page)
@@ -38,6 +41,8 @@ def index(request):
         "formulirs": formulirs,
         "title": "Fromulir",
         "filter": {"search": search, "status": status, "ewallet": ewallet},
+        "new_count": new_count[0],
+        "paid_count": paid_count[0],
     }
     return TemplateResponse(request, "backoffice/formulir/index.html", context)
 
