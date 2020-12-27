@@ -25,7 +25,7 @@ def index(request):
     if status:
         formulirs = formulirs.filter(status=status)
 
-    results_per_page = 2
+    results_per_page = 20
     paginator = Paginator(formulirs, results_per_page)
     try:
         formulirs = paginator.get_page(page)
@@ -34,7 +34,11 @@ def index(request):
     except EmptyPage:
         formulirs = paginator.get_page(paginator.num_pages)
 
-    context = dict(formulirs=formulirs, title="Fromulir")
+    context = {
+        "formulirs": formulirs,
+        "title": "Fromulir",
+        "filter": {"search": search, "status": status, "ewallet": ewallet},
+    }
     return TemplateResponse(request, "backoffice/formulir/index.html", context)
 
 
