@@ -68,7 +68,7 @@ $darkGray: gray;
 
 .formcontent {
     background-color: $darkGray;
-    min-height: 550px;
+    min-height: 650px;
     border: none;
 
     form {
@@ -90,7 +90,7 @@ $darkGray: gray;
         padding: 2px;
         float: left;
         width: 50%;
-       
+
         .from-check-wrapper {
             border: 1px solid green;
             border-radius: 4px;
@@ -119,7 +119,7 @@ $darkGray: gray;
         margin-top: 40px;
         font-size: 1.2em;
     }
-    
+
     .fl-input {
         margin-bottom: 6px !important;
         padding: 8px;
@@ -201,7 +201,7 @@ $darkGray: gray;
     top: 30%;
     padding-left: 8px;
     padding-right: 8px;
-    
+
     .modal-dialog {
         max-width: 400px;
     }
@@ -258,5 +258,5 @@ $darkGray: gray;
             min-width: 100%;
         }
     }
-       
+
 }

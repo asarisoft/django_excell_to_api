@@ -36,9 +36,21 @@
 
 <section  class="row" >
   <div class="col-sm-12 col-md-6 col-lg-4 content formcontent" >
-    <form class="my-form"  id="formulir-form" method="POST" action="{% url 'frontend:index' %}" 
+    <form class="my-form"  id="formulir-form" method="POST" action="{% url 'frontend:index' %}"
       id="main-contact-form" name="contact-form" method="post" action="#">
       {% csrf_token %}
+      <div class="form-group">
+        <label for="dealer_code">Kode Dealer</label>
+        <input type="text" name="dealer_code" id="dealer_code" placeholder="Nomor Agen" required="required">
+      </div>
+      <div class="form-group">
+        <label for="serial_number">Serial Number</label>
+        <input type="text" name="serial_number" id="serial_number" placeholder="Nomor Agen" required="required">
+      </div>
+      <div class="form-group">
+        <label for="product">Produk</label>
+        <input type="text" name="product" id="product" placeholder="Nomor Agen" required="required">
+      </div>
       <div class="form-group">
         <label for="name">Nama</label>
         <input type="text" name="name" id="name" placeholder="Nomor HP" required="required">
@@ -46,10 +58,6 @@
       <div class="form-group">
         <label for="mobile_number" >Nomor HP</label>
         <input type="text" name="mobile_number" id="mobile_number" placeholder="Nomor HP" required="required">
-      </div>
-      <div class="form-group">
-        <label for="agentid" >Nomor Agen</label>
-        <input type="text" name="agent_id" id="agentid" placeholder="Nomor Agen" required="required">
       </div>
       <div class="form-group">
         <label for="olitype" >Jenis Oli</label>
@@ -84,7 +92,7 @@
       <div class="form-group">
         <button type="submit" class="btn-submit">Kirim Formulir</button>
       </div>
-    </form>   
+    </form>
   </div>
 </section>
 
@@ -144,4 +152,3 @@
     })
 </script>
 {% endblock extra_js %}
-
