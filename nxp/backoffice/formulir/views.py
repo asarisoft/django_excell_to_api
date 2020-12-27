@@ -5,18 +5,27 @@ from django.shortcuts import redirect, get_object_or_404
 from django.template.response import TemplateResponse
 from nxp.apps.formulir.models import Formulir
 from nxp.apps.user.decorators import login_validate
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_validate
 def index(request):
-    formulir = Formulir.objects.all()
+    formulirs = Formulir.objects.all()
+    page = request.GET.get('page')
+    results_per_page = 1
+    paginator = Paginator(formulirs, results_per_page)
+    try:
+        formulirs = paginator.page(page)
+    except PageNotAnInteger:
+        formulirs = paginator.page(2)
+    except EmptyPage:
+        formulirs = paginator.page(paginator.num_pages)
 
     context = dict(
-        formulirs=formulir,
+        formulirs=formulirs,
         title='Fromulir'
     )
     return TemplateResponse(request, 'backoffice/formulir/index.html', context)
-
 
 # @login_validate
 # def add(request):

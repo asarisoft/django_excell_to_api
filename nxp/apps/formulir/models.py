@@ -2,9 +2,11 @@ from django.db import models
 
 
 class Formulir(models.Model):
+    dealer_code = models.CharField(max_length=100, blank=True, null=True)
+    serial_number = models.CharField(max_length=100, blank=True, null=True)
+    product = models.CharField(max_length=100, blank=True, null=True)
     name = models.CharField(max_length=50, blank=True, null=True)
     mobile_number = models.CharField(max_length=20, blank=True, null=True)
-    agent_id = models.CharField(max_length=100, blank=True, null=True)
     oil_type = models.TextField(max_length=50, blank=True, null=True)
     TYPE = (
         ('gopay', 'Gopay'),
