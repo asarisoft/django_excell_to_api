@@ -41,19 +41,19 @@
       {% csrf_token %}
       <div class="form-group">
         <label for="dealer_code">Kode Dealer</label>
-        <input type="text" name="dealer_code" id="dealer_code" placeholder="Nomor Agen" required="required">
+        <input type="text" name="dealer_code" id="dealer_code" placeholder="Kode Dealer" required="required">
       </div>
       <div class="form-group">
         <label for="serial_number">Serial Number</label>
-        <input type="text" name="serial_number" id="serial_number" placeholder="Nomor Agen" required="required">
+        <input type="text" name="serial_number" id="serial_number" placeholder="Serial Number" required="required">
       </div>
       <div class="form-group">
         <label for="product">Produk</label>
-        <input type="text" name="product" id="product" placeholder="Nomor Agen" required="required">
+        <input type="text" name="product" id="product" placeholder="Nama Produk" required="required">
       </div>
       <div class="form-group">
         <label for="name">Nama</label>
-        <input type="text" name="name" id="name" placeholder="Nomor HP" required="required">
+        <input type="text" name="name" id="name" placeholder="Nama" required="required">
       </div>
       <div class="form-group">
         <label for="mobile_number" >Nomor HP</label>
@@ -111,7 +111,7 @@
   </div>
 </section>
 
-<div class="modal fade" id="exampleModalCenter"  >
+<div class="modal fade" id="ModalCenter"  >
   <div class="modal-dialog" >
     <div class="modal-content">
       <div class="modal-body top-body1">
@@ -121,6 +121,20 @@
 
       <div class="modal-body bottom-body">
         <button type="button" class="btn-submit">Bagikan ke teman kamu</button>
+        <button type="button" class="btn-close" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ModalCenter2"  >
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-body">
+        <h4 style="text-align: center;"> Error ! </h4>
+      </div>
+      <div class="modal-body bottom-body">
+        <div id="errorMessage" >Bagikan ke teman kamu</div>
         <button type="button" class="btn-close" data-dismiss="modal">Tutup</button>
       </div>
     </div>
@@ -141,12 +155,24 @@
             url: "{% url 'frontend:post_formulir' %}",
             data: serializedData,
             success: function (response) {
-              $('#exampleModalCenter').modal('show');
+              $('#ModalCenter').modal('show');
               document.getElementById("formulir-form").reset();
             },
             error: function (response) {
-              console.log(response)
-              alert(response["message"]);
+              let messageComp = document.getElementById("errorMessage");
+              error = "Terjadi Kesalahan Server!"
+              try {
+                errorJSON = JSON.parse(response.responseText);
+                error = ""
+                for (var key in errorJSON) {
+                  error += `<p style="color: red;"> => ${errorJSON[key][0]}</p>`;
+                }
+              }
+              catch(err) {
+                console.log(err)
+              }
+              messageComp.innerHTML= error;
+              $('#ModalCenter2').modal('show');
             }
         });
     });

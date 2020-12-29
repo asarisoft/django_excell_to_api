@@ -1,8 +1,10 @@
-from django.template.response import TemplateResponse
-from nxp.apps.formulir.models import Formulir
-from .forms import FormulirForm
 from django.http import JsonResponse
+from django.template.response import TemplateResponse
 from django.views.decorators.csrf import csrf_exempt
+
+from nxp.apps.formulir.models import Formulir
+
+from .forms import FormulirForm
 
 
 def index(request):
@@ -10,7 +12,8 @@ def index(request):
     context = {
         "form": form,
     }
-    return TemplateResponse(request, 'frontend/index.html', context)
+    return TemplateResponse(request, "frontend/index.html", context)
+
 
 @csrf_exempt
 def post_formulir(request):
@@ -20,5 +23,5 @@ def post_formulir(request):
             form.save()
             return JsonResponse({"message": "sukses"}, status=200)
         else:
-            return JsonResponse({"error": form.errors.responseText}, status=400)
+            return JsonResponse(form.errors, status=400)
     return JsonResponse({"error": "error gk jelas hehe"}, status=400)
