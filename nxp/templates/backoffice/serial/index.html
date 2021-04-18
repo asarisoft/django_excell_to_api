@@ -1,0 +1,152 @@
+{% extends 'backoffice/base.html' %}
+{% load static %}
+{% load templatehelpers %}
+{% block title%} {{ title }} {% endblock %}
+{% block content %}
+<div class="box">
+  <div class="box-inner">
+    <div class="box-title">
+      <h2>Formulir</h2>
+    </div>
+    <div class="box-title">
+      <form method="GET" action="{% url 'backoffice:serial_number:generate'%}" id="form1">
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="input-group">
+              <input readonly type="number" name="urutan" class="form-control" value="{{counter}}">
+              </div>
+            </div>
+
+            <div class=" col-sm-2">
+              <div class="input-group">
+                <select class="form-control" name="type">
+                  <option value="U">User</option>
+                  <option value="D">Dealer</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
+                GENERATE
+              </button>
+            </div>
+
+            <div class="col-sm-4">
+              <P>Status Claimed: {{claimed_count}} &nbsp; Status New: {{new_count}}</P>
+            </div>
+
+          </div>
+      </form>
+    </div>
+
+    <div class="box-title">
+      <form method="GET" action="">
+        <div class="row">
+          <div class="col-sm-2" ;>
+            <div class="input-group">
+              <input type="number" name="urutan" class="form-control" placeholder="Urutan ...">
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+            <div class="input-group">
+              <select class="form-control" name="page">
+                <option value="user">Semua</option>
+                <option value="10">Page 10 </option>
+                <option value="9">Page 9 </option>
+                <option value="8">Page 8 </option>
+                <option value="7">Page 7 </option>
+                <option value="6">Page 6 </option>
+                <option value="5">Page 5 </option>
+                <option value="4">Page 4 </option>
+                <option value="3">Page 3 </option>
+                <option value="2">Page 2 </option>
+                <option value="1">Page 1 </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-sm-2" style="text-align: left;">
+            <button type="button" id="btn-search-fix-h" class="btn btn-primary">
+              PRINT
+            </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Serial</th>
+          <th>Tipe</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for serial in serials %}
+        <tr>
+          <th scope="row">{{serial.id}}</th>
+          <td>{{ serial.serial_number }}</td>
+          <td>{{ serial.type }}</td>
+          <td>{{ serial.status }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="pull-right">
+      <nav aria-label="">
+        <ul class="pagination">
+          {% if serials.has_previous %}
+          <li class="page-item"><a class="page-link" href="{% relative_url 1 'page' request.GET.urlencode %}">First</a>
+          </li>
+          <li class="page-item"><a class="page-link"
+              href="{% relative_url serials.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
+          {% endif %}
+          <!-- {% for i in serials.paginator.page_range %}
+          <li class="page-item"><a class="page-link {% if serials.number == i %}is-active{% endif %}"
+              href="{% relative_url i 'page' request.GET.urlencode %}">{{forloop.counter}}</a></li>
+          {% endfor %} -->
+          {% if serials.has_next %}
+          <li class="page-item"><a class="page-link"
+              href="{% relative_url serials.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block script %}
+{% csrf_token %}
+<script type="text/javascript">
+  (function ($) {
+    $('#form1').on('click', function (e) {
+      e.preventDefault();
+      var form = $(this);
+      var url = form.attr('action');
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      console.log(csrftoken)
+      $.ajax({
+        type: 'post',
+        url: url,
+        data: form.serialize(),
+        headers: {
+          'X-CSRFToken': csrftoken
+        },
+        success: function (data) {
+          console.log(data)
+        },
+        error: function (xhr, status, error) {
+          console.log(xhr, status, error)
+        }
+      });
+    })
+  }(jQuery));
+</script>
+{% endblock %}

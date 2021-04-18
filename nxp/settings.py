@@ -34,6 +34,7 @@ APPS = [
     "nxp.apps.formulir",
     "nxp.apps.dealer",
     "nxp.apps.product",
+    "nxp.apps.serial_number",
 ]
 
 INSTALLED_APPS = [

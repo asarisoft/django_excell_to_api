@@ -43,3 +43,18 @@ def index(request):
         shopee_pay_count=formulirs.filter(wallet_type="shopee_pay").count(),
     )
     return TemplateResponse(request, "backoffice/index.html", context)
+
+
+@login_validate
+def index(request):
+    formulirs = Formulir.objects.all()
+    context = dict(
+        new_count=formulirs.filter(status="new").count(),
+        paid_count=formulirs.filter(status="paid").count(),
+        cancelled_count=formulirs.filter(status="cancelled").count(),
+        ovo_count=formulirs.filter(wallet_type="ovo").count(),
+        gopay_count=formulirs.filter(wallet_type="gopay").count(),
+        dana_count=formulirs.filter(wallet_type="dana").count(),
+        shopee_pay_count=formulirs.filter(wallet_type="shopee_pay").count(),
+    )
+    return TemplateResponse(request, "backoffice/index.html", context)

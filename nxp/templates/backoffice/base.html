@@ -37,14 +37,25 @@
         </div>
         <!-- /.admin-sidebar-header -->
         <div class="admin-sidebar-content">
-
+          <h3>Menu</h3>
           <ul class="nav flex-column">
             <li class="nav-item">
                 <a href="{% url 'backoffice:index' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:index' %} active {% endif %}">
                   <i class="fa fa-tachometer"></i><span>Dashboard</span>
                 </a>
             </li>
-          <h3>Laporan</h3>
+          </ul>
+
+
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a href="{% url 'backoffice:serial_number:index' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:serial_number' %} active {% endif %}">
+                <i class="fa fa-check-square"></i><span>Nomor Seri</span>
+              </a>
+            </li>
+          </ul>
+
+
           <ul class="nav flex-column">
             <li class="nav-item">
               <a href="{% url 'backoffice:formulir:index' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:formulir:index' %} active {% endif %}">
