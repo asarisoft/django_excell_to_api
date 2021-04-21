@@ -18,7 +18,7 @@
               </div>
             </div>
 
-            <div class=" col-sm-2">
+            <div class="col-sm-2">
               <div class="input-group">
                 <select class="form-control" name="type">
                   <option value="U">User</option>
@@ -95,9 +95,7 @@
           <td>{{ serial.serial_number }}</td>
           <td>{{ serial.type }}</td>
           <td>{{ serial.status }}</td>
-          <td>
-            {{ serial.generated_count }}
-          </td>
+          <td>{{ serial.generated_count }}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -131,7 +129,7 @@
 {% csrf_token %}
 <script type="text/javascript">
   (function ($) {
-    $('#form1').on('click', function (e) {
+    $('#form1').on('submit', function (e) {
       e.preventDefault();
       var form = $(this);
       var url = form.attr('action');
