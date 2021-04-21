@@ -124,6 +124,8 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+DATA_UPLOAD_MAX_NUMBER_FIELDS=100000
+
 try:
     from .local_settings import *
 except ImportError:

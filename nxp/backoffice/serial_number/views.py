@@ -8,6 +8,13 @@ from nxp.apps.serial_number.models import SerialNumber
 from nxp.apps.user.decorators import login_validate
 
 
+from reportlab.pdfgen import canvas
+from django.http import HttpResponse
+from reportlab.graphics.shapes import Drawing 
+from reportlab.graphics.barcode.qr import QrCodeWidget 
+from reportlab.graphics import renderPDF
+
+
 @login_validate
 def index(request):
     serials = SerialNumber.objects.all().order_by('-id')
@@ -57,4 +64,27 @@ def generate(request):
     return JsonResponse({"status": "OK"}, safe=False)
 
 
+def print_barcode(request):
+    # Create the HttpResponse object with the appropriate PDF headers.
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
 
+    p = canvas.Canvas(response)
+
+    qrw = QrCodeWidget('Helo World!') 
+    b = qrw.getBounds()
+
+    w=b[2]-b[0] 
+    h=b[3]-b[1] 
+
+    d = Drawing(200,200,transform=[45./w,0,0,45./h,0,0]) 
+    d.add(qrw)
+
+    e = Drawing(200,200,transform=[45./w,0,0,45./h,0,0]) 
+    e.add(qrw)
+
+    renderPDF.draw(d, p, 1, 1)
+
+    p.showPage()
+    p.save()
+    return response
