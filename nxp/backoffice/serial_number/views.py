@@ -26,7 +26,7 @@ def index(request):
     if status:
         serials = serials.filter(status=status)
 
-    results_per_page = 30
+    results_per_page = 60
     new_count = serials.filter(status="new").count()
     claimed_count = serials.filter(status="claimed").count()
 
@@ -65,26 +65,20 @@ def generate(request):
 
 
 def print_barcode(request):
-    # Create the HttpResponse object with the appropriate PDF headers.
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
+    serials = SerialNumber.objects.all().order_by('-id')
+    counter = request.GET.get("counter", 0)
+    if counter:
+        serials = serials.filter(generated_count=int(counter))
 
-    p = canvas.Canvas(response)
+    page = int(request.GET.get("page", 0))
+    if page and page >= 1 and page <= 10:
+        start = page * 6 - 6
+        end = start + 6
+        serials = serials[start:end]
 
-    qrw = QrCodeWidget('Helo World!') 
-    b = qrw.getBounds()
+    context = {
+        "serials": serials,
+        "title": "Print Number",
+    }
+    return TemplateResponse(request, "backoffice/serial/print.html", context)
 
-    w=b[2]-b[0] 
-    h=b[3]-b[1] 
-
-    d = Drawing(200,200,transform=[45./w,0,0,45./h,0,0]) 
-    d.add(qrw)
-
-    e = Drawing(200,200,transform=[45./w,0,0,45./h,0,0]) 
-    e.add(qrw)
-
-    renderPDF.draw(d, p, 1, 1)
-
-    p.showPage()
-    p.save()
-    return response

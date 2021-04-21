@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_summernote",
     "django.contrib.humanize",
+    "django.contrib.sites",
+    "qrcode"
 ] + APPS
 
 MIDDLEWARE = [

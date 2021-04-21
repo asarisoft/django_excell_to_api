@@ -1,5 +1,6 @@
 {% extends 'backoffice/base.html' %}
 {% load static %}
+{% load qr_tags %}
 {% load templatehelpers %}
 {% block title%} {{ title }} {% endblock %}
 {% block content %}
@@ -41,34 +42,34 @@
     </div>
 
     <div class="box-title">
-      <form method="GET" action="">
+      <form method="GET" action="{% url 'backoffice:serial_number:print_barcode' %}" target="print_popup" >
         <div class="row">
           <div class="col-sm-2" ;>
             <div class="input-group">
-              <input type="number" name="urutan" class="form-control" value="{{counter}}">
+              <input type="number" name="counter" class="form-control" value="{{counter|add:'-1'}}">
             </div>
           </div>
 
           <div class="col-sm-2">
             <div class="input-group">
               <select class="form-control" name="page">
-                <option value="user">Semua</option>
-                <option value="10">Page 10 </option>
-                <option value="9">Page 9 </option>
-                <option value="8">Page 8 </option>
-                <option value="7">Page 7 </option>
-                <option value="6">Page 6 </option>
-                <option value="5">Page 5 </option>
-                <option value="4">Page 4 </option>
-                <option value="3">Page 3 </option>
-                <option value="2">Page 2 </option>
+                <option value="0">Semua</option>
                 <option value="1">Page 1 </option>
+                <option value="2">Page 2 </option>
+                <option value="3">Page 3 </option>
+                <option value="4">Page 4 </option>
+                <option value="5">Page 5 </option>
+                <option value="6">Page 6 </option>
+                <option value="7">Page 7 </option>
+                <option value="8">Page 8 </option>
+                <option value="9">Page 9 </option>
+                <option value="10">Page 10 </option>
               </select>
             </div>
           </div>
 
           <div class="col-sm-2" style="text-align: left;">
-            <button type="button" id="btn-search-fix-h" class="btn btn-primary">
+            <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
               PRINT
             </button>
           </div>
@@ -84,15 +85,19 @@
           <th>Serial</th>
           <th>Tipe</th>
           <th>Status</th>
+          <th>Generated Count</th>
         </tr>
       </thead>
       <tbody>
         {% for serial in serials %}
         <tr>
-          <th scope="row">{{serial.id}}</th>
+          <th scope="row">{{forloop.counter}}</th>
           <td>{{ serial.serial_number }}</td>
           <td>{{ serial.type }}</td>
           <td>{{ serial.status }}</td>
+          <td>
+            {{ serial.generated_count }}
+          </td>
         </tr>
         {% endfor %}
       </tbody>
