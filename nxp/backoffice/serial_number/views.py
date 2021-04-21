@@ -53,7 +53,13 @@ def index(request):
 
 def generate_serial(prefix, num, counter):
     for _ in range(num):
-        code = "".join([random.choice(string.ascii_uppercase) for i in range(4)])+"-"+"".join([random.choice(string.digits) for i in range(5)])
+        duplicate = True
+        while duplicate:
+            code = "".join([random.choice(string.ascii_uppercase) for i in range(4)])+"-"+"".join([random.choice(string.digits) for i in range(5)])
+            serial = SerialNumber.objects.filter(serial_number=code).first()
+            if not serial:
+                duplicate = False
+
         code = f"{prefix}-"+code
         SerialNumber.objects.create(serial_number=code, generated_count=counter, type=prefix)
 
