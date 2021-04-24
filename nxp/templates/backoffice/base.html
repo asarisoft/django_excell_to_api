@@ -17,8 +17,8 @@
     <link href="{% static 'css/explorer.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/sweetalert2.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
-    <link href="/static/autocomplete_light/select2.css" rel="stylesheet" type="text/css">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/ico/sahabatelvine.ico'%}">
+    <!-- <link href="/static/autocomplete_light/select2.css" rel="stylesheet" type="text/css"> -->
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/ico/sahabatelvine.ico'%}"> -->
   </head>
   <body class="">
     <div class="admin-wrapper">
@@ -81,7 +81,7 @@
               <span></span>
             </div>
             <div class="admin-header-avatar">
-              <span class="avatar" style="background-image: url('/static_files/images/user.png')"></span>
+              <span class="avatar" style="background-image: {% static 'images/user.png' %}"></span>
               <span class="admin-header-avatar-name">{{ request.user.username }}<i class="fa fa-chevron-down"></i></span>
               <ul class="admin-header-avatar-menu">
                 <li><a href="#">{{ request.user.username }}</a></li>
@@ -131,18 +131,18 @@
     <!-- /.admin-wrapper -->
 
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script> -->
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/chartist.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.trackpad-scroll-emulator.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.inlinesvg.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.affix.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.scrollTo.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/nouislider.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.raty.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/wNumb.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'js/chartist.min.js' %}"></script> -->
+    <!-- <script type="text/javascript" src="{% static 'js/jquery.trackpad-scroll-emulator.min.js' %}"></script> -->
+    <!-- <script type="text/javascript" src="{% static 'js/jquery.inlinesvg.min.js' %}"></script> -->
+    <!-- <script type="text/javascript" src="{% static 'js/jquery.affix.js' %}"></script> -->
+    <!-- <script type="text/javascript" src="{% static 'js/jquery.scrollTo.js' %}"></script> -->
+    <!-- <script type="text/javascript" src="{% static 'js/nouislider.min.js' %}"></script> -->
+    <!-- <script type="text/javascript" src="{% static 'js/jquery.raty.js' %}"></script> -->
+    <!-- <script type="text/javascript" src="{% static 'js/wNumb.js' %}"></script> -->
     <!-- <script type="text/javascript" src="{% static 'js/explorer.js' %}"></script> -->
-    <script type="text/javascript" src="{% static 'js/sweetalert2.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'js/sweetalert2.min.js' %}"></script> -->
 
     <script type="text/javascript">
       $(document).ready(function(){

@@ -28,7 +28,7 @@ def index(request):
 
     results_per_page = 60
     new_count = serials.filter(status="new").count()
-    claimed_count = serials.filter(status="claimed").count()
+    redeem_count = serials.filter(status="redeem").count()
 
     paginator = Paginator(serials, results_per_page)
     try:
@@ -45,7 +45,7 @@ def index(request):
         "title": "Serial Number",
         "filter": {"search": search, "status": status},
         "new_count": new_count,
-        "claimed_count": claimed_count,
+        "redeem_count": redeem_count,
         "counter": int(last.generated_count)  + 1 if last else 1
     }
     return TemplateResponse(request, "backoffice/serial/index.html", context)

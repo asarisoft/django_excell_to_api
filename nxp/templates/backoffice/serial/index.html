@@ -28,13 +28,14 @@
             </div>
 
             <div class="col-sm-2">
-              <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
+              <button type="submit" id="btn-search-fix-h" class="btn btn-primary" 
+                data-toggle="tooltip" data-placement="top" title="1x generate untuk 60 QR-Code">
                 GENERATE
               </button>
             </div>
 
             <div class="col-sm-4">
-              <P>Status Claimed: {{claimed_count}} &nbsp; Status New: {{new_count}}</P>
+              <P>Status Redeem: {{redeem_count}} <br/> Status New: {{new_count}}</P>
             </div>
 
           </div>
@@ -52,7 +53,7 @@
 
           <div class="col-sm-2">
             <div class="input-group">
-              <select class="form-control" name="page">
+              <select class="form-control" name="page" data-toggle="tooltip" data-placement="top" title="1 halaman printout untuk 6 QR-Code">
                 <option value="0">Semua</option>
                 <option value="1">Page 1 </option>
                 <option value="2">Page 2 </option>
@@ -69,7 +70,8 @@
           </div>
 
           <div class="col-sm-2" style="text-align: left;">
-            <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
+            <button type="submit" id="btn-search-fix-h" class="btn btn-primary"
+            >
               PRINT
             </button>
           </div>
@@ -127,7 +129,14 @@
 
 {% block script %}
 {% csrf_token %}
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+
   (function ($) {
     $('#form1').on('submit', function (e) {
       e.preventDefault();

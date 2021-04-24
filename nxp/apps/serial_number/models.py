@@ -7,7 +7,7 @@ class SerialNumber(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     STATUS = (
         ('new', 'new'),
-        ('claimed', 'claimed'),
+        ('redeem', 'redeem'),
     )
     status = models.CharField(max_length=10, choices=STATUS, default='new')
     TYPE = (
