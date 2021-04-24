@@ -6,6 +6,6 @@ urlpatterns = [
     path('', index, name='index'),
     path('login/', login_view, name='login'),
     path('log_out/', log_out, name='log_out'),
-    path('serial-number/', include('nxp.backoffice.serial_number.urls', namespace='serial_number')),
+    path('generate-qrcode/', include('nxp.backoffice.generate_qrcode.urls', namespace='generate_qrcode')),
     path('formulir/', include('nxp.backoffice.formulir.urls', namespace='formulir')),
 ]

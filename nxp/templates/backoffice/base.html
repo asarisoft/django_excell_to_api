@@ -49,8 +49,8 @@
 
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a href="{% url 'backoffice:serial_number:index' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:serial_number' %} active {% endif %}">
-                <i class="fa fa-check-square"></i><span>Nomor Seri</span>
+              <a href="{% url 'backoffice:generate_qrcode:index' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:generate_qrcode:index' %} active {% endif %}">
+                <i class="fa fa-check-square"></i><span>Generate QR-Code</span>
               </a>
             </li>
           </ul>

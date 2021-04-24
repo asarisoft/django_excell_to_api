@@ -1,7 +1,7 @@
 from django.urls import path, include
 from .views import *
 
-app_name = "serial_number"
+app_name = "generate_qrcode"
 urlpatterns = [
     path("", index, name="index"),
     path("generate", generate, name="generate"),
