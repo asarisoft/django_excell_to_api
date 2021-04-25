@@ -39,9 +39,19 @@
     <form class="my-form"  id="formulir-form" method="POST" action="{% url 'frontend:index' %}"
       id="main-contact-form" name="contact-form" method="post" action="#">
       {% csrf_token %}
+      
+      <div id="container">
+        <canvas hidden="" id="qr-canvas"></canvas>
+      </div>
+
       <div class="form-group">
         <label for="serial_number">QR-Code *</label>
-        <input type="text" name="serial_number" id="serial_number" placeholder="Serial Number" required="required">
+        <div >
+          <input type="text" name="serial_number" id="serial_number" placeholder="Serial Number" required="required" style="width: 83%; float: left">
+          <a id="btn-scan-qr">
+            <img src="{% static 'images/qr.svg' %}">
+          <a>
+        </div>
       </div>
       <div class="form-group">
         <label for="product">Produk *</label>
@@ -147,6 +157,8 @@
 {% endblock %}
 
 {% block extra_js %}
+<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
+<script src="{% static 'js/qrcodereader.js' %}" type="module"></script>
 <script>
     $("#formulir-form").submit(function (e) {
         e.preventDefault();

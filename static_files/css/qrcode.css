@@ -1,0 +1,30 @@
+#container {
+    text-align: center;
+    margin: 0;
+  }
+  
+  #qr-canvas {
+    margin: auto;
+    width: calc(100% - 20px);
+    max-width: 400px;
+  }
+  
+  #btn-scan-qr {
+    cursor: pointer;
+  }
+  
+  #btn-scan-qr img {
+    background: white;
+    width: 40px; 
+    height: 40px;
+    margin-left: 10px;
+    margin-top: 5px;
+  }
+  
+  #qr-result {
+    font-size: 1.2em;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 700px;
+    background-color: white;
+  }
