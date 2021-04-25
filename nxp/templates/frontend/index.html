@@ -167,7 +167,7 @@
                 errorJSON = JSON.parse(response.responseText);
                 error = ""
                 for (var key in errorJSON) {
-                  error += `<p style="color: red;"> => ${errorJSON[key][0]}</p>`;
+                  error += `<p style="color: red;"> ${errorJSON[key][0]}</p>`;
                 }
               }
               catch(err) {
