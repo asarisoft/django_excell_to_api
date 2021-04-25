@@ -107,8 +107,12 @@ a:hover {
     height: 48vh;
     width: auto;
 }
+.pull-right {
+    margin-top: 46px;
+    text-align: center;
+}
 .pagination {
-    margin: 46px 0 0 0 !important;
+    margin: 0 0 0 0 !important;
 }
 .is-active {
     background-color: green !important;

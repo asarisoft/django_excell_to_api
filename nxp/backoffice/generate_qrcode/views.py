@@ -1,4 +1,6 @@
-import string, random
+import string
+import random
+import csv
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from django.template.response import TemplateResponse
@@ -10,9 +12,10 @@ from nxp.apps.user.decorators import login_validate
 
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse
-from reportlab.graphics.shapes import Drawing 
-from reportlab.graphics.barcode.qr import QrCodeWidget 
+from reportlab.graphics.shapes import Drawing
+from reportlab.graphics.barcode.qr import QrCodeWidget
 from reportlab.graphics import renderPDF
+
 
 
 @login_validate
@@ -21,10 +24,29 @@ def index(request):
     page = request.GET.get("page")
     search = request.GET.get("search", "")
     if search:
-        serials = serials.filter(Q(name=search) | Q(mobile_number=search))
+        serials = serials.filter(serial_number=search)
+
     status = request.GET.get("status")
     if status:
         serials = serials.filter(status=status)
+
+    type = request.GET.get("type")
+    if type:
+        serials = serials.filter(type=type)
+
+    action = request.GET.get("action")
+    if action == 'export':
+        response = HttpResponse(
+            content_type='text/csv',
+            # headers={'Content-Disposition': 'attachment; filename="qrcode.csv"'},
+        )
+        writer = csv.writer(response)
+        writer.writerow(['No', 'Qr-Code', 'Status'])
+        idx = 0
+        for sr in serials:
+            idx += 1
+            writer.writerow([idx, sr.serial_number, sr.status])
+        return response
 
     results_per_page = 60
     new_count = serials.filter(status="new").count()
@@ -40,14 +62,18 @@ def index(request):
 
     last = SerialNumber.objects.order_by('-id').first()
 
+    print(serials)
+
     context = {
         "serials": serials,
         "title": "Serial Number",
-        "filter": {"search": search, "status": status},
+        "filter": {"search": search, "status": status, "type": type},
         "new_count": new_count,
         "redeem_count": redeem_count,
-        "counter": int(last.generated_count)  + 1 if last else 1
+        "counter": int(last.generated_count) + 1 if last else 1
     }
+
+
     return TemplateResponse(request, "backoffice/serial/index.html", context)
 
 
@@ -55,13 +81,16 @@ def generate_serial(prefix, num, counter):
     for _ in range(num):
         duplicate = True
         while duplicate:
-            code = "".join([random.choice(string.ascii_uppercase) for i in range(4)])+"-"+"".join([random.choice(string.digits) for i in range(5)])
+            code = "".join([random.choice(string.ascii_uppercase) for i in range(
+                4)])+"-"+"".join([random.choice(string.digits) for i in range(5)])
             serial = SerialNumber.objects.filter(serial_number=code).first()
             if not serial:
                 duplicate = False
 
         code = f"{prefix}-"+code
-        SerialNumber.objects.create(serial_number=code, generated_count=counter, type=prefix)
+        SerialNumber.objects.create(
+            serial_number=code, generated_count=counter, type=prefix)
+
 
 def generate(request):
     urutan = request.POST.get('urutan')
@@ -87,4 +116,3 @@ def print_barcode(request):
         "title": "Print Number",
     }
     return TemplateResponse(request, "backoffice/serial/print.html", context)
-

@@ -25,9 +25,10 @@ def index(request):
     if status:
         formulirs = formulirs.filter(status=status)
 
-    results_per_page = 20
+    results_per_page = 30
     new_count = formulirs.filter(status="new").count()
     paid_count = formulirs.filter(status="paid").count()
+    cancel_count = formulirs.filter(status="paid").count()
 
     paginator = Paginator(formulirs, results_per_page)
     try:
@@ -43,6 +44,7 @@ def index(request):
         "filter": {"search": search, "status": status, "ewallet": ewallet},
         "new_count": new_count,
         "paid_count": paid_count,
+        "cancel_count": cancel_count,
     }
     return TemplateResponse(request, "backoffice/formulir/index.html", context)
 

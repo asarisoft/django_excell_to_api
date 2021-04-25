@@ -35,7 +35,7 @@
             </div>
 
             <div class="col-sm-4">
-              <P>Status Redeem: {{redeem_count}} <br/> Status New: {{new_count}}</P>
+              <P>Redeem: {{redeem_count}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; New: {{new_count}}</P>
             </div>
 
           </div>
@@ -70,9 +70,60 @@
           </div>
 
           <div class="col-sm-2" style="text-align: left;">
-            <button type="submit" id="btn-search-fix-h" class="btn btn-primary"
-            >
+            <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
               PRINT
+            </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <div class="box-title">
+      <form method="GET" action="" >
+        <div class="row">
+
+          <div class="col-sm-3">
+            <div class="input-group">
+              <input type="text" 
+                name="search" class="form-control" placeholder="Search ..." value="{{ filter.search }}">
+            </div>
+          </div>
+          
+          <div class="col-sm-2">
+            <div class="input-group">
+              <select class="form-control" name="type">
+                <option value="" selected>.. Type ..</option>
+                <option value="U" {% if filter.type == "U" %} selected {% endif %} >User</option>
+                <option value="D" {% if filter.type == "D" %} selected {% endif %} >Dealer</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+            <div class="input-group">
+              <select class="form-control" name="status">
+                <option value="" selected>.. Status ..</option>
+                <option value="new" {% if filter.status == "new" %} selected {% endif %} >New</option>
+                <option value="redeem" {% if filter.status == "redeem" %} selected {% endif %}>Redeem</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="col-sm-2">
+            <div class="input-group">
+              <select class="form-control" name="action">
+                <option value="filter" {% if filter.action == "filter" %} selected {% endif %} selected>Filter</option>
+                <option value="export" {% if filter.action == "export" %} selected {% endif %}>Export CSV</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="col-sm-2" style="text-align: left;">
+            <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
+              SUBMIT
             </button>
           </div>
 
@@ -102,7 +153,10 @@
         {% endfor %}
       </tbody>
     </table>
+
+
     <div class="pull-right">
+      <p>Page {{ serials.number }} of {{ serials.paginator.num_pages }}</p>
       <nav aria-label="">
         <ul class="pagination">
           {% if serials.has_previous %}
@@ -115,6 +169,7 @@
           <li class="page-item"><a class="page-link {% if serials.number == i %}is-active{% endif %}"
               href="{% relative_url i 'page' request.GET.urlencode %}">{{forloop.counter}}</a></li>
           {% endfor %} -->
+
           {% if serials.has_next %}
           <li class="page-item"><a class="page-link"
               href="{% relative_url serials.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
