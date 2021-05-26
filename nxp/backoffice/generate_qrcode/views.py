@@ -108,16 +108,10 @@ def generate(request):
 
 
 def print_barcode(request):
-    serials = SerialNumber.objects.all().order_by('-order')
-    counter = request.GET.get("counter", 0)
-    # if counter:
-    #     serials = serials.filter(generated_count=int(counter))
-
-    page = int(request.GET.get("page", 0))
-    if page and page >= 1 and page <= 10:
-        start = page * 6 - 6
-        end = start + 6
-        serials = serials[start:end]
+    start = request.GET.get("start", 0)
+    end = request.GET.get("end", 0)
+    _filter = list(range(int(start), int(end)+1))
+    serials = SerialNumber.objects.filter(order__in=_filter).order_by('-order')
 
     context = {
         "serials": serials,

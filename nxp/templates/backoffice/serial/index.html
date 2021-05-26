@@ -10,7 +10,7 @@
       <h2>Generate QR-Code</h2>
     </div>
     <div class="box-title">
-      <label>Next Generate Count</label>
+      <label>GENERATE</label>
       <form method="GET" action="{% url 'backoffice:generate_qrcode:generate'%}" id="form1">
         <div class="row">
           <div class="col-sm-2">
@@ -44,36 +44,23 @@
     </div>
 
     <div class="box-title">
-      <label>Generate Count</label>
+      <label>PRINT</label>
       <form method="GET" action="{% url 'backoffice:generate_qrcode:print_barcode' %}" target="print_popup" >
         <div class="row">
           <div class="col-sm-2" ;>
             <div class="input-group">
-              
-              <input type="number" name="counter" class="form-control" value="{{counter|add:'-1'}}">
+              <input type="number" name="start" class="form-control" id="start" placeholder="Start">
             </div>
           </div>
 
-          <div class="col-sm-2">
+          <div class="col-sm-2" ;>
             <div class="input-group">
-              <select class="form-control" name="page" data-toggle="tooltip" data-placement="top" title="1 halaman printout untuk 6 QR-Code">
-                <option value="0">Semua</option>
-                <option value="1">Page 1 </option>
-                <option value="2">Page 2 </option>
-                <option value="3">Page 3 </option>
-                <option value="4">Page 4 </option>
-                <option value="5">Page 5 </option>
-                <option value="6">Page 6 </option>
-                <option value="7">Page 7 </option>
-                <option value="8">Page 8 </option>
-                <option value="9">Page 9 </option>
-                <option value="10">Page 10 </option>
-              </select>
+              <input type="number" name="end" class="form-control" id="end" placeholder="End">
             </div>
           </div>
 
           <div class="col-sm-2" style="text-align: left;">
-            <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
+            <button type="submit" id="btn-search-fix-h" class="btn btn-primary" onclick="return validate();">
               PRINT
             </button>
           </div>
@@ -83,6 +70,7 @@
     </div>
 
     <div class="box-title">
+      <label>FILTER & EXPORT</label>
       <form method="GET" action="" >
         <div class="row">
 
@@ -228,5 +216,15 @@
       });
     })
   }(jQuery));
+
+  function validate(){
+     var min = parseInt(document.getElementById('start').value);
+     var max = parseInt(document.getElementById('end').value);
+     if(min > max){
+        alert('End mast greter than start');
+        return false;
+     }
+}
+
 </script>
 {% endblock %}
