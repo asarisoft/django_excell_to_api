@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     "django_summernote",
     "django.contrib.humanize",
     "django.contrib.sites",
-    "qrcode"
+    "qrcode",
+    'sequences.apps.SequencesConfig'
 ] + APPS
 
 MIDDLEWARE = [

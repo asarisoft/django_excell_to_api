@@ -9,18 +9,19 @@ from django.http import JsonResponse
 from nxp.apps.serial_number.models import SerialNumber
 from nxp.apps.user.decorators import login_validate
 
-
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from reportlab.graphics.shapes import Drawing
 from reportlab.graphics.barcode.qr import QrCodeWidget
 from reportlab.graphics import renderPDF
+from sequences import get_next_value
+from django.db import transaction
 
 
 
 @login_validate
 def index(request):
-    serials = SerialNumber.objects.all().order_by('-id')
+    serials = SerialNumber.objects.all().order_by('-order')
     page = request.GET.get("page")
     search = request.GET.get("search", "")
     if search:
@@ -62,48 +63,55 @@ def index(request):
 
     last = SerialNumber.objects.order_by('-id').first()
 
-    print(serials)
-
     context = {
         "serials": serials,
         "title": "Serial Number",
         "filter": {"search": search, "status": status, "type": type},
         "new_count": new_count,
         "redeem_count": redeem_count,
-        "counter": int(last.generated_count) + 1 if last else 1
     }
-
 
     return TemplateResponse(request, "backoffice/serial/index.html", context)
 
 
 def generate_serial(prefix, num, counter):
+    serials = []
+    serials_str = []
     for _ in range(num):
         duplicate = True
         while duplicate:
             code = "".join([random.choice(string.ascii_uppercase) for i in range(
                 4)])+"-"+"".join([random.choice(string.digits) for i in range(5)])
+            exists = code in serials_str
+            print(serials_str)
+            print(exists)
             serial = SerialNumber.objects.filter(serial_number=code).first()
-            if not serial:
+            if not serial and not exists:
+                serials_str.append(code)
                 duplicate = False
 
         code = f"{prefix}-"+code
-        SerialNumber.objects.create(
-            serial_number=code, generated_count=counter, type=prefix)
+        serial = SerialNumber(
+            serial_number=code, type=prefix, order=get_next_value("order"))
+        serials.append(serial)
+        print(serials)
+    SerialNumber.objects.bulk_create(serials)
 
 
 def generate(request):
     urutan = request.POST.get('urutan')
+    amount = request.POST.get('amount', 0)
     _type = request.POST.get('type')
-    generate_serial(_type, 60, urutan)
+    with transaction.atomic():
+        generate_serial(_type, int(amount), urutan)
     return JsonResponse({"status": "OK"}, safe=False)
 
 
 def print_barcode(request):
-    serials = SerialNumber.objects.all().order_by('-id')
+    serials = SerialNumber.objects.all().order_by('-order')
     counter = request.GET.get("counter", 0)
-    if counter:
-        serials = serials.filter(generated_count=int(counter))
+    # if counter:
+    #     serials = serials.filter(generated_count=int(counter))
 
     page = int(request.GET.get("page", 0))
     if page and page >= 1 and page <= 10:

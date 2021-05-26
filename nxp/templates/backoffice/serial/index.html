@@ -4,7 +4,7 @@
 {% load templatehelpers %}
 {% block title%} {{ title }} {% endblock %}
 {% block content %}
-<div class="box">
+<div class="box" id="content">
   <div class="box-inner">
     <div class="box-title">
       <h2>Generate QR-Code</h2>
@@ -15,8 +15,7 @@
         <div class="row">
           <div class="col-sm-2">
             <div class="input-group">
-              
-              <input readonly type="number" name="urutan" class="form-control" value="{{counter}}">
+              <input type="number" placeholder="Amount" name="amount" class="form-control" >
               </div>
             </div>
 
@@ -148,7 +147,7 @@
       <tbody>
         {% for serial in serials %}
         <tr>
-          <th scope="row">{{forloop.counter}}</th>
+          <th scope="row">{{serial.order}}</th>
           <td>{{ serial.serial_number }}</td>
           <td>{{ serial.type }}</td>
           <td>{{ serial.status }}</td>
@@ -189,6 +188,7 @@
 {% block script %}
 {% csrf_token %}
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="{% static 'js/loading.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript">
@@ -196,8 +196,13 @@
     $('[data-toggle="tooltip"]').tooltip()
   })
 
+  
+
   (function ($) {
     $('#form1').on('submit', function (e) {
+      $("#content").loading({
+        stoppable: true
+      });
       e.preventDefault();
       var form = $(this);
       var url = form.attr('action');
@@ -213,9 +218,11 @@
         success: function (data) {
           console.log(data)
           window.location.reload();
+          $('#content').loading('stop');
         },
         error: function (xhr, status, error) {
           console.log(xhr, status, error)
+          $('#content').loading('stop');
           alert("something went wrong")
         }
       });
