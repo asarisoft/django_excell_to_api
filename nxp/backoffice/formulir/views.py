@@ -13,7 +13,7 @@ from nxp.apps.user.decorators import login_validate
 
 @login_validate
 def index(request):
-    formulirs = Formulir.objects.all()
+    formulirs = Formulir.objects.all().order_by("-id")
     page = request.GET.get("page")
     search = request.GET.get("search", "")
     if search:
