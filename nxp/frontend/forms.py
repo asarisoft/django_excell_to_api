@@ -1,7 +1,7 @@
 from django import forms
 
 from nxp.apps.dealer.models import Dealer
-from nxp.apps.reward.models import Scan
+from nxp.apps.reward.models import Balance, Scan, Redeem
 from nxp.apps.user.models import User
 from nxp.apps.serial_number.models import SerialNumber
 
@@ -61,3 +61,44 @@ class ScanForm(forms.Form):
         scan.save()
         SerialNumber.objects.filter(
             serial_number=scan.serial_number).update(status='redeem')
+
+
+class RedeemForm(forms.Form):
+    mobile_number = forms.CharField()
+    value = forms.IntegerField()
+    wallet_type = forms.CharField()
+
+    def __init__(self, *args, **kwargs):
+        super(RedeemForm, self).__init__(*args, **kwargs)
+        self.user = None
+    
+    def clean_value(self):
+        value = self.cleaned_data.get("value", False)
+        if value < 10000:
+            raise forms.ValidationError("Minimal Redeem Rp. 10.0000")
+        return value
+
+    def clean(self):
+        cleaned_data = super(RedeemForm, self).clean()
+        value = cleaned_data['value']
+        self.user = User.objects.filter(
+            mobile_number = cleaned_data['mobile_number'],
+        ).first()
+
+        if not self.user:
+            raise forms.ValidationError("User tidak ditemukan")
+
+        balance = Balance.objects.filter(user=self.user).order_by('-id').first()
+        if balance.balance < value:
+            raise forms.ValidationError("Saldo anda tidak cukup")
+
+        return cleaned_data
+
+    def save(self):
+        data = self.cleaned_data
+        redeem = Redeem.objects.create(
+            user = self.user,
+            wallet_type = data['wallet_type'],
+            value = data['value']
+        )
+        return redeem

@@ -47,6 +47,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __unicode__(self):
         return '%s - %s' % (self.username, self.name)
 
+    def serialize(self):
+        return  {
+            "username" : self.username,
+            "name" : self.name,
+            "mobile_number" : self.mobile_number,
+        }
+
     # def save(self, *args, **kwargs):
     #     exist_id = self.id
     #     super(User, self).save(*args, **kwargs)

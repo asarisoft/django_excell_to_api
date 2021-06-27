@@ -115,6 +115,7 @@
   min-height: 450px;
   border: none;
 }
+
 .formcontent form {
   width: calc(100% - 64px);
   background-color: white;
@@ -128,13 +129,20 @@
   margin: auto;
   border-radius: 6px;
 }
-.formcontent .form-check {
+
+.search-form .wallet-type {
+  margin-bottom: 24px !important;
+}
+
+
+.search-form .form-check {
   margin: 0;
   padding: 2px;
   float: left;
   width: 50%;
 }
-.formcontent .form-check .from-check-wrapper {
+
+.search-form .form-check .from-check-wrapper {
   border: 1px solid green;
   border-radius: 4px;
   padding: 16px 16px;
@@ -142,11 +150,13 @@
   margin-bottom: 0px;
   float: left;
   display: block;
+  background-color: white;
 }
-.formcontent .form-check .from-check-wrapper .payment-img {
+.search-form .form-check .from-check-wrapper .payment-img {
   margin-left: 8px;
   max-width: 60%;
 }
+
 .formcontent .btn-submit {
   background-color: #eb1b24;
   color: white;
@@ -187,6 +197,31 @@
   height: 49px; 
   color: #eb1b24; 
   border: none;
+}
+
+.table-wrapper {
+  background-color: white;
+  color: black;
+  padding-bottom: 24px;
+}
+
+.table-wrapper p {
+  color: black;
+}
+
+.table-wrapper .balance-container {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+}
+
+.table-wrapper .balance-container div {
+  padding: 6px 2px;
+  border-bottom: 0.5px solid gray;
+}
+
+.table-wrapper .balance-container.odd div {
+  color: white;
+  background-color: rgb(173, 172, 172);
 }
 
 

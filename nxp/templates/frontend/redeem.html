@@ -1,89 +1,124 @@
-
 {% extends 'frontend/base.html' %}
 {% load humanize %}
 {% load static %}
 {% block content %}
-<section  class="row justify-content-lg-center">
+<section class="row justify-content-lg-center">
   <div class="col-sm-12 col-md-6 col-lg-4 content header">
-    <a class="menu" href="{% url 'frontend:scan' %}" > Scan QR Code </a>
+    <a class="menu" href="{% url 'frontend:scan' %}"> Scan QR Code </a>
     <a class="menu" href="{% url 'frontend:redeem' %}"> Redeem Reward </a>
   </div>
 </section>
 
-<section  class="row" id="information">
+<section class="row" id="information" hidden>
   <div class="col-sm-12 col-md-6 col-lg-4 content present">
     <p class="identity">Identitas Anda:</p>
     <p class="name">Imam As Ari</p>
     <p class="mobile_number">+6287877543295</p>
     <div class="reward-wrapper">
       <img class="reward-img" src="{% static '/images/reward.png' %}" />
-      <p class="reward">Rp. 500.000,-</p>
+      <p class="reward"></p>
     </div>
   </div>
 </section>
 
-<section  class="row">
+<section class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content search-content">
-    <form class="search-form"  id="formulir-form" method="POST" 
-      id="main-search-form" name="search-form" method="post" action="#">
+    <form class="search-form" method="POST" id="main-search-form" name="search-form" action=""  >
       {% csrf_token %}
       <p class="mobile_label">Masukkan Nomor HP Anda</p>
       <div class="form-group" style="display: flex; flex-direction: row; justify-content: space-between;">
-        <label for="mobile_number" ></label>
+        <label for="mobile_number"></label>
         <input type="text" name="mobile_number" id="mobile_number" placeholder="Nomor HP" required="required">
         <button type="button" id="searchButton" class="search-button"><i class="fa fa-search"></i></button>
       </div>
       <div class="form-group">
-        <label for="nominal" ></label>
-        <input type="text" name="nominal" id="nominal" placeholder="Nomor HP" required="required">
+        <label for="value"></label>
+        <input type="text" name="value" id="value" placeholder="Nominal" required="required" hidden>
       </div>
-      <div class="form-group">
-        <button type="submit" class="btn-submit">Cari Data</button>
+
+      <div class="row wallet-type" id="walletType" hidden  >
+        <div class="col-sm-6 form-check" >
+          <label class="from-check-wrapper">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios1" value="gopay" checked>
+            <img class="payment-img" src="{% static '/images/gopay.png' %}" />
+          </label>
+        </div>
+        <div class="col-sm-6 form-check ">
+          <label class="from-check-wrapper">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios2" value="ovo">
+            <img class="payment-img" src="{% static '/images/ovo.png' %}" />
+          </label>
+        </div>
+        <div class="col-sm-6 form-check ">
+          <label class="from-check-wrapper">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios2" value="dana">
+            <img class="payment-img" src="{% static '/images/dana.png' %}" />
+          </label>
+        </div>
+        <div class="col-sm-6 form-check ">
+          <label class="from-check-wrapper">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios2" value="shopee_pay">
+            <img class="payment-img" src="{% static '/images/shopee.png' %}" />
+          </label>
+        </div>
+      </div>
+      <div class="form-group" hidden id="btnRedeem">
+        <button type="submit" class="btn-submit" >Redeem</button>
       </div>
     </form>
   </div>
 </section>
 
+<section class="row" id="balanceInfo" hidden>
+  <div class="col-sm-12 col-md-6 col-lg-4 content table-wrapper">
+    <h5>REKENING SALDO</h5>
+    <div class="balance-container">
+      <div>Kredit</div> <div>Debit</div> <div>Saldo</div> <div>Info</div>
+    </div>
+    <div id="balanceHistory"></div>
+  </div>
+</section>
 
-<section  class="row">
+
+<section class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content privasi">
     <img class="nxp-gray" src="{% static '/images/gray_logo.png' %}" />
-    <p>Kami menjaga privasi segala bentuk <br/> informasi yang diterima</p>
+    <p>Kami menjaga privasi segala bentuk <br /> informasi yang diterima</p>
     <p class="privasi-title">KEBIJAKAN PRIVASI</p>
   </div>
 </section>
 
-<section  class="row">
+<section class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content backto-main">
     <p>Halaman Utama</p>
     <img class="payment-img" src="{% static '/images/back.png' %}" />
   </div>
 </section>
 
-<div class="modal fade" id="ModalCenter"  >
-  <div class="modal-dialog" >
+<div class="modal fade" id="ModalCenter">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body top-body1">
         <img class="image1" src="{% static '/images/icon_big.png' %}" />
-        <img class="image2" src="{% static '/images/reward_green.png' %}" />
+        <!-- <img class="image2" src="{% static '/images/reward_green.png' %}" /> -->
       </div>
 
       <div class="modal-body bottom-body">
-        <button type="button" class="btn-submit">Bagikan ke teman kamu</button>
+        <!-- <button type="button" class="btn-submit">Bagikan ke teman kamu</button> -->
         <button type="button" class="btn-close" data-dismiss="modal">Tutup</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="ModalCenter2"  >
-  <div class="modal-dialog" >
+<div class="modal fade" id="ModalCenter2">
+  <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-body">
+      <!-- <div class="modal-body">
         <h4 style="text-align: center;"> Error ! </h4>
-      </div>
+      </div> -->
       <div class="modal-body bottom-body">
-        <div id="errorMessage" >Bagikan ke teman kamu</div>
+        <div id="errorMessage"></div>
         <button type="button" class="btn-close" data-dismiss="modal">Tutup</button>
       </div>
     </div>
@@ -94,53 +129,98 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
-<script src="{% static 'js/qrcodereader.js' %}" type="module"></script>
 <script>
-    // on ready
-    jQuery(function () {
-      $("#mobile_number").val(localStorage.getItem("mobileNumber", ""));
-      $("#name").val(localStorage.getItem("userName", ""));
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
 
+  function setInfo(data) {
+    console.log(data)
+  }
+
+  jQuery(function () {
+    const userData = null;
+    $("#mobile_number").val(localStorage.getItem("mobileNumber", ""));
+    $("#searchButton").on('click', function () {
+      const mobile_number = $("#mobile_number").val();
+      $.ajax({
+        type: 'POST',
+        url: "{% url 'frontend:get_information' %}",
+        data: {
+          mobile_number: mobile_number
+        },
+        success: function (response) {
+          console.log(response)
+          $(".name").html(response.data.user.name)
+          $(".mobile_number").html(response.data.user.mobile_number)
+          $(".reward").html(`Rp. ${numberWithCommas(response?.data?.balance[0]?.balance)}.-`)
+          $("#information").show()
+          $("#value").show()
+          $("#btnRedeem").show()
+          $("#balanceInfo").show()
+          $("#walletType").show()
+          const balance = response.data.balance
+          var _html = "";
+          balance.reverse().map((bl, index)=>{
+            if (index % 2 == 0)
+              _html += `<div class="balance-container odd">
+                <div>${bl.credit}</div><div>- ${bl.debit}</div><div>${bl.balance}</div><div onclick='setInfo(${JSON.stringify(bl.info)})'>Lihat Info</div>
+              </div>`
+            else 
+              _html += `<div class="balance-container">
+                <div>${bl.credit}</div><div>- ${bl.debit}</div><div>${bl.balance}</div><div onclick='setInfo(${JSON.stringify(bl.info)})'>Lihat Info</div>
+              </div>`
+          })
+          $("#balanceHistory").html(_html)
+        },
+        error: function (response) {
+          console.log(response)
+          $("#information").hide()
+          $("#value").hide()
+          $("#btnRedeem").hide()
+          $("#balanceInfo").hide()
+          $("#walletType").hide()
+        }
+      });
     });
+  });
 
-    $("#formulir-form").submit(function (e) {
-        e.preventDefault();
-        var serializedData = $(this).serialize();
-        console.log(serializedData)
-        localStorage.setItem('mobileNumber', $("#mobile_number").val())
-        localStorage.setItem('userName', $("#name").val())
-        $.ajax({
-            type: 'POST',
-            url: "{% url 'frontend:api_scan' %}",
-            data: serializedData,
-            success: function (response) {
-              $('#ModalCenter').modal('show');
-              document.getElementById("formulir-form").reset();
-            },
-            error: function (response) {
-              let messageComp = document.getElementById("errorMessage");
-              error = "Terjadi Kesalahan Server!"
-              try {
-                errorJSON = JSON.parse(response.responseText);
-                error = ""
-                for (var key in errorJSON) {
-                  error += `<p style="color: red;"> ${errorJSON[key][0]}</p>`;
-                }
-              }
-              catch(err) {
-                console.log(err)
-              }
-              messageComp.innerHTML= error;
-              $('#ModalCenter2').modal('show');
-            }
-        });
+  $("#main-search-form").submit(function (e) {
+    e.preventDefault();
+    var serializedData = $(this).serialize();
+    console.log(serializedData)
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'frontend:api_redeem' %}",
+      data: serializedData,
+      success: function (response) {
+        console.log(response)
+        $('#ModalCenter').modal('show');
+        document.getElementById("search-form").reset();
+      },
+      error: function (response) {
+        let messageComp = document.getElementById("errorMessage");
+        error = "Terjadi Kesalahan Server!"
+        try {
+          errorJSON = JSON.parse(response.responseText);
+          error = ""
+          for (var key in errorJSON) {
+            error += `<p style="color: red;"> ${errorJSON[key][0]}</p>`;
+          }
+        }
+        catch (err) {
+          console.log(err)
+        }
+        messageComp.innerHTML = error;
+        $('#ModalCenter2').modal('show');
+      }
     });
+  });
 
-    var element = document.getElementById('mobile_number');
-    var maskOptions = {
-      mask: '+620000000000000'
-    };
-    var mask = IMask(element, maskOptions);
+  var element = document.getElementById('mobile_number');
+  var maskOptions = {
+    mask: '+620000000000000'
+  };
+  var mask = IMask(element, maskOptions);
 </script>
 {% endblock extra_js %}
