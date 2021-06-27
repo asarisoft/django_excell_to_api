@@ -27,8 +27,10 @@ def api_scan(request):
     if request.is_ajax and request.method == "POST":
         form = ScanForm(request.POST)
         if form.is_valid():
-            form.save()
-            return JsonResponse({"message": "Transaksi berhasil"}, status=200)
+            scan = form.save()
+            value = f'{scan.serial_number.value:,}'.replace(',','.'), 
+            return JsonResponse(
+                {"message": "Transaksi berhasil", "value":value}, status=200)
         else:
             return JsonResponse(form.errors, status=400)
     return JsonResponse({"error": "Need Request Post and AJAX"}, status=400)
@@ -48,12 +50,8 @@ def get_information(request):
             'balance': [balance.serialize() for balance in balances],
         }
         return JsonResponse({"data": response}, status=200)
-
-    
     return JsonResponse({"error": "User Tidak Dietmukan"}, status=400)
         
-
-
 @csrf_exempt
 def api_redeem(request):
     if request.is_ajax and request.method == "POST":

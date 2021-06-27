@@ -1,62 +1,63 @@
-
 {% extends 'frontend/base.html' %}
 {% load humanize %}
 {% load static %}
 {% block content %}
-<section  class="row justify-content-lg-center">
+<section class="row justify-content-lg-center">
   <div class="col-sm-12 col-md-6 col-lg-4 content header">
-    <a class="menu" href="{% url 'frontend:scan' %}" > Scan QR Code </a>
+    <a class="menu" href="{% url 'frontend:scan' %}"> Scan QR Code </a>
     <a class="menu" href="{% url 'frontend:redeem' %}"> Redeem Reward </a>
   </div>
 </section>
-<section  class="row">
+<section class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content present">
     <img class="checklist-img" src="{% static '/images/checklist.png' %}" />
     <p class="hallo">Hallo Sahabat NXP,</p>
-    <p class="thank-you">Terima kasih sudah <br/> memilih oli NXP sebagai <br/> produk bengkel mu!</p>
+    <p class="thank-you">Terima kasih sudah <br /> memilih oli NXP sebagai <br /> produk bengkel mu!</p>
   </div>
 </section>
-<section  class="row " >
+<section class="row ">
   <div class="col-sm-12 col-md-6 col-lg-4 content apreciation">
     <img class="reward-img" src="{% static '/images/reward.png' %}" />
-    <p class="reward-text">Sebagai bentuk apresiasi NXP, kamu <br/> akan mendapatkan voucher dari setiap barcode yang kamu scan.</p>
+    <p class="reward-text">Sebagai bentuk apresiasi NXP, kamu <br /> akan mendapatkan voucher dari setiap barcode yang
+      kamu scan.</p>
   </div>
 </section>
-<section  class="row  " >
+<section class="row  ">
   <div class="col-sm-12 col-md-6 col-lg-4 content imageinfowrapper">
     <!-- <img class="imageinfo" src="{% static '/images/idr.png' %}" /> -->
     <img class="imageinfo" src="{% static '/images/group_pay.png' %}" />
   </div>
 </section>
-<section  class="row">
+<section class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content fillcontent">
     <p>Silahkan mengisi formulir dibawah ini</p>
   </div>
 </section>
 
-<section  class="row" >
-  <div class="col-sm-12 col-md-6 col-lg-4 content formcontent" >
-    <form class="my-form"  id="formulir-form" method="POST" 
-      id="main-contact-form" name="contact-form" method="post" action="#">
+<section class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4 content formcontent">
+    <form class="my-form" id="formulir-form" method="POST" id="main-contact-form" name="contact-form" method="post"
+      action="#">
       {% csrf_token %}
-      
+
       <div id="container">
         <canvas hidden="" id="qr-canvas"></canvas>
       </div>
 
       <div class="form-group">
         <label for="serial_number">QR-Code *</label>
-        <div >
-          <input type="text" name="serial_number" id="serial_number" placeholder="Serial Number" required="required" style="width: 77%; float: left">
+        <div>
+          <input type="text" name="serial_number" id="serial_number" placeholder="Serial Number" required="required"
+            style="width: 77%; float: left">
           <a id="btn-scan-qr">
             <img src="{% static 'images/qr.svg' %}">
-          <a>
+            <a>
         </div>
       </div>
-      <p style="color: rgb(100, 100, 100);">Wajib diisi jika QR-Code untuk dealer (D-XXX)</p>
       <div class="form-group">
         <label for="dealer_code">Kode Dealer</label>
-        <input type="text" name="dealer_code" id="dealer_code" placeholder="Kode Dealer" >
+        <input type="text" name="dealer_code" id="dealer_code" placeholder="Kode Dealer">
+        <p style="color: gray; font-size: 13px;">Wajib diisi jika QR-Code untuk dealer (D-XXX)</p>
       </div>
       <div class="form-group">
         <label for="product">Produk *</label>
@@ -67,7 +68,7 @@
         <input type="text" name="name" id="name" placeholder="Nama" required="required" class="name">
       </div>
       <div class="form-group">
-        <label for="mobile_number" >Nomor HP *</label>
+        <label for="mobile_number">Nomor HP *</label>
         <input type="text" name="mobile_number" id="mobile_number" placeholder="Nomor HP" required="required">
       </div>
       <div class="form-group">
@@ -77,42 +78,44 @@
   </div>
 </section>
 
-<section  class="row">
+<section class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content privasi">
     <img class="nxp-gray" src="{% static '/images/gray_logo.png' %}" />
-    <p>Kami menjaga privasi segala bentuk <br/> informasi yang diterima</p>
+    <p>Kami menjaga privasi segala bentuk <br /> informasi yang diterima</p>
     <p class="privasi-title">KEBIJAKAN PRIVASI</p>
   </div>
 </section>
 
-<section  class="row">
+<section class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content backto-main">
     <p>Halaman Utama</p>
     <img class="payment-img" src="{% static '/images/back.png' %}" />
   </div>
 </section>
 
-<div class="modal fade" id="ModalCenter"  >
-  <div class="modal-dialog" >
+<div class="modal fade" id="ModalCenter">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body top-body1">
         <img class="image1" src="{% static '/images/icon_big.png' %}" />
-        <!-- <img class="image2" src="{% static '/images/reward_green.png' %}" /> -->
+        <p class='body-text first'>SELAMAT</p>
+        <p class='body-text ' style="text-align: center;">
+          Anda mendapatkan hadiah sebesar:</p>
+        <span id="rewardPrice" class="reward-value"></span>
       </div>
 
       <div class="modal-body bottom-body">
-        <!-- <button type="button" class="btn-submit">Bagikan ke teman kamu</button> -->
         <button type="button" class="btn-close" data-dismiss="modal">Tutup</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="ModalCenter2"  >
-  <div class="modal-dialog" >
+<div class="modal fade" id="ModalCenter2">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body bottom-body">
-        <div id="errorMessage" ></div>
+        <div id="errorMessage"></div>
         <button type="button" class="btn-close" data-dismiss="modal">Tutup</button>
       </div>
     </div>
@@ -126,49 +129,53 @@
 <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
 <script src="{% static 'js/qrcodereader.js' %}" type="module"></script>
 <script>
-    // on ready
-    jQuery(function () {
-      $("#mobile_number").val(localStorage.getItem("mobileNumber", ""));
-      $("#name").val(localStorage.getItem("userName", ""));
-    });
+  // on ready
+  jQuery(function () {
+    $("#mobile_number").val(localStorage.getItem("mobileNumber", ""));
+    $("#name").val(localStorage.getItem("userName", ""));
+  });
 
-    $("#formulir-form").submit(function (e) {
-        e.preventDefault();
-        var serializedData = $(this).serialize();
-        console.log(serializedData)
-        localStorage.setItem('mobileNumber', $("#mobile_number").val())
-        localStorage.setItem('userName', $("#name").val())
-        $.ajax({
-            type: 'POST',
-            url: "{% url 'frontend:api_scan' %}",
-            data: serializedData,
-            success: function (response) {
-              $('#ModalCenter').modal('show');
-              document.getElementById("formulir-form").reset();
-            },
-            error: function (response) {
-              let messageComp = document.getElementById("errorMessage");
-              error = "Terjadi Kesalahan Server!"
-              try {
-                errorJSON = JSON.parse(response.responseText);
-                error = ""
-                for (var key in errorJSON) {
-                  error += `<p style="color: red;"> ${errorJSON[key][0]}</p>`;
-                }
-              }
-              catch(err) {
-                console.log(err)
-              }
-              messageComp.innerHTML= error;
-              $('#ModalCenter2').modal('show');
-            }
-        });
+  $("#formulir-form").submit(function (e) {
+    e.preventDefault();
+    var serializedData = $(this).serialize();
+    console.log(serializedData)
+    localStorage.setItem('mobileNumber', $("#mobile_number").val())
+    localStorage.setItem('userName', $("#name").val())
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'frontend:api_scan' %}",
+      data: serializedData,
+      success: function (response) {
+        console.log(response)
+        $('#ModalCenter').modal('show');
+        $("#serial_number").val('')
+        $("#product").val('')
+        $("#dealer_code").val('')
+        $("#rewardPrice").html(`Rp. ${response.value},-`)
+      },
+      error: function (response) {
+        let messageComp = document.getElementById("errorMessage");
+        error = "Terjadi Kesalahan Server!"
+        try {
+          errorJSON = JSON.parse(response.responseText);
+          error = ""
+          for (var key in errorJSON) {
+            error += `<p style="color: red;"> ${errorJSON[key][0]}</p>`;
+          }
+        }
+        catch (err) {
+          console.log(err)
+        }
+        messageComp.innerHTML = error;
+        $('#ModalCenter2').modal('show');
+      }
     });
+  });
 
-    var element = document.getElementById('mobile_number');
-    var maskOptions = {
-      mask: '+620000000000000'
-    };
-    var mask = IMask(element, maskOptions);
+  var element = document.getElementById('mobile_number');
+  var maskOptions = {
+    mask: '+620000000000000'
+  };
+  var mask = IMask(element, maskOptions);
 </script>
 {% endblock extra_js %}

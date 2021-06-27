@@ -21,9 +21,9 @@ class ScanForm(forms.Form):
         serial_number = self.cleaned_data.get("serial_number", False)
         serial = SerialNumber.objects.filter(serial_number=serial_number).first()
         if not serial:
-            raise forms.ValidationError("Serial Number tidak ditemukan")
+            raise forms.ValidationError("QR CODE tidak ditemukan")
         elif serial.status == 'redeem':
-            raise forms.ValidationError("Serial Number sudah digunakan")
+            raise forms.ValidationError("QR CODE sudah digunakan")
         
         self.serial_number = serial
         return serial_number
@@ -61,6 +61,7 @@ class ScanForm(forms.Form):
         scan.save()
         SerialNumber.objects.filter(
             serial_number=scan.serial_number).update(status='redeem')
+        return scan
 
 
 class RedeemForm(forms.Form):
@@ -106,6 +107,6 @@ class RedeemForm(forms.Form):
         redeem = Redeem.objects.create(
             user = self.user,
             wallet_type = data['wallet_type'],
-            value = data['value']
+            value = data['nominal_value']
         )
         return redeem

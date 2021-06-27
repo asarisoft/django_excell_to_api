@@ -178,11 +178,11 @@
           balance.reverse().map((bl, index)=>{
             if (index % 2 == 0)
               _html += `<div class="balance-container odd">
-                <div>${bl.credit}</div><div>- ${bl.debit}</div><div>${bl.balance}</div><div onclick='setInfo(${JSON.stringify(bl)})' style='color:green'>Lihat Info</div>
+                <div>+ ${bl.credit}</div><div>- ${bl.debit}</div><div>${bl.balance}</div><div onclick='setInfo(${JSON.stringify(bl)})' style='color:green'>Lihat Info</div>
               </div>`
             else 
               _html += `<div class="balance-container">
-                <div>${bl.credit}</div><div>- ${bl.debit}</div><div>${bl.balance}</div><div onclick='setInfo(${JSON.stringify(bl)})' style='color:green'>Lihat Info</div>
+                <div>+ ${bl.credit}</div><div>- ${bl.debit}</div><div>${bl.balance}</div><div onclick='setInfo(${JSON.stringify(bl)})' style='color:green'>Lihat Info</div>
               </div>`
           })
           $("#balanceHistory").html(_html)
@@ -209,7 +209,6 @@
       data: serializedData,
       success: function (response) {
         $('#ModalCenter').modal('show');
-        document.getElementById("search-form").reset();
       },
       error: function (response) {
         let messageComp = document.getElementById("errorMessage");

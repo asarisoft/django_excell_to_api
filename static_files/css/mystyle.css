@@ -321,6 +321,13 @@
   z-index: 2;
 }
 
+.modal .top-body1 .reward-value {
+  font-weight: bold; 
+  font-size: 20px; 
+  color:green;
+}
+
+
 .modal .top-body1 .image2 {
   position: absolute;
   left: 0;
