@@ -7,5 +7,5 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('log_out/', log_out, name='log_out'),
     path('generate-qrcode/', include('nxp.backoffice.generate_qrcode.urls', namespace='generate_qrcode')),
-    path('formulir/', include('nxp.backoffice.formulir.urls', namespace='formulir')),
+    path('rewards/', include('nxp.backoffice.rewards.urls', namespace='rewards')),
 ]

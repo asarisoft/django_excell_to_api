@@ -4,9 +4,9 @@
 {% load static %}
 {% block content %}
 <section  class="row justify-content-lg-center">
-  <div class="col-sm-12 col-md-6 col-lg-4 content header">
-    <a class="menu"> Scan QR Code </a>
-    <a class="menu"> Redeem Reward </a>
+  <div class="col-sm-12 col-md-6 col-lg-4 content scan-qrcode">
+    <p> Scan Reward QR Code! </p>
+    <img class="infomation-img" src="{% static '/images/information.png' %}" />
   </div>
 </section>
 <section  class="row">
@@ -19,24 +19,24 @@
 <section  class="row " >
   <div class="col-sm-12 col-md-6 col-lg-4 content apreciation">
     <img class="reward-img" src="{% static '/images/reward.png' %}" />
-    <p class="reward-text">Sebagai bentuk apresiasi NXP, kamu <br/> akan mendapatkan voucher dari setiap barcode yang kamu scan.</p>
+    <p class="reward-text">Sebagai bentuk apresiasi NXP, kamu <br/> mendapatkan e-wallet sebesar</p>
   </div>
 </section>
 <section  class="row  " >
   <div class="col-sm-12 col-md-6 col-lg-4 content imageinfowrapper">
-    <!-- <img class="imageinfo" src="{% static '/images/idr.png' %}" /> -->
+    <img class="imageinfo" src="{% static '/images/idr.png' %}" />
     <img class="imageinfo" src="{% static '/images/group_pay.png' %}" />
   </div>
 </section>
 <section  class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content fillcontent">
-    <p>Silahkan mengisi formulir dibawah ini</p>
+    <p>Mohon mengisi formulir dibawah ini</p>
   </div>
 </section>
 
 <section  class="row" >
   <div class="col-sm-12 col-md-6 col-lg-4 content formcontent" >
-    <form class="my-form"  id="formulir-form" method="POST" 
+    <form class="my-form"  id="formulir-form" method="POST" action="{% url 'frontend:index' %}"
       id="main-contact-form" name="contact-form" method="post" action="#">
       {% csrf_token %}
       
@@ -53,22 +53,53 @@
           <a>
         </div>
       </div>
-      <p style="color: rgb(100, 100, 100);">Wajib diisi jika QR-Code untuk dealer (D-XXX)</p>
-      <div class="form-group">
-        <label for="dealer_code">Kode Dealer</label>
-        <input type="text" name="dealer_code" id="dealer_code" placeholder="Kode Dealer" >
-      </div>
       <div class="form-group">
         <label for="product">Produk *</label>
         <input type="text" name="product" id="product" placeholder="Nama Produk" required="required">
       </div>
       <div class="form-group">
         <label for="name">Nama *</label>
-        <input type="text" name="name" id="name" placeholder="Nama" required="required" class="name">
+        <input type="text" name="name" id="name" placeholder="Nama" required="required">
       </div>
       <div class="form-group">
         <label for="mobile_number" >Nomor HP *</label>
         <input type="text" name="mobile_number" id="mobile_number" placeholder="Nomor HP" required="required">
+      </div>
+      <div class="form-group">
+        <label for="olitype" >Jenis Oli *</label>
+        <input type="text" id="olitype" name="oil_type" placeholder="Jenis Oli" required="required">
+      </div>
+
+      <p style="color: rgb(100, 100, 100);">Wajib diisi jika redeem QR-Code untuk dealer (D-XXX)</p>
+      <div class="form-group">
+        <label for="dealer_code">Kode Dealer</label>
+        <input type="text" name="dealer_code" id="dealer_code" placeholder="Kode Dealer" >
+      </div>
+      <div class="row" >
+        <div class="col-sm-6 form-check">
+          <label class="from-check-wrapper">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios1" value="gopay" checked>
+            <img class="payment-img" src="{% static '/images/gopay.png' %}" />
+          </label>
+        </div>
+        <div class="col-sm-6 form-check ">
+          <label class="from-check-wrapper">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios2" value="ovo">
+            <img class="payment-img" src="{% static '/images/ovo.png' %}" />
+          </label>
+        </div>
+        <div class="col-sm-6 form-check ">
+          <label class="from-check-wrapper">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios2" value="dana">
+            <img class="payment-img" src="{% static '/images/dana.png' %}" />
+          </label>
+        </div>
+        <div class="col-sm-6 form-check ">
+          <label class="from-check-wrapper">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios2" value="shopee_pay">
+            <img class="payment-img" src="{% static '/images/shopee.png' %}" />
+          </label>
+        </div>
       </div>
       <div class="form-group">
         <button type="submit" class="btn-submit">Kirim Formulir</button>
@@ -129,22 +160,13 @@
 <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
 <script src="{% static 'js/qrcodereader.js' %}" type="module"></script>
 <script>
-    // on ready
-    jQuery(function () {
-      $("#mobile_number").val(localStorage.getItem("mobileNumber", ""));
-      $("#name").val(localStorage.getItem("userName", ""));
-
-    });
-
     $("#formulir-form").submit(function (e) {
         e.preventDefault();
         var serializedData = $(this).serialize();
-        console.log(serializedData)
-        localStorage.setItem('mobileNumber', $("#mobile_number").val())
-        localStorage.setItem('userName', $("#name").val())
+        console.log(serializedData);
         $.ajax({
             type: 'POST',
-            url: "{% url 'frontend:api_scan' %}",
+            url: "{% url 'frontend:post_formulir' %}",
             data: serializedData,
             success: function (response) {
               $('#ModalCenter').modal('show');

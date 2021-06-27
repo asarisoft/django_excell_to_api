@@ -3,6 +3,9 @@ from .views import *
 
 app_name = "frontend"
 urlpatterns = [
-    path('', index, name='index'),
-    path('post-formulir/', post_formulir, name='post_formulir'),
+    path('', scan, name='scan'),
+    # path('', authenticated_scan, name='authenticated_scan'),
+    # path('redeem/', redeem, name='redeem'),
+    path('api-scan/', api_scan, name='api_scan'),
+    # path('api-redeem/', api_redeem, name='api_redeem'),
 ]

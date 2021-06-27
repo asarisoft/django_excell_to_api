@@ -3,7 +3,6 @@
 {% load templatehelpers %}
 {% block title%} {{ title }} {% endblock %}
 {% block content %}
-{% comment %}<a href="{% url 'backoffice:formulir:add'%}" class="btn btn-primary">Tambah Berita</a> {% endcomment %}
 <div class="box">
     <div class="box-inner">
       <div class="box-title">
@@ -59,62 +58,43 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>Kode Dealer</th>
-            <th>Serial No</th>
-            <th>Produk</th>
-            <th>No HP</th>
+            <th>Name</th>
+            <th>Mobile Number</th>
+            <th>Nominal</th>
             <th>E-Wallet</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
-        {% for formulir in formulirs %}
+        {% for redeem in redeems %}
           <tr>
             <th scope="row">{{ forloop.counter }}</th>
-            <td>{{ formulir.dealer_code }}</td>
-            <td>{{ formulir.serial_number }}</td>
-            <td>{{ formulir.product }}</td>
-            <td>{{ formulir.mobile_number }}</td>
-            <td>{{ formulir.wallet_type }}</td>
-            <td>{{ formulir.status }}</td>
+            <td>{{ redeem.user.product }}</td>
+            <td>{{ redeem.user.mobile_number }}</td>
+            <td>{{ redeem.nominal }}</td>
+            <td>{{ redeem.status }}</td>
           </tr>
         {% endfor %}
         </tbody>
       </table>
-      <!-- <div class="pull-right">
-        <nav aria-label="">
-          <ul class="pagination">
-            {% if formulirs.has_previous %}
-              <li class="page-item"><a class="page-link" href="{% relative_url 1 'page' request.GET.urlencode %}">First</a></li>
-              <li class="page-item"><a class="page-link" href="{% relative_url formulirs.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
-            {% endif %}
-            {% for i in formulirs.paginator.page_range %}
-              <li class="page-item"><a class="page-link {% if formulirs.number == i %}is-active{% endif %}" href="{% relative_url i 'page' request.GET.urlencode %}">{{forloop.counter}}</a></li>
-            {% endfor %}
-            {% if formulirs.has_next %}
-              <li class="page-item"><a class="page-link" href="{% relative_url formulirs.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
-            {% endif %}
-          </ul>
-        </nav>
-      </div> -->
-
+  
       <div class="pull-right">
-        <p>Page {{ formulirs.number }} of {{ formulirs.paginator.num_pages }}</p>
+        <p>Page {{ rdeems.number }} of {{ rdeems.paginator.num_pages }}</p>
         <nav aria-label="">
           <ul class="pagination">
-            {% if formulirs.has_previous %}
+            {% if rdeems.has_previous %}
             <li class="page-item"><a class="page-link" href="{% relative_url 1 'page' request.GET.urlencode %}">First</a>
             </li>
             <li class="page-item"><a class="page-link"
-                href="{% relative_url formulirs.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
+                href="{% relative_url rdeems.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
             {% endif %}
-            <!-- {% for i in formulirs.paginator.page_range %}
-            <li class="page-item"><a class="page-link {% if formulirs.number == i %}is-active{% endif %}"
+            <!-- {% for i in rdeems.paginator.page_range %}
+            <li class="page-item"><a class="page-link {% if rdeems.number == i %}is-active{% endif %}"
                 href="{% relative_url i 'page' request.GET.urlencode %}">{{forloop.counter}}</a></li>
             {% endfor %} -->
-            {% if formulirs.has_next %}
+            {% if rdeems.has_next %}
             <li class="page-item"><a class="page-link"
-                href="{% relative_url formulirs.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
+                href="{% relative_url rdeems.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
             {% endif %}
           </ul>
         </nav>

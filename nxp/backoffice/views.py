@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 
-from nxp.apps.formulir.models import Formulir
+from nxp.apps.reward.models import Redeem
 from nxp.apps.user.decorators import login_validate
 from nxp.backoffice.forms import LoginForm
 
@@ -32,29 +32,14 @@ def log_out(request):
 
 @login_validate
 def index(request):
-    formulirs = Formulir.objects.all()
+    redeems = Redeem.objects.all()
     context = dict(
-        new_count=formulirs.filter(status="new").count(),
-        paid_count=formulirs.filter(status="paid").count(),
-        cancelled_count=formulirs.filter(status="cancelled").count(),
-        ovo_count=formulirs.filter(wallet_type="ovo").count(),
-        gopay_count=formulirs.filter(wallet_type="gopay").count(),
-        dana_count=formulirs.filter(wallet_type="dana").count(),
-        shopee_pay_count=formulirs.filter(wallet_type="shopee_pay").count(),
-    )
-    return TemplateResponse(request, "backoffice/index.html", context)
-
-
-@login_validate
-def index(request):
-    formulirs = Formulir.objects.all()
-    context = dict(
-        new_count=formulirs.filter(status="new").count(),
-        paid_count=formulirs.filter(status="paid").count(),
-        cancelled_count=formulirs.filter(status="cancelled").count(),
-        ovo_count=formulirs.filter(wallet_type="ovo").count(),
-        gopay_count=formulirs.filter(wallet_type="gopay").count(),
-        dana_count=formulirs.filter(wallet_type="dana").count(),
-        shopee_pay_count=formulirs.filter(wallet_type="shopee_pay").count(),
+        new_count=redeems.filter(status="new").count(),
+        paid_count=redeems.filter(status="paid").count(),
+        cancelled_count=redeems.filter(status="cancelled").count(),
+        ovo_count=redeems.filter(wallet_type="ovo").count(),
+        gopay_count=redeems.filter(wallet_type="gopay").count(),
+        dana_count=redeems.filter(wallet_type="dana").count(),
+        shopee_pay_count=redeems.filter(wallet_type="shopee_pay").count(),
     )
     return TemplateResponse(request, "backoffice/index.html", context)

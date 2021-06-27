@@ -18,6 +18,7 @@
   display: block;
   float: none;
 }
+
 .content p {
   color: white;
   margin: 0;
@@ -31,29 +32,46 @@
   font-size: 1.1em;
   margin-bottom: 16px;
 }
+
 .present .thank-you {
   font-size: 1.5em;
   letter-spacing: 1px;
 }
 
-.scan-qrcode {
+.header {
   background-color: #dc1b24;
-  padding: 20px 32px;
+  padding: 16px;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: center;
+  
 }
-.scan-qrcode p {
+
+.header .menu {
   font-weight: 1.4em;
   font-weight: bold;
+  display: block;
+  text-decoration: none;
+  color: white;
+  flex: 1;
+  font-size: 15px;
+  background-color: #e63039;
+  margin-left: 6px;
+  margin-right: 6px;
+  padding: 8px 0;
+  border-radius: 8px;
 }
-.scan-qrcode .infomation-img {
-  position: absolute;
-  right: 16px;
-  top: 16px;
+
+.header .menu:hover{
+  background-color: #cc1c25;
 }
 
 .formcontent {
   background-color: gray;
-  min-height: 650px;
+  min-height: 450px;
   border: none;
 }
 .formcontent form {
@@ -123,9 +141,16 @@
   padding-top: 24px;
   padding-bottom: 24px;
 }
+
 .apreciation .reward-text {
   margin-left: 20px;
   line-height: 1.5em;
+}
+
+.apreciation .reward-img {
+  width: 60px;
+  height: 60px;
+  /* line-height: 1.5em; */
 }
 
 .imageinfowrapper {
@@ -137,7 +162,7 @@
 }
 
 .fillcontent {
-  padding: 24px 0 100px;
+  padding: 0px 0 100px;
   text-align: center;
 }
 .fillcontent p {

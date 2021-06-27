@@ -9,7 +9,7 @@ admin.site.index_title = "Welcome to NXP Admin Portal"
 
 urlpatterns = [
     path('', include('nxp.frontend.urls', namespace='frontend')),
-    path('adminnxp/', admin.site.urls),
+    path('nxp-admin/', admin.site.urls),
     path('backoffice/', include('nxp.backoffice.urls', namespace='backoffice')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

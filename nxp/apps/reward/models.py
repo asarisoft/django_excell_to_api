@@ -1,13 +1,19 @@
 from django.db import models
 
 
-class Formulir(models.Model):
+class Scan(models.Model):
     dealer_code = models.CharField(max_length=100, blank=True, null=True)
     serial_number = models.CharField(max_length=100, blank=True, null=True)
     product = models.CharField(max_length=100, blank=True, null=True)
-    name = models.CharField(max_length=50, blank=True, null=True)
-    mobile_number = models.CharField(max_length=20, blank=True, null=True)
-    oil_type = models.TextField(max_length=50, blank=True, null=True)
+    user = models.ForeignKey('user.User', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.serial_number
+
+    
+class Redeem(models.Model):
+    user = models.ForeignKey('user.User', on_delete=models.CASCADE)
+    nominal = models.IntegerField(default=0)
     TYPE = (
         ('gopay', 'Gopay'),
         ('ovo', 'OVO'),
@@ -21,7 +27,6 @@ class Formulir(models.Model):
         ('cancelled', 'Di Cancel'),
     )
     status = models.CharField(max_length=10, choices=STATUS, default='new')
-
 
     def __str__(self):
         return self.name

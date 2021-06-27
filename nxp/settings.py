@@ -26,18 +26,19 @@ SECRET_KEY = "(xw3qude_s2_=gdc4j)s#d7_ylduuf2&5tb-%d5*2*5eud^uv7"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 APPS = [
-    "nxp.apps.formulir",
+    "nxp.apps.user",
     "nxp.apps.dealer",
-    "nxp.apps.product",
     "nxp.apps.serial_number",
+    "nxp.apps.reward",
 ]
 
 INSTALLED_APPS = [
+    "django.contrib.sites",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -46,7 +47,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_summernote",
     "django.contrib.humanize",
-    "django.contrib.sites",
     "qrcode",
     'sequences.apps.SequencesConfig'
 ] + APPS
@@ -123,11 +123,13 @@ STATICFILES_DIRS = [
 # django summernote
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
+AUTH_USER_MODEL = "user.User" 
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS=100000
+SITE_ID=1 
 
 try:
     from .local_settings import *

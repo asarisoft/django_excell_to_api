@@ -83,8 +83,6 @@ def generate_serial(prefix, num, counter):
             code = "".join([random.choice(string.ascii_uppercase) for i in range(
                 4)])+"-"+"".join([random.choice(string.digits) for i in range(5)])
             exists = code in serials_str
-            print(serials_str)
-            print(exists)
             serial = SerialNumber.objects.filter(serial_number=code).first()
             if not serial and not exists:
                 serials_str.append(code)
