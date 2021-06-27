@@ -9,73 +9,41 @@
     <a class="menu" href="{% url 'frontend:redeem' %}"> Redeem Reward </a>
   </div>
 </section>
-<section  class="row">
+
+<section  class="row" id="information">
   <div class="col-sm-12 col-md-6 col-lg-4 content present">
-    <img class="checklist-img" src="{% static '/images/checklist.png' %}" />
-    <p class="hallo">Hallo Sahabat NXP,</p>
-    <p class="thank-you">Terima kasih sudah <br/> memilih oli NXP sebagai <br/> produk bengkel mu!</p>
+    <p class="identity">Identitas Anda:</p>
+    <p class="name">Imam As Ari</p>
+    <p class="mobile_number">+6287877543295</p>
+    <div class="reward-wrapper">
+      <img class="reward-img" src="{% static '/images/reward.png' %}" />
+      <p class="reward">Rp. 500.000,-</p>
+    </div>
   </div>
 </section>
-<section  class="row " >
-  <div class="col-sm-12 col-md-6 col-lg-4 content apreciation">
-    <img class="reward-img" src="{% static '/images/reward.png' %}" />
-    <p class="reward-text">Sebagai bentuk apresiasi NXP, kamu <br/> akan mendapatkan voucher dari setiap barcode yang kamu scan.</p>
-  </div>
-</section>
-<section  class="row  " >
-  <div class="col-sm-12 col-md-6 col-lg-4 content imageinfowrapper">
-    <!-- <img class="imageinfo" src="{% static '/images/idr.png' %}" /> -->
-    <img class="imageinfo" src="{% static '/images/group_pay.png' %}" />
-  </div>
-</section>
+
 <section  class="row">
-  <div class="col-sm-12 col-md-6 col-lg-4 content fillcontent">
-    <p>Silahkan mengisi formulir dibawah ini</p>
-  </div>
-</section>
-
-<section  class="row" >
-  <div class="col-sm-12 col-md-6 col-lg-4 content formcontent" >
-    <form class="my-form"  id="formulir-form" method="POST" 
-      id="main-contact-form" name="contact-form" method="post" action="#">
+  <div class="col-sm-12 col-md-6 col-lg-4 content search-content">
+    <form class="search-form"  id="formulir-form" method="POST" 
+      id="main-search-form" name="search-form" method="post" action="#">
       {% csrf_token %}
-      
-      <div id="container">
-        <canvas hidden="" id="qr-canvas"></canvas>
-      </div>
-
-      <div class="form-group">
-        <label for="serial_number">QR-Code *</label>
-        <div >
-          <input type="text" name="serial_number" id="serial_number" placeholder="Serial Number" required="required" style="width: 77%; float: left">
-          <a id="btn-scan-qr">
-            <img src="{% static 'images/qr.svg' %}">
-          <a>
-        </div>
-      </div>
-      <p style="color: rgb(100, 100, 100);">Wajib diisi jika QR-Code untuk dealer (D-XXX)</p>
-      <div class="form-group">
-        <label for="dealer_code">Kode Dealer</label>
-        <input type="text" name="dealer_code" id="dealer_code" placeholder="Kode Dealer" >
-      </div>
-      <div class="form-group">
-        <label for="product">Produk *</label>
-        <input type="text" name="product" id="product" placeholder="Nama Produk" required="required">
-      </div>
-      <div class="form-group">
-        <label for="name">Nama *</label>
-        <input type="text" name="name" id="name" placeholder="Nama" required="required" class="name">
-      </div>
-      <div class="form-group">
-        <label for="mobile_number" >Nomor HP *</label>
+      <p class="mobile_label">Masukkan Nomor HP Anda</p>
+      <div class="form-group" style="display: flex; flex-direction: row; justify-content: space-between;">
+        <label for="mobile_number" ></label>
         <input type="text" name="mobile_number" id="mobile_number" placeholder="Nomor HP" required="required">
+        <button type="button" id="searchButton" class="search-button"><i class="fa fa-search"></i></button>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn-submit">Kirim Formulir</button>
+        <label for="nominal" ></label>
+        <input type="text" name="nominal" id="nominal" placeholder="Nomor HP" required="required">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn-submit">Cari Data</button>
       </div>
     </form>
   </div>
 </section>
+
 
 <section  class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content privasi">

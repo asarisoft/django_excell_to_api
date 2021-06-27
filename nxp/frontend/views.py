@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.template.response import TemplateResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ScanForm
+from nxp.apps.reward.models import Scan, Redeem
 
 
 def scan(request):
@@ -12,12 +13,12 @@ def scan(request):
     return TemplateResponse(request, "frontend/index.html", context)
 
 
-# def redeem(request):
-#     form = RedeemForm(data=request.POST or None)
-#     context = {
-#         "form": form,
-#     }
-#     return TemplateResponse(request, "frontend/index.html", context)
+def redeem(request):
+    form = ScanForm(data=request.POST or None)
+    context = {
+        "form": form,
+    }
+    return TemplateResponse(request, "frontend/redeem.html", context)
 
 @csrf_exempt
 def api_scan(request):
@@ -29,6 +30,18 @@ def api_scan(request):
         else:
             return JsonResponse(form.errors, status=400)
     return JsonResponse({"error": "error gk jelas hehe"}, status=400)
+
+@csrf_exempt
+def get_information(request):
+    if request.is_ajax and request.method == "POST":
+        mobile_number = request.POST.get("mobile_number", "")
+        user = User.objects.filter(mobilr_number=mobile_number).first()
+        if not user:
+            return JsonResponse({"error": "User tidak ditemukan"}, status=400)
+
+    
+    return JsonResponse({"error": "User Tidak Dietmukan"}, status=400)
+        
 
 
 # @csrf_exempt

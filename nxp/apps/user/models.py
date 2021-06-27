@@ -41,6 +41,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'user'
         verbose_name_plural = 'users'
 
+    def __str__(self):
+        return '%s - %s' % (self.username, self.name)
+
     def __unicode__(self):
         return '%s - %s' % (self.username, self.name)
 

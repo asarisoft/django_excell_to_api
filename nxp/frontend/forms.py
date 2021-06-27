@@ -12,14 +12,20 @@ class ScanForm(forms.Form):
     product = forms.CharField()
     mobile_number = forms.CharField()
     name = forms.CharField()
+
+    def __init__(self, *args, **kwargs):
+        super(ScanForm, self).__init__(*args, **kwargs)
+        self.serial_number = 0
     
     def clean_serial_number(self):
         serial_number = self.cleaned_data.get("serial_number", False)
-        serial = SerialNumber.objects.filter(serial_number=serial_number)
-        if not serial.first():
+        serial = SerialNumber.objects.filter(serial_number=serial_number).first()
+        if not serial:
             raise forms.ValidationError("Serial Number tidak ditemukan")
-        elif serial.first().status == 'redeem':
+        elif serial.status == 'redeem':
             raise forms.ValidationError("Serial Number sudah digunakan")
+        
+        self.serial_number = serial
         return serial_number
 
     def clean_dealer_code(self):
@@ -50,7 +56,7 @@ class ScanForm(forms.Form):
                 "name" : data['name'],
             }
         )
-        scan = Scan(serial_number=data['serial_number'], dealer_code=data['dealer_code'],
+        scan = Scan(serial_number=self.serial_number, dealer_code=data['dealer_code'],
             product=data['product'], user=user)
         scan.save()
         SerialNumber.objects.filter(

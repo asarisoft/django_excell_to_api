@@ -28,14 +28,55 @@
   width: 35px;
   margin: 20px 0 16px;
 }
+
 .present .hallo {
   font-size: 1.1em;
   margin-bottom: 16px;
 }
 
+.present .identity {
+  font-size: 1.1em;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.present .name {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.present .mobile_number {
+  text-align: center;
+}
+
+.present .reward-wrapper {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.present .reward-wrapper .reward {
+  font-size: 2em;
+  font-weight: bold;
+  margin-left: 16px;
+}
+
 .present .thank-you {
   font-size: 1.5em;
   letter-spacing: 1px;
+}
+
+.search-content {
+
+}
+
+.search-content .mobile_label {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 8px;
+  margin-top: 32px;
 }
 
 .header {
@@ -118,10 +159,36 @@
   margin-top: 40px;
   font-size: 1.2em;
 }
-.formcontent .fl-input {
+
+.search-form .btn-submit{
+  background-color: white;
+  color: #eb1b24;
+  border-radius: 30px;
+  padding: 16px 16px;
+  border: none;
+  margin: 0 auto;
+  display: block;
+  min-width: 250px;
+  font-size: 1.2em;
+}
+
+.formcontent .fl-wrap, .search-form .fl-wrap {
+  flex: 1;
+}
+
+.formcontent .fl-input, .search-form .fl-input {
   margin-bottom: 6px !important;
   padding: 8px;
 }
+
+.search-form .search-button{
+  background-color: white;
+  width: 10%; 
+  height: 49px; 
+  color: #eb1b24; 
+  border: none;
+}
+
 
 .privasi {
   background-color: gray;
