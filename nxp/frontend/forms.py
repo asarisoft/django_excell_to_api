@@ -65,33 +65,40 @@ class ScanForm(forms.Form):
 
 class RedeemForm(forms.Form):
     mobile_number = forms.CharField()
-    value = forms.IntegerField()
+    nominal_value = forms.IntegerField()
     wallet_type = forms.CharField()
 
     def __init__(self, *args, **kwargs):
         super(RedeemForm, self).__init__(*args, **kwargs)
         self.user = None
     
-    def clean_value(self):
-        value = self.cleaned_data.get("value", False)
-        if value < 10000:
-            raise forms.ValidationError("Minimal Redeem Rp. 10.0000")
-        return value
+    def clean_nominal_value(self):
+        nominal_value = self.cleaned_data['nominal_value']
+        if nominal_value < 10000:
+            raise forms.ValidationError("Nominal minimal Rp. 10.000")
+        
+        if not (nominal_value % 1000 == 0):
+            raise forms.ValidationError("Nominal harus kelipatan 1.000")
+        return nominal_value
+
 
     def clean(self):
         cleaned_data = super(RedeemForm, self).clean()
-        value = cleaned_data['value']
+        if self.errors:
+            return cleaned_data
+
+        nominal_value = self.cleaned_data['nominal_value']
         self.user = User.objects.filter(
-            mobile_number = cleaned_data['mobile_number'],
+            mobile_number = self.cleaned_data['mobile_number'],
         ).first()
 
         if not self.user:
             raise forms.ValidationError("User tidak ditemukan")
 
         balance = Balance.objects.filter(user=self.user).order_by('-id').first()
-        if balance.balance < value:
+        if balance.balance < nominal_value:
             raise forms.ValidationError("Saldo anda tidak cukup")
-
+        
         return cleaned_data
 
     def save(self):

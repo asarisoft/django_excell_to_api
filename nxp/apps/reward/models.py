@@ -17,7 +17,7 @@ class Scan(models.Model):
             "id" : self.id,
             "dealer_code" : self.dealer_code,
             "serial_number" : self.serial_number.serial_number,
-            "value" : self.serial_number.value,
+            "value" : f'{self.serial_number.value:,}'.replace(',','.'),
             "product" : self.product,
             "user" : self.user.name
         }
@@ -30,7 +30,8 @@ class Scan(models.Model):
             user=self.user,
             defaults={
                 "credit": self.serial_number.value,  
-                "type": "credit"
+                "type": "credit",
+                "status": "success"
             }
         )
 
@@ -59,7 +60,7 @@ class Redeem(models.Model):
             "id" : self.id,
             "user" : self.user.name,
             "wallet_type" : self.wallet_type,
-            "value" : self.value,
+            "value" : f'{self.value:,}'.replace(',','.'),
             "status" : self.get_status_display()
         }
 
@@ -109,9 +110,9 @@ class Balance(models.Model):
         return  {
             "user" : self.datetime,
             "type" : self.type,
-            "credit" : self.credit,
-            "debit" : self.debit,
-            "balance" : self.balance,
+            "credit" : f'{self.credit:,}'.replace(',','.'),
+            "debit" : f'{self.debit:,}'.replace(',','.'),
+            "balance" : f'{self.balance:,}'.replace(',','.'),
             "user" : self.user.name,
             "status" : self.get_status_display(),
             "info": info,

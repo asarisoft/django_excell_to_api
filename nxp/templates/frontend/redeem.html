@@ -31,9 +31,10 @@
         <input type="text" name="mobile_number" id="mobile_number" placeholder="Nomor HP" required="required">
         <button type="button" id="searchButton" class="search-button"><i class="fa fa-search"></i></button>
       </div>
+
       <div class="form-group">
-        <label for="value"></label>
-        <input type="text" name="value" id="value" placeholder="Nominal" required="required" hidden>
+        <label for="nominal_value"></label>
+        <input type="number" name="nominal_value" id="nominal_value" placeholder="Nominal" required="required" hidden>
       </div>
 
       <div class="row wallet-type" id="walletType" hidden  >
@@ -133,17 +134,19 @@
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
-  function setInfo(data) {
+  function setInfo(redeem) {
+    data = redeem.info
     serial_number = data.serial_number;
     let _body = `<img class="image1" src="{% static '/images/icon_big.png' %}" />`
     if (serial_number){
       _body += `<p class='body-text first'>SCAN QRCODE</p>`; 
       _body += `<p class='body-text '>Code : ${data.serial_number}</p>`;    
-      _body += `<p class='body-text '>Nominal : ${data.value}</p>`; 
+      _body += `<p class='body-text '>Nominal : ${data.value}</p>`;
+      _body += `<p class='body-text '>Status Transaksi : ${redeem.status}</p>`; 
     } else {
       _body += `<p class='body-text first'>REDEEM REWARDS</p>`;    
       _body += `<p class='body-text '>Nominal : ${data.value}</p>`;
-      _body += `<p class='body-text '>Status : ${data.status}</p>`;
+      _body += `<p class='body-text '>Status Transaksi : ${redeem.status}</p>`;
     } 
     $("#successBody").html(_body); 
     $('#ModalCenter').modal('show');
@@ -166,7 +169,7 @@
           $(".mobile_number").html(response.data.user.mobile_number)
           $(".reward").html(`Rp. ${numberWithCommas(response?.data?.balance[0]?.balance)}.-`)
           $("#information").show()
-          $("#value").show()
+          $("#nominal_value").show()
           $("#btnRedeem").show()
           $("#balanceInfo").show()
           $("#walletType").show()
@@ -175,11 +178,11 @@
           balance.reverse().map((bl, index)=>{
             if (index % 2 == 0)
               _html += `<div class="balance-container odd">
-                <div>${bl.credit}</div><div>- ${bl.debit}</div><div>${bl.balance}</div><div onclick='setInfo(${JSON.stringify(bl.info)})'>Lihat Info</div>
+                <div>${bl.credit}</div><div>- ${bl.debit}</div><div>${bl.balance}</div><div onclick='setInfo(${JSON.stringify(bl)})' style='color:green'>Lihat Info</div>
               </div>`
             else 
               _html += `<div class="balance-container">
-                <div>${bl.credit}</div><div>- ${bl.debit}</div><div>${bl.balance}</div><div onclick='setInfo(${JSON.stringify(bl.info)})'>Lihat Info</div>
+                <div>${bl.credit}</div><div>- ${bl.debit}</div><div>${bl.balance}</div><div onclick='setInfo(${JSON.stringify(bl)})' style='color:green'>Lihat Info</div>
               </div>`
           })
           $("#balanceHistory").html(_html)
@@ -187,7 +190,7 @@
         error: function (response) {
           console.log(response)
           $("#information").hide()
-          $("#value").hide()
+          $("#nominal_value").hide()
           $("#btnRedeem").hide()
           $("#balanceInfo").hide()
           $("#walletType").hide()
@@ -205,7 +208,6 @@
       url: "{% url 'frontend:api_redeem' %}",
       data: serializedData,
       success: function (response) {
-        console.log(response)
         $('#ModalCenter').modal('show');
         document.getElementById("search-form").reset();
       },

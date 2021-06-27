@@ -216,7 +216,7 @@
 
 .table-wrapper .balance-container div {
   padding: 6px 2px;
-  border-bottom: 0.5px solid gray;
+  border-bottom: 0.5px solid rgb(151, 149, 149);
 }
 
 .table-wrapper .balance-container.odd div {
