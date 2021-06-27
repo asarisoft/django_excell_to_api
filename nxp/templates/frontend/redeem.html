@@ -98,9 +98,8 @@
 <div class="modal fade" id="ModalCenter">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-body top-body1">
-        <img class="image1" src="{% static '/images/icon_big.png' %}" />
-        <!-- <img class="image2" src="{% static '/images/reward_green.png' %}" /> -->
+      <div class="modal-body top-body1" id="successBody">
+        
       </div>
 
       <div class="modal-body bottom-body">
@@ -135,7 +134,19 @@
   }
 
   function setInfo(data) {
-    console.log(data)
+    serial_number = data.serial_number;
+    let _body = `<img class="image1" src="{% static '/images/icon_big.png' %}" />`
+    if (serial_number){
+      _body += `<p class='body-text first'>SCAN QRCODE</p>`; 
+      _body += `<p class='body-text '>Code : ${data.serial_number}</p>`;    
+      _body += `<p class='body-text '>Nominal : ${data.value}</p>`; 
+    } else {
+      _body += `<p class='body-text first'>REDEEM REWARDS</p>`;    
+      _body += `<p class='body-text '>Nominal : ${data.value}</p>`;
+      _body += `<p class='body-text '>Status : ${data.status}</p>`;
+    } 
+    $("#successBody").html(_body); 
+    $('#ModalCenter').modal('show');
   }
 
   jQuery(function () {
