@@ -57,8 +57,20 @@ def api_redeem(request):
     if request.is_ajax and request.method == "POST":
         form = RedeemForm(request.POST)
         if form.is_valid():
-            form.save()
-            return JsonResponse({"message": "Transaksi berhasil"}, status=200)
+            redeem = form.save()
+            mobile_number = request.POST.get("mobile_number", "")
+            user = User.objects.filter(mobile_number=mobile_number).first()
+            balances = (Balance.objects.filter(user=user)
+                .select_related('redeem').select_related('scan').order_by('-id')[0:20]
+            )
+            response = {
+                'user': user.serialize(),
+                'balance': [balance.serialize() for balance in balances],
+            }
+            return JsonResponse({
+                "message": "Transaksi berhasil",
+                "data": response
+            }, status=200)
         else:
             return JsonResponse(form.errors, status=400)
     return JsonResponse({"error": "Need Request Post and AJAX"}, status=400)

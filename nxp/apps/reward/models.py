@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from .models import *
 
 
@@ -51,6 +52,7 @@ class Redeem(models.Model):
     )
     status = models.CharField(max_length=10, choices=STATUS, default='new')
     value = models.IntegerField(default=0)
+    datetime = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return "%s" % self.user
@@ -58,8 +60,9 @@ class Redeem(models.Model):
     def serialize(self):
         return  {
             "id" : self.id,
+            "datetime" : self.datetime.strftime("%d-%m-%Y (%H:%M)"),
             "user" : self.user.name,
-            "wallet_type" : self.wallet_type,
+            "wallet_type" : self.get_wallet_type_display(),
             "value" : f'{self.value:,}'.replace(',','.'),
             "status" : self.get_status_display()
         }
@@ -127,5 +130,3 @@ class Balance(models.Model):
             self.balance = last_balance - self.debit
         
         super(Balance, self).save(*args, **kwargs)
-
-        

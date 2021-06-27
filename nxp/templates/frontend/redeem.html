@@ -23,7 +23,7 @@
 
 <section class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content search-content">
-    <form class="search-form" method="POST" id="main-search-form" name="search-form" action=""  >
+    <form class="search-form" method="POST" id="main-search-form" name="search-form" action="">
       {% csrf_token %}
       <p class="mobile_label">Masukkan Nomor HP Anda</p>
       <div class="form-group" style="display: flex; flex-direction: row; justify-content: space-between;">
@@ -37,8 +37,8 @@
         <input type="number" name="nominal_value" id="nominal_value" placeholder="Nominal" required="required" hidden>
       </div>
 
-      <div class="row wallet-type" id="walletType" hidden  >
-        <div class="col-sm-6 form-check" >
+      <div class="row wallet-type" id="walletType" hidden>
+        <div class="col-sm-6 form-check">
           <label class="from-check-wrapper">
             <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios1" value="gopay" checked>
             <img class="payment-img" src="{% static '/images/gopay.png' %}" />
@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="form-group" hidden id="btnRedeem">
-        <button type="submit" class="btn-submit" >Redeem</button>
+        <button type="submit" class="btn-submit">Redeem</button>
       </div>
     </form>
   </div>
@@ -74,7 +74,11 @@
   <div class="col-sm-12 col-md-6 col-lg-4 content table-wrapper">
     <h5>REKENING SALDO</h5>
     <div class="balance-container">
-      <div>Kredit</div> <div>Debit</div> <div>Saldo</div> <div>Info</div>
+      <div>Kredit</div>
+      <div>Debit</div>
+      <div>Saldo</div>
+      <div>Status</div>
+      <div>Info</div>
     </div>
     <div id="balanceHistory"></div>
   </div>
@@ -100,7 +104,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body top-body1" id="successBody">
-        
+
       </div>
 
       <div class="modal-body bottom-body">
@@ -134,80 +138,94 @@
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
+  // SET INFO ON EVERY ROW
   function setInfo(redeem) {
     data = redeem.info
     serial_number = data.serial_number;
     let _body = `<img class="image1" src="{% static '/images/icon_big.png' %}" />`
-    if (serial_number){
-      _body += `<p class='body-text first'>SCAN QRCODE</p>`; 
-      _body += `<p class='body-text '>Code : ${data.serial_number}</p>`;    
-      _body += `<p class='body-text '>Nominal : ${data.value}</p>`;
-      _body += `<p class='body-text '>Status Transaksi : ${redeem.status}</p>`; 
-    } else {
-      _body += `<p class='body-text first'>REDEEM REWARDS</p>`;    
+    if (serial_number) {
+      _body += `<p class='body-text first'>SCAN QRCODE</p>`;
+      _body += `<p class='body-text '>Code : ${data.serial_number}</p>`;
       _body += `<p class='body-text '>Nominal : ${data.value}</p>`;
       _body += `<p class='body-text '>Status Transaksi : ${redeem.status}</p>`;
-    } 
-    $("#successBody").html(_body); 
+    } else {
+      _body += `<p class='body-text first'>REDEEM REWARDS</p>`;
+      _body += `<p class='body-text '>Tanggal : ${data.datetime}</p>`;
+      _body += `<p class='body-text '>Nominal : ${data.value}</p>`;
+      _body += `<p class='body-text '>Wallet : ${data.wallet_type}</p>`;
+      _body += `<p class='body-text '>Status Transaksi : ${redeem.status}</p>`;
+    }
+    $("#successBody").html(_body);
     $('#ModalCenter').modal('show');
   }
 
-  jQuery(function () {
-    const userData = null;
-    $("#mobile_number").val(localStorage.getItem("mobileNumber", ""));
-    $("#searchButton").on('click', function () {
-      const mobile_number = $("#mobile_number").val();
-      $.ajax({
-        type: 'POST',
-        url: "{% url 'frontend:get_information' %}",
-        data: {
-          mobile_number: mobile_number
-        },
-        success: function (response) {
-          console.log(response)
-          $(".name").html(response.data.user.name)
-          $(".mobile_number").html(response.data.user.mobile_number)
-          $(".reward").html(`Rp. ${numberWithCommas(response?.data?.balance[0]?.balance)}.-`)
-          $("#information").show()
-          $("#nominal_value").show()
-          $("#btnRedeem").show()
-          $("#balanceInfo").show()
-          $("#walletType").show()
-          const balance = response.data.balance
-          var _html = "";
-          balance.reverse().map((bl, index)=>{
-            if (index % 2 == 0)
-              _html += `<div class="balance-container odd">
-                <div>+ ${bl.credit}</div><div>- ${bl.debit}</div><div>${bl.balance}</div><div onclick='setInfo(${JSON.stringify(bl)})' style='color:green'>Lihat Info</div>
-              </div>`
-            else 
-              _html += `<div class="balance-container">
-                <div>+ ${bl.credit}</div><div>- ${bl.debit}</div><div>${bl.balance}</div><div onclick='setInfo(${JSON.stringify(bl)})' style='color:green'>Lihat Info</div>
-              </div>`
-          })
-          $("#balanceHistory").html(_html)
-        },
-        error: function (response) {
-          console.log(response)
-          $("#information").hide()
-          $("#nominal_value").hide()
-          $("#btnRedeem").hide()
-          $("#balanceInfo").hide()
-          $("#walletType").hide()
-        }
-      });
+  // RENDER DATA
+  function renderData(response) {
+    $(".name").html(response.data.user.name)
+    $(".mobile_number").html(response.data.user.mobile_number)
+    $(".reward").html(`Rp. ${numberWithCommas(response?.data?.balance[0]?.balance)}.-`)
+    $("#information").show()
+    $("#nominal_value").show()
+    $("#btnRedeem").show()
+    $("#balanceInfo").show()
+    $("#walletType").show()
+    const balance = response.data.balance
+    var _html = "";
+    balance.reverse().map((bl, index) => {
+      _html += `<div class="balance-container ${index % 2 == 0 ? 'odd' : ''}">
+        <div>+ ${bl.credit}</div>
+        <div>- ${bl.debit}</div>
+        <div>${bl.balance}</div>
+        <div>${bl.status}</div>
+        <div onclick='setInfo(${JSON.stringify(bl)})' style='color:green'>Info</div>
+      </div>`;
+    });
+    $("#balanceHistory").html(_html);
+  }
+
+  // GET INFORMATION
+  const userData = null;
+  $("#mobile_number").val(localStorage.getItem("mobileNumber", ""));
+  $("#searchButton").on('click', function () {
+    const mobile_number = $("#mobile_number").val();
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'frontend:get_information' %}",
+      data: {
+        mobile_number: mobile_number
+      },
+      success: function (response) {
+        renderData(response)
+      },
+      error: function (response) {
+        console.log(response)
+        $("#information").hide()
+        $("#nominal_value").hide()
+        $("#btnRedeem").hide()
+        $("#balanceInfo").hide()
+        $("#walletType").hide()
+      }
     });
   });
 
+  // SUBMIT REDEEM
   $("#main-search-form").submit(function (e) {
     e.preventDefault();
     var serializedData = $(this).serialize();
-    console.log(serializedData)
     $.ajax({
       type: 'POST',
       url: "{% url 'frontend:api_redeem' %}",
       data: serializedData,
       success: function (response) {
+        renderData(response)
+
+        $("#nominal_value").val('')
+
+        // show modal
+        let _body = `<img class="image1" src="{% static '/images/icon_big.png' %}" />`
+        _body += `<p class='body-text first'>SELAMAT</p>`;
+        _body += `<p class='body-text '>Transaksi Anda Berhasil</p>`;
+        $("#successBody").html(_body);
         $('#ModalCenter').modal('show');
       },
       error: function (response) {
@@ -229,6 +247,7 @@
     });
   });
 
+  // IMASK FONT NUMBER
   var element = document.getElementById('mobile_number');
   var maskOptions = {
     mask: '+620000000000000'
