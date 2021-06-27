@@ -13,6 +13,7 @@ def redeem(request):
     search = request.GET.get("search", "")
     if search:
         redeems = redeems.filter(Q(user__name__icontains=search) | Q(user__mobile_number__icontains=search))
+
     ewallet = request.GET.get("ewallet")
     if ewallet:
         redeems = redeems.filter(wallet_type=ewallet)
@@ -41,7 +42,7 @@ def redeem(request):
         "paid_count": paid_count,
         "cancel_count": cancel_count,
     }
-    return TemplateResponse(request, "backoffice/formulir/index.html", context)
+    return TemplateResponse(request, "backoffice/rewards/index.html", context)
 
 
 # @login_validate
