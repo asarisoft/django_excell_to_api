@@ -11,7 +11,7 @@
     </div>
     <div class="box-title">
       <label>GENERATE</label>
-      <form method="GET" action="{% url 'backoffice:generate_qrcode:generate'%}" id="form1">
+      <form method="POST" action="" id="form1">
         <div class="row">
           <div class="col-sm-2">
             <div class="input-group">
@@ -29,10 +29,10 @@
             </div>
 
             <div class="col-sm-2">
-              <button type="submit" id="btn-search-fix-h" class="btn btn-primary" 
-                data-toggle="tooltip" data-placement="top" title="1x generate untuk 60 QR-Code">
-                GENERATE
-              </button>
+              <input type="submit" id="btn-search-fix-h" class="btn btn-primary" 
+                data-toggle="tooltip" data-placement="top" title="1x generate untuk 60 QR-Code" value="GENERATE">
+                
+              </input>
             </div>
 
             <div class="col-sm-4">
@@ -128,6 +128,7 @@
           <th>No</th>
           <th>Serial</th>
           <th>Tipe</th>
+          <th>Value</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -136,6 +137,7 @@
         <tr>
           <th scope="row">{{serial.order}}</th>
           <td>{{ serial.serial_number }}</td>
+          <td>{{ serial.value }}</td>
           <td>{{ serial.type }}</td>
           <td>{{ serial.status }}</td>
         </tr>
@@ -186,7 +188,7 @@
       });
       e.preventDefault();
       var form = $(this);
-      var url = form.attr('action');
+      var url = "{% url 'backoffice:generate_qrcode:generate'%}";
       const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
       console.log(csrftoken)
       $.ajax({

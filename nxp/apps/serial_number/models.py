@@ -17,7 +17,7 @@ class SerialNumber(models.Model):
     )
     type = models.CharField(max_length=10, choices=STATUS, default='new')
     order = models.IntegerField(blank=True, null=True)
-    value = models.IntegerField(default=10000)
+    value = models.IntegerField(default=400)
     
     def __str__(self):
         return self.serial_number

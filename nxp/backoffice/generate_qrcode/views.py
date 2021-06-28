@@ -77,6 +77,11 @@ def index(request):
 def generate_serial(prefix, num, counter):
     serials = []
     serials_str = []
+    rp1000 = [1000] * int (0.03 * num)
+    rp500 = [500] * int (0.04 * num)
+    rp400 = [400] * int (0.93 * num)
+    list_value = rp1000 + rp500 + rp400
+
     for _ in range(num):
         duplicate = True
         while duplicate:
@@ -90,15 +95,16 @@ def generate_serial(prefix, num, counter):
 
         code = f"{prefix}-"+code
         serial = SerialNumber(
-            serial_number=code, type=prefix, order=get_next_value("order"))
+            serial_number=code, type=prefix, order=get_next_value("order"), value=list_value.pop())
         serials.append(serial)
-        print(serials)
     SerialNumber.objects.bulk_create(serials)
 
 
 def generate(request):
     urutan = request.POST.get('urutan')
     amount = request.POST.get('amount', 0)
+    if not int(amount) % 100 == 0:
+        return JsonResponse({"status": "Jumlah harus kelipatan 100"}, safe=False, status=400)
     _type = request.POST.get('type')
     with transaction.atomic():
         generate_serial(_type, int(amount), urutan)
