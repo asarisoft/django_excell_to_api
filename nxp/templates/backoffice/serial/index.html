@@ -20,18 +20,8 @@
             </div>
 
             <div class="col-sm-2">
-              <div class="input-group">
-                <select class="form-control" name="type">
-                  <option value="U" selected>User</option>
-                  <option value="D">Dealer</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="col-sm-2">
               <input type="submit" id="btn-search-fix-h" class="btn btn-primary" 
                 data-toggle="tooltip" data-placement="top" title="1x generate untuk 60 QR-Code" value="GENERATE">
-                
               </input>
             </div>
 
@@ -127,7 +117,6 @@
         <tr>
           <th>No</th>
           <th>Serial</th>
-          <th>Tipe</th>
           <th>Value</th>
           <th>Status</th>
         </tr>
@@ -138,7 +127,6 @@
           <th scope="row">{{serial.order}}</th>
           <td>{{ serial.serial_number }}</td>
           <td>{{ serial.value }}</td>
-          <td>{{ serial.type }}</td>
           <td>{{ serial.status }}</td>
         </tr>
         {% endfor %}
@@ -203,10 +191,9 @@
           window.location.reload();
           $('#content').loading('stop');
         },
-        error: function (xhr, status, error) {
-          console.log(xhr, status, error)
+        error: function (error) {
           $('#content').loading('stop');
-          alert("something went wrong")
+          alert(error.responseText);
         }
       });
     })

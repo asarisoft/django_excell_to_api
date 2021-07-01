@@ -74,7 +74,7 @@ def index(request):
     return TemplateResponse(request, "backoffice/serial/index.html", context)
 
 
-def generate_serial(prefix, num, counter):
+def generate_serial(num):
     serials = []
     serials_str = []
     rp1000 = [1000] * int (0.03 * num)
@@ -85,29 +85,26 @@ def generate_serial(prefix, num, counter):
     for _ in range(num):
         duplicate = True
         while duplicate:
-            code = "".join([random.choice(string.ascii_uppercase) for i in range(
-                4)])+"-"+"".join([random.choice(string.digits) for i in range(5)])
+            code = "".join([random.choice(string.ascii_uppercase + string.digits) for i in range(
+                10)])
             exists = code in serials_str
             serial = SerialNumber.objects.filter(serial_number=code).first()
             if not serial and not exists:
                 serials_str.append(code)
                 duplicate = False
-
-        code = f"{prefix}-"+code
         serial = SerialNumber(
-            serial_number=code, type=prefix, order=get_next_value("order"), value=list_value.pop())
+            serial_number=code, order=get_next_value("order"), value=list_value.pop())
         serials.append(serial)
     SerialNumber.objects.bulk_create(serials)
 
 
 def generate(request):
-    urutan = request.POST.get('urutan')
     amount = request.POST.get('amount', 0)
     if not int(amount) % 100 == 0:
         return JsonResponse({"status": "Jumlah harus kelipatan 100"}, safe=False, status=400)
     _type = request.POST.get('type')
     with transaction.atomic():
-        generate_serial(_type, int(amount), urutan)
+        generate_serial(int(amount))
     return JsonResponse({"status": "OK"}, safe=False)
 
 

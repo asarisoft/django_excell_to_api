@@ -15,7 +15,7 @@ class SerialNumber(models.Model):
         ('U', 'U'), #user
         ('D', 'D'), #dealer
     )
-    type = models.CharField(max_length=10, choices=STATUS, default='new')
+    type = models.CharField(max_length=10, choices=TYPE, default='U')
     order = models.IntegerField(blank=True, null=True)
     value = models.IntegerField(default=400)
     
