@@ -28,23 +28,23 @@ class ScanForm(forms.Form):
         self.serial_number = serial
         return serial_number
 
-    def clean_dealer_code(self):
-        code = self.cleaned_data.get("dealer_code", False)
-        if code and not Dealer.objects.filter(code=code).first():
-            raise forms.ValidationError("Kode Dealer tidak ditemukan")
-        return code
+    # def clean_dealer_code(self):
+    #     code = self.cleaned_data.get("dealer_code", False)
+    #     if code and not Dealer.objects.filter(code=code).first():
+    #         raise forms.ValidationError("Kode Dealer tidak ditemukan")
+    #     return code
 
     def clean(self):
         cleaned_data = super(ScanForm, self).clean()
         if self.errors:
             return cleaned_data
-        serial_number = self.cleaned_data['serial_number']
-        dealer_code = self.cleaned_data['dealer_code']
-        if serial_number[0].lower() == 'd':
-            if not dealer_code:
-                raise forms.ValidationError("Kode dealer wajib diisi untuk qrcode ini")
-            elif not Dealer.objects.filter(code=dealer_code).first():
-                raise forms.ValidationError("Kode Dealer tidak ditemukan")
+        # serial_number = self.cleaned_data['serial_number']
+        # dealer_code = self.cleaned_data['dealer_code']
+        # if serial_number[0].lower() == 'd':
+        #     if not dealer_code:
+        #         raise forms.ValidationError("Kode dealer wajib diisi untuk qrcode ini")
+        #     elif not Dealer.objects.filter(code=dealer_code).first():
+        #         raise forms.ValidationError("Kode Dealer tidak ditemukan")
         return cleaned_data
 
     def save(self):
