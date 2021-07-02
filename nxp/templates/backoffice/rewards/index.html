@@ -69,9 +69,9 @@
         <tbody>
         {% for redeem in redeems %}
           <tr>
-            <th scope="row">{{ forloop.counter }}</th>
-            <td>{{ redeem.user.name }}</td>
-            <td>{{ redeem.dealer_code }}</td>
+            <th scope="row"><a href="{% url 'backoffice:rewards:redeem_detail' redeem.id %}"> {{ forloop.counter }}</a></th>
+            <td><a href="{% url 'backoffice:rewards:redeem_detail' redeem.id %}"> {{ redeem.user.name }} </a></td>
+            <td>{{ redeem.dealer_code }} </td>
             <td>{{ redeem.user.mobile_number }}</td>
             <td>{{ redeem.value }}</td>
             <td>{{ redeem.get_wallet_type_display }}</td>

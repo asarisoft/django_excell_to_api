@@ -1,6 +1,10 @@
+a{
+    color: green;
+}
+
 a:hover {
     text-decoration: none !important;
-    color: gray !important;
+    color: red !important;
 }
 
 .action {
