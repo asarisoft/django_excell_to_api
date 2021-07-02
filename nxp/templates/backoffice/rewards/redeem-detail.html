@@ -1,0 +1,38 @@
+{% extends 'backoffice/base.html' %}
+{% load static %}
+{% block title%} {{ title }} {% endblock %}
+{% block content %}
+{% load humanize %}
+<div class="box margin-top-profile">
+    <div class="profile__content">
+        <div class="profile__bio">
+            <div class="my-sep1">
+                <span>
+                    {{ redeem.user.name }}
+                </span>
+            </div>
+            <h3 class="profile__name">Rp. {{ redeem.value|intcomma }}</h3>
+            <p>{{ redeem.user.mobile_number }} - {{ redeem.get_status_display }} - {{ redeem.get_wallet_type_display }}</p>
+            <hr>
+            <div class="overview align-left">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <ul>
+                            <li><strong>e-Wallet</strong><span>{{ redeem.get_wallet_type_display }}</span></li>
+                            <li><strong>Mobile Number</strong><span>{{ redeem.user.mobile_number | default:'-' }}</span></li>
+                            <li><strong>Dealar Code</strong><span>{{ redeem.dealer_code | default:'-' }}</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <ul>
+                            <li><strong>Status</strong><span>{{ redeem.get_status_display | default:'-' }}</span></li>
+                            <li><strong>Redeem Date</strong><span>{{ redeem.datetime | default:'-' }}</span></li>
+                            <li><strong>Paid Date</strong><span>{{ redeem.paid_datetime | default:'-' }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

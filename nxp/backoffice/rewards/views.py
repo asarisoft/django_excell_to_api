@@ -68,3 +68,11 @@ def transactions(request):
         "filter": {"search": search},
     }
     return TemplateResponse(request, "backoffice/rewards/transactions.html", context)
+
+@login_validate
+def redeem_detail(request, id):
+    redeem = Redeem.objects.get(id=id)
+    context = {
+        "redeem": redeem,
+    }
+    return TemplateResponse(request, "backoffice/rewards/redeem-detail.html", context)
