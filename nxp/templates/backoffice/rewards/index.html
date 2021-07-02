@@ -80,22 +80,22 @@
       </table>
   
       <div class="pull-right">
-        <p>Page {{ rdeems.number }} of {{ rdeems.paginator.num_pages }}</p>
+        <p>Page {{ redeems.number }} of {{ redeems.paginator.num_pages }}</p>
         <nav aria-label="">
           <ul class="pagination">
-            {% if rdeems.has_previous %}
+            {% if redeems.has_previous %}
             <li class="page-item"><a class="page-link" href="{% relative_url 1 'page' request.GET.urlencode %}">First</a>
             </li>
             <li class="page-item"><a class="page-link"
-                href="{% relative_url rdeems.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
+                href="{% relative_url redeems.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
             {% endif %}
-            <!-- {% for i in rdeems.paginator.page_range %}
-            <li class="page-item"><a class="page-link {% if rdeems.number == i %}is-active{% endif %}"
+            <!-- {% for i in redeems.paginator.page_range %}
+            <li class="page-item"><a class="page-link {% if redeems.number == i %}is-active{% endif %}"
                 href="{% relative_url i 'page' request.GET.urlencode %}">{{forloop.counter}}</a></li>
             {% endfor %} -->
-            {% if rdeems.has_next %}
+            {% if redeems.has_next %}
             <li class="page-item"><a class="page-link"
-                href="{% relative_url rdeems.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
+                href="{% relative_url redeems.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
             {% endif %}
           </ul>
         </nav>

@@ -9,11 +9,7 @@ from django.http import JsonResponse
 from nxp.apps.serial_number.models import SerialNumber
 from nxp.apps.user.decorators import login_validate
 
-from reportlab.pdfgen import canvas
 from django.http import HttpResponse
-from reportlab.graphics.shapes import Drawing
-from reportlab.graphics.barcode.qr import QrCodeWidget
-from reportlab.graphics import renderPDF
 from sequences import get_next_value
 from django.db import transaction
 
@@ -60,8 +56,6 @@ def index(request):
         serials = paginator.get_page(1)
     except EmptyPage:
         serials = paginator.get_page(paginator.num_pages)
-
-    last = SerialNumber.objects.order_by('-id').first()
 
     context = {
         "serials": serials,

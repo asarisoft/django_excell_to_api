@@ -59,6 +59,14 @@
 
           <ul class="nav flex-column">
             <li class="nav-item">
+              <a href="{% url 'backoffice:rewards:transactions' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:rewards:transactions' %} active {% endif %}">
+                <i class="fa fa-check-square"></i><span>Transactions</span>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="nav flex-column">
+            <li class="nav-item">
               <a href="{% url 'backoffice:rewards:redeem' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:rewards:redeem' %} active {% endif %}">
                 <i class="fa fa-check-square"></i><span>Redeem</span>
               </a>

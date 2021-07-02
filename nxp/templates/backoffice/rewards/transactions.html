@@ -1,0 +1,76 @@
+{% extends 'backoffice/base.html' %}
+{% load static %}
+{% load templatehelpers %}
+{% block title%} {{ title }} {% endblock %}
+{% block content %}
+<div class="box">
+    <div class="box-inner">
+      <div class="box-title">
+        <h2>Formulir</h2>
+      </div>
+      <div class="box-title">
+        <form method="GET" action="">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="User / Mobile Number / Serial " value="{{ filter.search }}">
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
+                submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Serial</th>
+            <th>Name</th>
+            <th>Dealer</th>
+            <th>Product</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for redeem in scans %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ redeem.serial_number }}</td>
+            <td>{{ redeem.user.name }}</td>
+            <td>{{ redeem.dealer_code }}</td>
+            <td>{{ redeem.product }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+  
+      <div class="pull-right">
+        <p>Page {{ scans.number }} of {{ scans.paginator.num_pages }}</p>
+        <nav aria-label="">
+          <ul class="pagination">
+            {% if scans.has_previous %}
+            <li class="page-item"><a class="page-link" href="{% relative_url 1 'page' request.GET.urlencode %}">First</a>
+            </li>
+            <li class="page-item"><a class="page-link"
+                href="{% relative_url scans.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
+            {% endif %}
+            <!-- {% for i in scans.paginator.page_range %}
+            <li class="page-item"><a class="page-link {% if scans.number == i %}is-active{% endif %}"
+                href="{% relative_url i 'page' request.GET.urlencode %}">{{forloop.counter}}</a></li>
+            {% endfor %} -->
+            {% if scans.has_next %}
+            <li class="page-item"><a class="page-link"
+                href="{% relative_url scans.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
