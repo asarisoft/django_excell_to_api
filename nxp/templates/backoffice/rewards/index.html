@@ -59,6 +59,7 @@
           <tr>
             <th>No</th>
             <th>Name</th>
+            <th>Dealer Code</th>
             <th>Mobile Number</th>
             <th>Nominal</th>
             <th>E-Wallet</th>
@@ -70,6 +71,7 @@
           <tr>
             <th scope="row">{{ forloop.counter }}</th>
             <td>{{ redeem.user.name }}</td>
+            <td>{{ redeem.dealer_code }}</td>
             <td>{{ redeem.user.mobile_number }}</td>
             <td>{{ redeem.value }}</td>
             <td>{{ redeem.get_wallet_type_display }}</td>

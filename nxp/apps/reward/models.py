@@ -53,6 +53,8 @@ class Redeem(models.Model):
     status = models.CharField(max_length=10, choices=STATUS, default='new')
     value = models.IntegerField(default=0)
     datetime = models.DateTimeField(auto_now=True, null=True)
+    paid_datetime = models.DateTimeField(null=True, default=None)
+    dealer_code = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return "%s" % self.user

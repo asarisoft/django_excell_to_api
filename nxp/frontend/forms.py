@@ -68,6 +68,7 @@ class RedeemForm(forms.Form):
     mobile_number = forms.CharField()
     nominal_value = forms.IntegerField()
     wallet_type = forms.CharField()
+    dealer_code = forms.CharField(required=False)
 
     def __init__(self, *args, **kwargs):
         super(RedeemForm, self).__init__(*args, **kwargs)
@@ -82,6 +83,11 @@ class RedeemForm(forms.Form):
             raise forms.ValidationError("Nominal harus kelipatan 1.000")
         return nominal_value
 
+    # def clean_dealer_code(self):
+    #     code = self.cleaned_data.get("dealer_code", False)
+    #     if code and not Dealer.objects.filter(code=code).first():
+    #         raise forms.ValidationError("Kode Dealer tidak ditemukan")
+    #     return code
 
     def clean(self):
         cleaned_data = super(RedeemForm, self).clean()
@@ -107,6 +113,7 @@ class RedeemForm(forms.Form):
         redeem = Redeem.objects.create(
             user = self.user,
             wallet_type = data['wallet_type'],
-            value = data['nominal_value']
+            value = data['nominal_value'],
+            dealer_code = data['dealer_code']
         )
         return redeem
