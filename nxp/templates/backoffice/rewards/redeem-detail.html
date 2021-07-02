@@ -34,5 +34,50 @@
             </div>
         </div>
     </div>
+    <div style="text-align: center;">
+    <button type="Set As Paid" id="btnSetAsPaid" class="btn btn-primary" >
+        Set As Paid
+    </button>
+    </div>
 </div>
+{% endblock %}
+
+{% block script %}
+{% csrf_token %}
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="{% static 'js/loading.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  $(function () {
+    $('#btnSetAsPaid').on('click', function (e) {
+        alert("Fitur On Progress")
+    //   $("#content").loading({
+    //     stoppable: true
+    //   });
+    //   e.preventDefault();
+    //   var form = $(this);
+    //   var url = "{% url 'backoffice:generate_qrcode:generate'%}";
+    //   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    //   console.log(csrftoken)
+    //   $.ajax({
+    //     type: 'post',
+    //     url: url,
+    //     data: form.serialize(),
+    //     headers: {
+    //       'X-CSRFToken': csrftoken
+    //     },
+    //     success: function (data) {
+    //       console.log(data)
+    //       window.location.reload();
+    //       $('#content').loading('stop');
+    //     },
+    //     error: function (error) {
+    //       $('#content').loading('stop');
+    //       alert(error.responseText);
+    //     }
+    //   });
+    })
+  }(jQuery));
+</script>
 {% endblock %}
