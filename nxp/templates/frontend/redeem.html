@@ -206,7 +206,21 @@
         renderData(response)
       },
       error: function (response) {
-        console.log(response)
+        let messageComp = document.getElementById("errorMessage");
+        error = "Terjadi Kesalahan Server!"
+        try {
+          errorJSON = response.responseJSON;
+          error = ""
+          for (var key in errorJSON) {
+            error += `<p style="color: red;"> ${errorJSON[key]}</p>`;
+          }
+        }
+        catch (err) {
+          console.log(err)
+        }
+        messageComp.innerHTML = error;
+        $('#ModalCenter2').modal('show');
+
         $("#information").hide()
         $("#nominal_value").hide()
         $("#btnRedeem").hide()
