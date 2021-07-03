@@ -20,6 +20,14 @@ def index(request):
     serials = SerialNumber.objects.all().order_by('-order')
     page = request.GET.get("page")
     search = request.GET.get("search", "")
+    start = request.GET.get("start", 0)
+    end = request.GET.get("end", 0)
+
+    if start and end:
+        _filter = list(range(int(start), int(end)+1))
+        serials = serials.filter(order__in=_filter)
+    
+
     if search:
         serials = serials.filter(serial_number=search)
 
@@ -60,7 +68,7 @@ def index(request):
     context = {
         "serials": serials,
         "title": "Serial Number",
-        "filter": {"search": search, "status": status, "type": type},
+        "filter": {"search": search, "status": status, "type": type, "start": start, "end": end},
         "new_count": new_count,
         "redeem_count": redeem_count,
     }
