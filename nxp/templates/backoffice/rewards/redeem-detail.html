@@ -4,41 +4,43 @@
 {% block content %}
 {% load humanize %}
 <div class="box margin-top-profile">
-    <div class="profile__content">
-        <div class="profile__bio">
-            <div class="my-sep1">
-                <span>
-                    {{ redeem.user.name }}
-                </span>
-            </div>
-            <h3 class="profile__name">Rp. {{ redeem.value|intcomma }}</h3>
-            <p>{{ redeem.user.mobile_number }} - {{ redeem.get_status_display }} - {{ redeem.get_wallet_type_display }}</p>
-            <hr>
-            <div class="overview align-left">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <ul>
-                            <li><strong>e-Wallet</strong><span>{{ redeem.get_wallet_type_display }}</span></li>
-                            <li><strong>Mobile Number</strong><span>{{ redeem.user.mobile_number | default:'-' }}</span></li>
-                            <li><strong>Dealar Code</strong><span>{{ redeem.dealer_code | default:'-' }}</span></li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-6">
-                        <ul>
-                            <li><strong>Status</strong><span>{{ redeem.get_status_display | default:'-' }}</span></li>
-                            <li><strong>Redeem Date</strong><span>{{ redeem.datetime | default:'-' }}</span></li>
-                            <li><strong>Paid Date</strong><span>{{ redeem.paid_datetime | default:'-' }}</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+  <div class="profile__content">
+    <div class="profile__bio">
+      <div class="my-sep1">
+        <span>
+          {{ redeem.user.name }}
+        </span>
+      </div>
+      <h3 class="profile__name">Rp. {{ redeem.value|intcomma }}</h3>
+      <p>{{ redeem.user.mobile_number }} - {{ redeem.get_status_display }} - {{ redeem.get_wallet_type_display }}
+      </p>
+      <hr>
+      <div class="overview align-left">
+        <div class="row">
+          <div class="col-sm-6">
+            <ul>
+              <li><strong>e-Wallet</strong><span>{{ redeem.get_wallet_type_display }}</span></li>
+              <li><strong>Mobile Number</strong><span>{{ redeem.user.mobile_number | default:'-' }}</span>
+              </li>
+              <li><strong>Dealar Code</strong><span>{{ redeem.dealer_code | default:'-' }}</span></li>
+            </ul>
+          </div>
+          <div class="col-sm-6">
+            <ul>
+              <li><strong>Status</strong><span>{{ redeem.get_status_display | default:'-' }}</span></li>
+              <li><strong>Redeem Date</strong><span>{{ redeem.datetime | default:'-' }}</span></li>
+              <li><strong>Paid Date</strong><span>{{ redeem.paid_datetime | default:'-' }}</span></li>
+            </ul>
+          </div>
         </div>
+      </div>
     </div>
-    <div style="text-align: center;">
-    <button type="Set As Paid" id="btnSetAsPaid" class="btn btn-primary" >
-        Set As Paid
+  </div>
+  <div style="text-align: center;">
+    <button type="Set As Paid" id="btnSetAsPaid" class="btn btn-primary">
+      Set As Paid
     </button>
-    </div>
+  </div>
 </div>
 {% endblock %}
 
@@ -50,33 +52,28 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $(function () {
+    console.log('{{ request.session }}')
     $('#btnSetAsPaid').on('click', function (e) {
-        alert("Fitur On Progress")
-    //   $("#content").loading({
-    //     stoppable: true
-    //   });
-    //   e.preventDefault();
-    //   var form = $(this);
-    //   var url = "{% url 'backoffice:generate_qrcode:generate'%}";
-    //   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-    //   console.log(csrftoken)
-    //   $.ajax({
-    //     type: 'post',
-    //     url: url,
-    //     data: form.serialize(),
-    //     headers: {
-    //       'X-CSRFToken': csrftoken
-    //     },
-    //     success: function (data) {
-    //       console.log(data)
-    //       window.location.reload();
-    //       $('#content').loading('stop');
-    //     },
-    //     error: function (error) {
-    //       $('#content').loading('stop');
-    //       alert(error.responseText);
-    //     }
-    //   });
+      //   $("#content").loading({
+      //     stoppable: true
+      //   }); 
+
+      e.preventDefault();
+      var url = "{% url 'backoffice:rewards:set_as_paid' redeem.id %}";
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      $.ajax({
+        type: 'get',
+        url: url,
+        success: function (data) {
+          console.log(data)
+          window.location.reload();
+          alert("Transaksi berhasil");
+        },
+        error: function (error) {
+          // $('#content').loading('stop');
+          alert(error.responseText);
+        }
+      });
     })
   }(jQuery));
 </script>

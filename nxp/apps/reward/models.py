@@ -55,6 +55,7 @@ class Redeem(models.Model):
     datetime = models.DateTimeField(auto_now=True, null=True)
     paid_datetime = models.DateTimeField(null=True, default=None)
     dealer_code = models.CharField(max_length=100, blank=True, null=True)
+    admin = models.ForeignKey('user.User', on_delete=models.PROTECT, related_name='admin', null=True)
 
     def __str__(self):
         return "%s" % self.user

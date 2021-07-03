@@ -1,8 +1,11 @@
+from django.http import JsonResponse
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from django.template.response import TemplateResponse
 from nxp.apps.reward.models import Redeem, Scan
 from nxp.apps.user.decorators import login_validate
+from django.shortcuts import get_object_or_404
+from django.utils import timezone
 
 
 @login_validate
@@ -74,5 +77,21 @@ def redeem_detail(request, id):
     redeem = Redeem.objects.get(id=id)
     context = {
         "redeem": redeem,
+        'vrer':  request.session
     }
     return TemplateResponse(request, "backoffice/rewards/redeem-detail.html", context)
+
+
+@login_validate
+def set_as_paid(request, id):
+    redeem = get_object_or_404(Redeem, id=id)
+    if redeem.status == 'paid':
+        return JsonResponse({"message": "redeem already paid"}, status = 400)
+    else:
+        redeem.status = 'paid'
+        redeem.paid_datetime = timezone.now()
+        redeem.admin = request.user
+        redeem.save()
+        return JsonResponse({"message": "redeem already paid"}, status = 200)
+
+    
