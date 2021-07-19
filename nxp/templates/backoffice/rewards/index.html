@@ -1,5 +1,6 @@
 {% extends 'backoffice/base.html' %}
 {% load static %}
+{% load humanize %}
 {% load templatehelpers %}
 {% block title%} {{ title }} {% endblock %}
 {% block content %}
@@ -73,7 +74,7 @@
             <td><a href="{% url 'backoffice:rewards:redeem_detail' redeem.id %}"> {{ redeem.user.name }} </a></td>
             <td>{{ redeem.dealer_code }} </td>
             <td>{{ redeem.user.mobile_number }}</td>
-            <td>{{ redeem.value }}</td>
+            <td>{{ redeem.value|intcomma }}</td>
             <td>{{ redeem.get_wallet_type_display }}</td>
             <td>{{ redeem.status }}</td>
           </tr>
