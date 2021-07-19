@@ -8,6 +8,7 @@ class Scan(models.Model):
     serial_number = models.ForeignKey('serial_number.SerialNumber', on_delete=models.CASCADE)
     product = models.CharField(max_length=100, blank=True, null=True)
     user = models.ForeignKey('user.User', on_delete=models.CASCADE)
+    datetime = models.DateTimeField(auto_now=True, null=True)
     
     def __str__(self):
         return "%s" % self.serial_number
@@ -20,7 +21,8 @@ class Scan(models.Model):
             "serial_number" : self.serial_number.serial_number,
             "value" : f'{self.serial_number.value:,}'.replace(',','.'),
             "product" : self.product,
-            "user" : self.user.name
+            "user" : self.user.name,
+            "datetime" : self.datetime.strftime("%d-%m-%Y (%H:%M)"),
         }
 
 

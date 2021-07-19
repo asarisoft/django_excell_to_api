@@ -12,8 +12,8 @@
 <section class="row" id="information" hidden>
   <div class="col-sm-12 col-md-6 col-lg-4 content present">
     <p class="identity">Identitas Anda:</p>
-    <p class="name">Imam As Ari</p>
-    <p class="mobile_number">+6287877543295</p>
+    <p class="name"></p>
+    <p class="mobile_number"></p>
     <div class="reward-wrapper">
       <img class="reward-img" src="{% static '/images/reward.png' %}" />
       <p class="reward"></p>
@@ -151,6 +151,7 @@
     let _body = `<img class="image1" src="{% static '/images/icon_big.png' %}" />`
     if (serial_number) {
       _body += `<p class='body-text first'>SCAN QRCODE</p>`;
+      _body += `<p class='body-text '>Tanggal : ${data.datetime}</p>`;
       _body += `<p class='body-text '>Code : ${data.serial_number}</p>`;
       _body += `<p class='body-text '>Nominal : ${data.value}</p>`;
       _body += `<p class='body-text '>Status Transaksi : ${redeem.status}</p>`;
@@ -180,6 +181,7 @@
     const balance = response.data.balance
     var _html = "";
     balance.reverse().map((bl, index) => {
+      console.log(bl)
       _html += `<div class="balance-container ${index % 2 == 0 ? 'odd' : ''}">
         <div>+ ${bl.credit}</div>
         <div>- ${bl.debit}</div>
