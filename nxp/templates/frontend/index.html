@@ -145,7 +145,11 @@
   // on ready
   jQuery(function () {
     $("#mobile_number").val(localStorage.getItem("mobileNumber", ""));
-    $("#name").val(localStorage.getItem("userName", ""));
+    const userName = localStorage.getItem("userName", "")
+    if (userName){
+      $("#name").val(localStorage.getItem("userName", ""));
+      $("#name").attr('readonly', true);
+    }
   });
 
   $("#formulir-form").submit(function (e) {
