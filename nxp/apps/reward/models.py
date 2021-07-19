@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from .models import *
+from datetime import datetime, timedelta
 
 
 class Scan(models.Model):
@@ -15,6 +16,7 @@ class Scan(models.Model):
 
     
     def serialize(self):
+        time = self.datetime + timedelta(hours=7)
         return  {
             "id" : self.id,
             "dealer_code" : self.dealer_code,
@@ -22,7 +24,7 @@ class Scan(models.Model):
             "value" : f'{self.serial_number.value:,}'.replace(',','.'),
             "product" : self.product,
             "user" : self.user.name,
-            "datetime" : self.datetime.strftime("%d-%m-%Y (%H:%M)"),
+            "datetime" : time.strftime("%d-%m-%Y (%H:%M)"),
         }
 
 
