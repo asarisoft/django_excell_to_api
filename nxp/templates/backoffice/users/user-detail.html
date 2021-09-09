@@ -1,0 +1,17 @@
+{% extends 'backoffice/base.html' %}
+{% load static %}
+{% block title%} {{ title }} {% endblock %}
+{% block content %}
+{% load humanize %}
+<div class="box margin-top-profile">
+  <div class="profile__content">
+    <div class="profile__bio">
+      <div class="my-sep1">
+        <span>
+          {{ user.name }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

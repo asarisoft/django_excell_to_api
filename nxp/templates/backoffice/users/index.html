@@ -1,0 +1,70 @@
+{% extends 'backoffice/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load templatehelpers %}
+{% block title%} {{ title }} {% endblock %}
+{% block content %}
+<div class="box">
+    <div class="box-inner">
+      <div class="box-title">
+        <h2>User</h2>
+      </div>
+      <div class="box-title">
+        <form method="GET" action="">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="User / Mobile Number..." value="{{ filter.search }}">
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
+                submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Mobile Number</th>
+            <th>Dealer Name</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+          <tr>
+            <th scope="row"><a href="{% url 'backoffice:users:user_detail' user.id %}"> {{ forloop.counter }}</a></th>
+            <td><a href="{% url 'backoffice:users:user_detail' user.id %}"> {{ user.name }} </a></td>
+            <td>{{ user.mobile_number }}</td>
+            <td>{{ user.dealer_name }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+  
+      <div class="pull-right">
+        <p>Page {{ users.number }} of {{ users.paginator.num_pages }}</p>
+        <nav aria-label="">
+          <ul class="pagination">
+            {% if users.has_previous %}
+            <li class="page-item"><a class="page-link" href="{% relative_url 1 'page' request.GET.urlencode %}">First</a>
+            </li>
+            <li class="page-item"><a class="page-link"
+                href="{% relative_url users.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
+            {% endif %}
+            {% if users.has_next %}
+            <li class="page-item"><a class="page-link"
+                href="{% relative_url users.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

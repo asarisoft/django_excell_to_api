@@ -72,6 +72,13 @@
               </a>
             </li>
           </ul>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a href="{% url 'backoffice:users:users' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:users:users' %} active {% endif %}">
+                <i class="fa fa-check-square"></i><span>User</span>
+              </a>
+            </li>
+          </ul>
         </div>
         <!-- /.admin-sidebar-content -->
         <div class="admin-sidebar-footer">
