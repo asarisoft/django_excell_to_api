@@ -8,12 +8,13 @@ class UserAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': (
             'username', 'password', 'name', 'mobile_number',
+            'dealer_name', 'dealer_address'
         )}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
         # ('Important dates', {'fields': ('registered_date',)}),
     )
 
-    list_display = ('username',  'name', 'mobile_number')
+    list_display = ('username',  'name', 'mobile_number', 'dealer_name')
     # # list_filter = ('is_staff', 'is_superuser', 'is_active',)
     # search_fields = ('mobile_number', 'username', 'name', 'email',
     #                  'kelurahan__name', 'kecamatan__name', 'tps__name','nik')

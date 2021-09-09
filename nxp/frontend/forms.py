@@ -12,6 +12,8 @@ class ScanForm(forms.Form):
     product = forms.CharField()
     mobile_number = forms.CharField()
     name = forms.CharField()
+    dealer_name = forms.CharField(required=False)
+    dealer_address = forms.CharField(required=False)
 
     def __init__(self, *args, **kwargs):
         super(ScanForm, self).__init__(*args, **kwargs)
@@ -54,10 +56,16 @@ class ScanForm(forms.Form):
             username = data['mobile_number'],
             defaults = {
                 "name" : data['name'],
+                "dealer_name" : data['dealer_name'], 
+                "dealer_address" : data['dealer_address'], 
             }
         )
-        scan = Scan(serial_number=self.serial_number, dealer_code=data['dealer_code'],
-            product=data['product'], user=user)
+        scan = Scan(
+            serial_number=self.serial_number, 
+            dealer_code=data['dealer_code'],
+            product=data['product'], 
+            user=user,
+        )
         scan.save()
         SerialNumber.objects.filter(
             serial_number=scan.serial_number).update(status='redeem')

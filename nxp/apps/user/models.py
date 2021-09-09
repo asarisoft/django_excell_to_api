@@ -34,6 +34,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField('active', default=True)
     is_staff = models.BooleanField('Status Staff', default=False)
     mobile_number = models.CharField(max_length=30, default='', blank=True)
+    dealer_name = models.CharField(max_length=100, blank=True, null=True)
+    dealer_address = models.CharField(max_length=100, blank=True, null=True)
     USERNAME_FIELD = 'username'
     objects = CustomUserManager()
 

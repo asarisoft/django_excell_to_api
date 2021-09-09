@@ -84,6 +84,14 @@
         <input type="text" name="name" id="name" placeholder="Nama" required="required" class="name">
       </div>
       <div class="form-group">
+        <label for="dealerName">Nama Bengkel</label>
+        <input type="text" name="dealer_name" id="dealerName" placeholder="Nama Bengkel" required="required" >
+      </div>
+      <div class="form-group">
+        <label for="dealerAddress">Alamat Bengkel </label>
+        <input type="text" name="dealer_address" id="dealerAddress" placeholder="Alamat Bengkel" required="required" >
+      </div>
+      <div class="form-group">
         <button type="submit" class="btn-submit">Kirim Formulir</button>
       </div>
     </form>
@@ -145,9 +153,21 @@
   jQuery(function () {
     $("#mobile_number").val(localStorage.getItem("mobileNumber", ""));
     const userName = localStorage.getItem("userName", "")
+    const dealerName = localStorage.getItem("dealerName", "")
+    const dealerAddress = localStorage.getItem("dealerAddress", "")
+    console.log(dealerName)
+    console.log(dealerAddress)
     if (userName){
-      $("#name").val(localStorage.getItem("userName", ""));
+      $("#name").val(userName);
       $("#name").attr('readonly', true);
+    }
+    if (dealerAddress) {
+      $("#dealerAddress").val(dealerAddress);
+      $("#dealerAddress").attr('readonly', true);
+    }
+    if (dealerName) {
+      $("#dealerName").val(dealerName);
+      $("#dealerName").attr('readonly', true);
     }
   });
 
@@ -157,16 +177,20 @@
     console.log(serializedData)
     localStorage.setItem('mobileNumber', $("#mobile_number").val())
     localStorage.setItem('userName', $("#name").val())
+    localStorage.setItem('dealerName', $("#dealerName").val())
+    localStorage.setItem('dealerAddress', $("#dealerAddress").val())
+
     $.ajax({
       type: 'POST',
       url: "{% url 'frontend:api_scan' %}",
       data: serializedData,
       success: function (response) {
-        console.log(response)
         $('#ModalCenter').modal('show');
         $("#serial_number").val('')
         $("#product").val('')
         $("#dealer_code").val('')
+        $("#dealerName").val('')
+        $("#dealerAddress").val('')
         $("#rewardPrice").html(`Rp. ${response.value},-`)
       },
       error: function (response) {
