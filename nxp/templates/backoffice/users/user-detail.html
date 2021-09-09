@@ -4,14 +4,32 @@
 {% block content %}
 {% load humanize %}
 <div class="box margin-top-profile">
-  <div class="profile__content">
-    <div class="profile__bio">
-      <div class="my-sep1">
-        <span>
-          {{ user.name }}
-        </span>
-      </div>
-    </div>
-  </div>
+    <h2 class="profile__name">{{ user.name|upper }}</h2>
+    <h4>{{ user.mobile_number }} - {{ user.dealer_name }}</h4>
+    <h4>Address: {{ user.dealer_address }}</h4>
+    <hr />
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Serial</th>
+          <th>Product</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for scan in scans %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ scan.serial_number }}</td>
+          <td>{{ scan.product }}</td>
+          <td>{{ scan.serial_number.value|intcomma }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <hr />
+    <a class="btn btn-primary"
+      href="{% url 'backoffice:rewards:transactions' %}?search={{ user.username|slice:'1:' }}">More Data</a>
 </div>
 {% endblock %}

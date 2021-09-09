@@ -39,10 +39,10 @@ def users(request):
 @login_validate
 def user_detail(request, id):
     user = User.objects.get(id=id)
-    scans = Scan.objects.filter(user=user)
+    scans = Scan.objects.filter(user=user).order_by('-id').select_related('serial_number')
     context = {
         "user": user,
         "title": "User Detail",
-        "scans": scans
+        "scans": scans[0:8]
     }
     return TemplateResponse(request, "backoffice/users/user-detail.html", context)

@@ -1,6 +1,7 @@
 {% extends 'backoffice/base.html' %}
 {% load static %}
 {% load templatehelpers %}
+{% load humanize %}
 {% block title%} {{ title }} {% endblock %}
 {% block content %}
 <div class="box">
@@ -32,8 +33,8 @@
             <th>No</th>
             <th>Serial</th>
             <th>Name</th>
-            <th>Dealer</th>
             <th>Product</th>
+            <th>Value</th>
           </tr>
         </thead>
         <tbody>
@@ -42,8 +43,8 @@
             <th scope="row">{{ forloop.counter }}</th>
             <td>{{ redeem.serial_number }}</td>
             <td>{{ redeem.user.name }}</td>
-            <td>{{ redeem.dealer_code }}</td>
             <td>{{ redeem.product }}</td>
+            <td>{{ redeem.serial_number.value|intcomma }}</td>
           </tr>
         {% endfor %}
         </tbody>

@@ -54,7 +54,7 @@ def transactions(request):
     search = request.GET.get("search", "")
     if search:
         scans = scans.filter(
-            Q(user__name__icontains=search) | Q(user__mobile_number__icontains=search) | Q(serial_number__icontains=search))
+            Q(user__name__icontains=search) | Q(user__mobile_number__icontains=search) | Q(serial_number__serial_number__icontains=search))
 
     results_per_page = 30
     paginator = Paginator(scans, results_per_page)
