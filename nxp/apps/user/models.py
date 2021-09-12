@@ -54,6 +54,8 @@ class User(AbstractBaseUser, PermissionsMixin):
             "username" : self.username,
             "name" : self.name,
             "mobile_number" : self.mobile_number,
+            "dealer_name" : self.dealer_name,
+            "dealer_address" : self.dealer_address,
         }
 
     # def save(self, *args, **kwargs):

@@ -49,7 +49,7 @@ def redeem(request):
 
 @login_validate
 def transactions(request):
-    scans = Scan.objects.all().order_by("-id")
+    scans = Scan.objects.all().order_by("-id").select_related('serial_number')
     page = request.GET.get("page")
     search = request.GET.get("search", "")
     if search:

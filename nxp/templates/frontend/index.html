@@ -17,7 +17,8 @@
 <section class="row ">
   <div class="col-sm-12 col-md-6 col-lg-4 content apreciation">
     <img class="reward-img" src="{% static '/images/reward.png' %}" />
-    <p class="reward-text">Sebagai bentuk apresiasi ENEOS NXP, kamu <br /> akan mendapatkan voucher dari setiap barcode yang
+    <p class="reward-text">Sebagai bentuk apresiasi ENEOS NXP, kamu <br /> akan mendapatkan voucher dari setiap barcode
+      yang
       kamu scan.</p>
   </div>
 </section>
@@ -33,8 +34,10 @@
     <p class="how-to">Ketentuan Mendapatkan E-Wallet</p>
     <p class="how-to-get-reward">1. Scan QrCode yang terdapat pada tutup botol</p>
     <p class="how-to-get-reward">2. Nilai minimal redeem adalah Rp. 10.000,-</p>
-    <p class="how-to-get-reward">3. Masuk ke halaman Redeem, untuk mengetahui jumlah reward dengan mengisi nomor ponsel.</p>
-    <p class="how-to-get-reward">4. Apabila sudah memenuhi nilai redeem, maka silahkan pilih e-Wallet untuk diproses oleh ENEOS NXP</p>
+    <p class="how-to-get-reward">3. Masuk ke halaman Redeem, untuk mengetahui jumlah reward dengan mengisi nomor ponsel.
+    </p>
+    <p class="how-to-get-reward">4. Apabila sudah memenuhi nilai redeem, maka silahkan pilih e-Wallet untuk diproses
+      oleh ENEOS NXP</p>
     <p class="how-to-get-reward">4. Qr Code hanya bisa 1x scan</p>
     <p class="how-to-get-reward">5. Tidak ada masa expired dalam pengumpulan nilai</p>
   </div>
@@ -79,20 +82,25 @@
         <label for="mobile_number">Nomor HP *</label>
         <input type="text" name="mobile_number" id="mobile_number" placeholder="Nomor HP" required="required">
       </div>
-      <div class="form-group">
-        <label for="name">Nama *</label>
-        <input type="text" name="name" id="name" placeholder="Nama" required="required" class="name">
+      <div class="form-group" id="loader">
+        <p style="color: gray; text-align: center; width: 100%;">... loading ...</p>
       </div>
-      <div class="form-group">
-        <label for="dealerName">Nama Bengkel</label>
-        <input type="text" name="dealer_name" id="dealerName" placeholder="Nama Bengkel" required="required" >
-      </div>
-      <div class="form-group">
-        <label for="dealerAddress">Alamat Bengkel </label>
-        <input type="text" name="dealer_address" id="dealerAddress" placeholder="Alamat Bengkel" required="required" >
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn-submit">Kirim Formulir</button>
+      <div id="loaderResult">
+        <div class="form-group">
+          <label for="name">Nama *</label>
+          <input type="text" name="name" id="name" placeholder="Nama" required="required" class="name">
+        </div>
+        <div class="form-group">
+          <label for="dealerName">Nama Bengkel</label>
+          <input type="text" name="dealer_name" id="dealerName" placeholder="Nama Bengkel" required="required">
+        </div>
+        <div class="form-group">
+          <label for="dealerAddress">Alamat Bengkel </label>
+          <input type="text" name="dealer_address" id="dealerAddress" placeholder="Alamat Bengkel" required="required">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn-submit">Kirim Formulir</button>
+        </div>
       </div>
     </form>
   </div>
@@ -100,7 +108,7 @@
 
 <section class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content privasi">
-    <img class="ENEOS NXP-gray" src="{% static '/images/logo_putih.png' %}" style="width: 20%; margin-bottom: 16px;"/>
+    <img class="ENEOS NXP-gray" src="{% static '/images/logo_putih.png' %}" style="width: 20%; margin-bottom: 16px;" />
     <p>Kami menjaga privasi segala bentuk <br /> informasi yang diterima</p>
     <p class="privasi-title">KEBIJAKAN PRIVASI</p>
   </div>
@@ -149,37 +157,63 @@
 <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
 <script src="{% static 'js/qrcodereader.js' %}" type="module"></script>
 <script>
-  // on ready
-  jQuery(function () {
-    $("#mobile_number").val(localStorage.getItem("mobileNumber", ""));
-    const userName = localStorage.getItem("userName", "")
-    const dealerName = localStorage.getItem("dealerName", "")
-    const dealerAddress = localStorage.getItem("dealerAddress", "")
-    console.log(dealerName)
-    console.log(dealerAddress)
-    if (userName){
-      $("#name").val(userName);
-      $("#name").attr('readonly', true);
-    }
-    if (dealerAddress) {
-      $("#dealerAddress").val(dealerAddress);
-      $("#dealerAddress").attr('readonly', true);
-    }
-    if (dealerName) {
-      $("#dealerName").val(dealerName);
-      $("#dealerName").attr('readonly', true);
+  $('#loader').hide()
+
+  var typingTimer;
+  $('#mobile_number').keyup(function () {
+    clearTimeout(typingTimer);
+    if ($('#mobile_number').val()) {
+      $('#loader').show()
+      $('#loaderResult').hide();
+      typingTimer = setTimeout(doneTyping, 3000);
     }
   });
+
+  function doneTyping() {
+    $("#name").val('');
+    $("#dealerAddress").val('');
+    $("#dealerName").val('');
+
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'frontend:get_information' %}",
+      data: {
+        mobile_number: $('#mobile_number').val()
+      },
+      success: function (response) {
+        const user = response?.data?.user;
+        if (user.name) {
+          $("#name").val(user.name);
+          $("#name").attr('readonly', true);
+        }
+
+        if (user.dealer_address) {
+          $("#dealerAddress").val(user.dealer_address);
+          $("#dealerAddress").attr('readonly', true);
+        }
+
+        if (user.dealer_name) {
+          $("#dealerName").val(user.dealer_name);
+          $("#dealerName").attr('readonly', true);
+        }
+
+        $('#loader').hide()
+        $('#loaderResult').show();
+
+      },
+      error: function (response) {
+        console.log(response)
+        $('#loader').hide()
+        $('#loaderResult').show();
+      }
+    });
+  }
+
 
   $("#formulir-form").submit(function (e) {
     e.preventDefault();
     var serializedData = $(this).serialize();
     console.log(serializedData)
-    localStorage.setItem('mobileNumber', $("#mobile_number").val())
-    localStorage.setItem('userName', $("#name").val())
-    localStorage.setItem('dealerName', $("#dealerName").val())
-    localStorage.setItem('dealerAddress', $("#dealerAddress").val())
-
     $.ajax({
       type: 'POST',
       url: "{% url 'frontend:api_scan' %}",

@@ -47,7 +47,7 @@ def get_information(request):
         )
         response = {
             'user': user.serialize(),
-            'balance': [balance.serialize() for balance in balances],
+            # 'balance': [balance.serialize() for balance in balances],
         }
         return JsonResponse({"data": response}, status=200)
     return JsonResponse({"error": "User Tidak Dietmukan"}, status=400)
