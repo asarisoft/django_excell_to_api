@@ -13,7 +13,7 @@
         <tr>
           <th>No</th>
           <th>Serial</th>
-          <th>Product</th>
+          <th>Date</th>
           <th>Value</th>
         </tr>
       </thead>
@@ -22,7 +22,7 @@
         <tr>
           <th scope="row">{{ forloop.counter }}</th>
           <td>{{ scan.serial_number }}</td>
-          <td>{{ scan.product }}</td>
+          <td>{{ scan.datetime }}</td>
           <td>{{ scan.serial_number.value|intcomma }}</td>
         </tr>
         {% endfor %}

@@ -7,7 +7,7 @@
 <div class="box">
     <div class="box-inner">
       <div class="box-title">
-        <h2>Formulir</h2>
+        <h2>Transactions</h2>
       </div>
       <div class="box-title">
         <form method="GET" action="">
@@ -33,17 +33,17 @@
             <th>No</th>
             <th>Serial</th>
             <th>Name</th>
-            <th>Product</th>
+            <th>Date</th>
             <th>Value</th>
           </tr>
         </thead>
         <tbody>
         {% for redeem in scans %}
           <tr>
-            <th scope="row">{{ forloop.counter }}</th>
-            <td>{{ redeem.serial_number }}</td>
+            <th scope="row"><a href="{% url 'backoffice:users:user_detail' redeem.user.id %}">{{ forloop.counter }}</a></th>
+            <td><a href="{% url 'backoffice:users:user_detail' redeem.user.id %}">{{ redeem.serial_number }}</a></td>
             <td>{{ redeem.user.name }}</td>
-            <td>{{ redeem.product }}</td>
+            <td>{{ redeem.datetime }}</td>
             <td>{{ redeem.serial_number.value|intcomma }}</td>
           </tr>
         {% endfor %}

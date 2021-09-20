@@ -91,16 +91,12 @@
       <div class="admin-main">
         <div class="admin-header">
           <div class="container-fluid">
-            <div class="admin-header-sidebar-toggle toggle">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
+            
             <div class="admin-header-avatar">
-              <span class="avatar" style="background-image: {% static 'images/user.png' %}"></span>
-              <span class="admin-header-avatar-name">{{ request.user.username }}<i class="fa fa-chevron-down"></i></span>
+              <!-- <span class="avatar" style="background-image: {% static 'images/user.png' %}"></span> -->
+              <span class="admin-header-avatar-name">{{ request.user.username|title }}<i class="fa fa-chevron-down"></i></span>
               <ul class="admin-header-avatar-menu">
-                <li><a href="#">{{ request.user.username }}</a></li>
+                <li><a href="#">{{ request.user.username|title }}</a></li>
                 <li><a href="{% url 'backoffice:log_out' %}">Sign Out</a></li>
               </ul>
               <!-- /.admin-header-avatar-menu -->

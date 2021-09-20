@@ -38,7 +38,7 @@ def redeem(request):
 
     context = {
         "redeems": redeems,
-        "title": "Fromulir",
+        "title": "Redeem",
         "filter": {"search": search, "status": status, "ewallet": ewallet},
         "new_count": new_count,
         "paid_count": paid_count,
@@ -49,7 +49,7 @@ def redeem(request):
 
 @login_validate
 def transactions(request):
-    scans = Scan.objects.all().order_by("-id").select_related('serial_number')
+    scans = Scan.objects.all().order_by("-id").select_related('serial_number').order_by('-datetime')
     page = request.GET.get("page")
     search = request.GET.get("search", "")
     if search:
@@ -67,7 +67,7 @@ def transactions(request):
 
     context = {
         "scans": scans,
-        "title": "Fromulir",
+        "title": "Transactions",
         "filter": {"search": search},
     }
     return TemplateResponse(request, "backoffice/rewards/transactions.html", context)

@@ -39,7 +39,7 @@ def users(request):
 @login_validate
 def user_detail(request, id):
     user = User.objects.get(id=id)
-    scans = Scan.objects.filter(user=user).order_by('-id').select_related('serial_number')
+    scans = Scan.objects.filter(user=user).order_by('-datetime').select_related('serial_number')
     context = {
         "user": user,
         "title": "User Detail",

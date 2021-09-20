@@ -9,7 +9,7 @@ from nxp.apps.serial_number.models import SerialNumber
 class ScanForm(forms.Form):
     serial_number = forms.CharField()
     dealer_code = forms.CharField(required=False)
-    product = forms.CharField()
+    product = forms.CharField(required=False)
     mobile_number = forms.CharField()
     name = forms.CharField()
     dealer_name = forms.CharField(required=False)

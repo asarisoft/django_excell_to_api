@@ -41,5 +41,6 @@ def index(request):
         gopay_count=redeems.filter(wallet_type="gopay").count(),
         dana_count=redeems.filter(wallet_type="dana").count(),
         shopee_pay_count=redeems.filter(wallet_type="shopee_pay").count(),
+        title='Dashboard'
     )
     return TemplateResponse(request, "backoffice/index.html", context)
