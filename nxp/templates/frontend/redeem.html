@@ -34,12 +34,13 @@
 
       <div class="form-group">
         <label for="dealer_code"></label>
-        <input type="text" name="dealer_code" id="dealer_code" placeholder="Dealar Code" hidden>
+        <input type="text" name="dealer_code" id="dealer_code" placeholder="Kode Dealer" hidden>
       </div>
 
       <div class="form-group">
         <label for="nominal_value"></label>
-        <input type="number" name="nominal_value" id="nominal_value" placeholder="Nominal Value" required="required" hidden>
+        <input type="number" name="nominal_value" id="nominal_value" placeholder="Jumlah Redeem" required="required"
+          hidden>
         <p style="font-size: 13px color: 'white';" id="nominal_value2" hidden>Minimal Rp. 10.000</p>
       </div>
 
@@ -77,16 +78,18 @@
 </section>
 
 <section class="row" id="balanceInfo" hidden>
-  <div class="col-sm-12 col-md-6 col-lg-4 content table-wrapper">
+  <div class="col-sm-12 col-md-6 col-lg-4 table-wrapper" 
+      style="margin: 0 auto; float: none; display: block">
     <h5>REKENING SALDO</h5>
     <div class="balance-container">
-      <div>Kredit</div>
-      <div>Debit</div>
+      <div>Poin Masuk</div>
+      <div>Poin Keluar</div>
       <div>Saldo</div>
       <div>Status</div>
       <div>Info</div>
     </div>
     <div id="balanceHistory"></div>
+    <button id="loadMore" class="btn-submit">Load More</button>
   </div>
 </section>
 
@@ -94,7 +97,8 @@
 <section class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 content privasi">
     <img class="ENEOS NXP-gray" src="{% static '/images/logo_putih.png' %}" style="width: 20%; margin-bottom: 16px;" />
-    <p class="privasi-title">KEBIJAKAN PRIVASI</p><p>Kami menjaga privasi segala bentuk <br /> informasi yang diterima</p>
+    <p class="privasi-title">KEBIJAKAN PRIVASI</p>
+    <p>Kami menjaga privasi segala bentuk <br /> informasi yang diterima</p>
   </div>
 </section>
 
@@ -139,6 +143,7 @@
 
 {% block extra_js %}
 <script>
+  let nextPage = 0;
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
@@ -166,21 +171,30 @@
   }
 
   // RENDER DATA
-  function renderData(response) {
-    $(".name").html(response.data.user.name)
-    $(".mobile_number").html(response.data.user.mobile_number)
-    $(".reward").html(`Rp. ${numberWithCommas(response?.data?.balance[0]?.balance)}.-`)
-    $("#information").show()
-    $("#nominal_value").show()
-    $("#nominal_value2").show()
-    $("#dealer_code").show()
-    $("#btnRedeem").show()
-    $("#balanceInfo").show()
-    $("#walletType").show()
+  function renderData(response, fullRender) {
+    nextPage = response.data.next_page;
+    totalPage = response.data.total_page;
+    if (nextPage > totalPage) {
+      $("#loadMore").hide()
+    } else {
+      $("#loadMore").show()
+    }
+
+    if (fullRender) {
+      $(".name").html(response.data.user.name)
+      $(".mobile_number").html(response.data.user.mobile_number)
+      $(".reward").html(`Rp. ${numberWithCommas(response?.data?.balance[0]?.balance)}.-`)
+      $("#information").show()
+      $("#nominal_value").show()
+      $("#nominal_value2").show()
+      $("#dealer_code").show()
+      $("#btnRedeem").show()
+      $("#balanceInfo").show()
+      $("#walletType").show()
+    }
     const balance = response.data.balance
     var _html = "";
-    balance.reverse().map((bl, index) => {
-      console.log(bl)
+    balance.map((bl, index) => {
       _html += `<div class="balance-container ${index % 2 == 0 ? 'odd' : ''}">
         <div>+ ${bl.credit}</div>
         <div>- ${bl.debit}</div>
@@ -189,7 +203,11 @@
         <div onclick='setInfo(${JSON.stringify(bl)})' style='color:green'>Info</div>
       </div>`;
     });
-    $("#balanceHistory").html(_html);
+    if (fullRender) {
+      $("#balanceHistory").html(_html);
+    } else {
+      $("#balanceHistory").append(_html);
+    }
   }
 
   // GET INFORMATION
@@ -204,7 +222,7 @@
         mobile_number: mobile_number
       },
       success: function (response) {
-        renderData(response)
+        renderData(response, true)
       },
       error: function (response) {
         let messageComp = document.getElementById("errorMessage");
@@ -242,7 +260,7 @@
       url: "{% url 'frontend:api_redeem' %}",
       data: serializedData,
       success: function (response) {
-        renderData(response)
+        renderData(response, true)
 
         $("#nominal_value").val('')
 
@@ -278,5 +296,23 @@
   //   mask: '+620000000000000'
   // };
   // var mask = IMask(element, maskOptions);
+  $("#loadMore").on('click', function (e) {
+    e.preventDefault();
+    const mobile_number = $("#mobile_number").val();
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'frontend:load_balance' %}",
+      data: {
+        mobile_number: mobile_number,
+        page: nextPage
+      },
+      success: function (response) {
+        renderData(response, false)
+      },
+      error: function (response) {
+        alert("Load data failed")
+      }
+    });
+  })
 </script>
 {% endblock extra_js %}

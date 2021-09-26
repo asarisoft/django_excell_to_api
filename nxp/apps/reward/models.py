@@ -118,6 +118,7 @@ class Balance(models.Model):
             info = self.scan.serialize()
             
         return  {
+            "id" : self.id,
             "user" : self.datetime,
             "type" : self.type,
             "credit" : f'{self.credit:,}'.replace(',','.'),

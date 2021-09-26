@@ -5,7 +5,11 @@ from django.views.decorators.csrf import csrf_exempt
 from .forms import ScanForm, RedeemForm
 from nxp.apps.reward.models import Balance
 from nxp.apps.user.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.template import loader
 
+
+RESULT_PER_PAGE = 4
 
 def scan(request):
     form = ScanForm(data=request.POST or None)
@@ -43,11 +47,14 @@ def get_information(request):
         if not user:
             return JsonResponse({"error": "User tidak ditemukan"}, status=400)
         balances = (Balance.objects.filter(user=user)
-            .select_related('redeem').select_related('scan').order_by('-id')[0:20]
+            .select_related('redeem').select_related('scan').order_by('-id')
         )
+        paginator = Paginator(balances, RESULT_PER_PAGE)
         response = {
             'user': user.serialize(),
-            'balance': [balance.serialize() for balance in balances],
+            'balance': [balance.serialize() for balance in balances[0:RESULT_PER_PAGE]],
+            'next_page': 2,
+            'total_page': paginator.num_pages
         }
         return JsonResponse({"data": response}, status=200)
     return JsonResponse({"error": "User Tidak Dietmukan"}, status=400)
@@ -61,17 +68,46 @@ def api_redeem(request):
             mobile_number = request.POST.get("mobile_number", "")
             user = User.objects.filter(mobile_number=mobile_number).first()
             balances = (Balance.objects.filter(user=user)
-                .select_related('redeem').select_related('scan').order_by('-id')[0:20]
+                .select_related('redeem').select_related('scan').order_by('-id')
             )
+            paginator = Paginator(balances, RESULT_PER_PAGE)
             response = {
                 'user': user.serialize(),
-                'balance': [balance.serialize() for balance in balances],
+                'balance': [balance.serialize() for balance in balances[0:RESULT_PER_PAGE]],
+                'next_page': 2,
+                'total_page': paginator.num_pages
             }
             return JsonResponse({
                 "message": "Transaksi berhasil",
-                "data": response
+                "data": response,
             }, status=200)
         else:
             return JsonResponse(form.errors, status=400)
     return JsonResponse({"error": "Need Request Post and AJAX"}, status=400)
+
+
+@csrf_exempt
+def lazy_load_balance(request):
+    if request.is_ajax and request.method == "POST":
+        page = request.POST.get('page')
+        mobile_number = request.POST.get("mobile_number", "")
+        user = User.objects.filter(mobile_number=mobile_number).first()
+        balances =  (Balance.objects.filter(user=user)
+            .select_related('redeem').select_related('scan').order_by('-id')
+        )
+        paginator = Paginator(balances, RESULT_PER_PAGE)
+        try:
+            balances = paginator.page(page)
+        except PageNotAnInteger:
+            balances = paginator.page(2)
+        except EmptyPage:
+            balances = []
+        output_data = {
+            'data': {
+                'balance': [balance.serialize() for balance in balances],
+                'next_page': int(page) + 1,
+                'total_page': paginator.num_pages
+            }
+        }
+        return JsonResponse(output_data)
 
