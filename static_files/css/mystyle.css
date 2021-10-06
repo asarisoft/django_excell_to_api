@@ -401,3 +401,14 @@
 }
 
 /*# sourceMappingURL=mystyle.css.map */
+
+.btn-action {
+  background-color: #eb1b24;
+  color: white;
+  border-radius: 30px;
+  padding: 4px 16px;
+  border: none;
+  display: block;
+  margin: 0 16px;
+}
+

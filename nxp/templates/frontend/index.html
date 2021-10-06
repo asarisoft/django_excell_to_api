@@ -56,12 +56,12 @@
       action="#">
       {% csrf_token %}
 
-      <div style="position: relative;" id="scannerArea">
-        <!-- <canvas hidden="" id="qr-canvas"></canvas> -->
-        <video id="qr-video" style="width: 100%; max-height: 200px;"></video>
+      <div style="position: relative; text-align: center;" id="scannerArea">
+        <video id="qr-video" style="display: none"></video>
+        <canvas id="videoCanvas" style="align-self: center;"></canvas>
         <div style="justify-content: center; display: flex; margin: 10px 0;">
-          <button id="flash-toggle">📸 <span id="flash-state">off</span></button>
-          <button id="stop-button">Stop</button>
+          <button id="flash-toggle" class="btn-action">📸 <span id="flash-state">off</span></button>
+          <button id="stop-button" class="btn-action">Stop</button>
         </div>
       </div>
 
@@ -263,6 +263,7 @@
   import QrScanner from "{% static '/js/qr-scanner.min.js' %}";
   QrScanner.WORKER_PATH = "{% static '/js/qr-scanner-worker.min.js' %}";
   const video = document.getElementById('qr-video');
+  const canvas = document.getElementById("videoCanvas");
   const camHasFlash = document.getElementById('cam-has-flash');
   const flashToggle = document.getElementById('flash-toggle');
   const flashState = document.getElementById('flash-state');
@@ -290,6 +291,9 @@
 
   document.getElementById('btn-scan-qr').addEventListener('click', () => {
       document.getElementById("scannerArea").style.display = "block";
+      video.onplay = function() {
+        setTimeout(drawImge , 300);
+      };
       scanner.start();
   });
 
@@ -297,6 +301,24 @@
       scanner.stop();
       document.getElementById("scannerArea").style.display = "none";
   });
+
+
+  function drawImge(){
+    var video = document.querySelector("#qr-video");
+    var canvas = document.querySelector("#videoCanvas");
+    var ctx = canvas.getContext('2d');
+    canvas.width = 250;
+    canvas.height = 250;
+    var scale = 1;
+    var vidH = video.videoHeight;
+    var vidW = video.videoWidth;
+    var top = canvas.height / 2 - (vidH /2 ) * scale;
+    var left = canvas.width / 2 - (vidW /2 ) * scale;
+    // now just draw the video the correct size
+    ctx.drawImage(video, left, top, vidW * scale, vidH * scale);
+    
+    setTimeout(drawImge , 100);
+  }
 
 </script>
 {% endblock extra_js %}
