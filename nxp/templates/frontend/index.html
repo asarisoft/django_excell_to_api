@@ -274,7 +274,14 @@
   const scanner = new QrScanner(video, result => {
     document.getElementById("serial_number").value = result;
     document.getElementById("scannerArea").style.display = "none";
+    offFlash();
   });
+
+  offFlash = () => {
+    if (scanner.isFlashOn()) {
+        scanner.toggleFlash()
+    }
+  }
 
   const updateFlashAvailability = () => {
       scanner.hasFlash().then(hasFlash => {
@@ -298,6 +305,9 @@
   });
 
   document.getElementById('stop-button').addEventListener('click', () => {
+      if (scanner.isFlashOn()) {
+        scanner.toggleFlash()
+      }
       scanner.stop();
       document.getElementById("scannerArea").style.display = "none";
   });
