@@ -4,8 +4,8 @@
 {% block content %}
 <section class="row justify-content-lg-center">
   <div class="col-sm-12 col-md-6 col-lg-4 content header">
-    <a class="menu" href="{% url 'frontend:scan' %}"> Scan QR Code </a>
-    <a class="menu" href="{% url 'frontend:redeem' %}"> Redeem Reward </a>
+    <a class="menu" href="{% url 'frontend:scan' %}"> Tukar Poin </a>
+    <a class="menu" href="{% url 'frontend:redeem' %}"> Pencairan Poin </a>
   </div>
 </section>
 <section class="row">
@@ -56,8 +56,13 @@
       action="#">
       {% csrf_token %}
 
-      <div id="container">
-        <canvas hidden="" id="qr-canvas"></canvas>
+      <div style="position: relative;" id="scannerArea">
+        <!-- <canvas hidden="" id="qr-canvas"></canvas> -->
+        <video id="qr-video" style="max-width: 100%;"></video>
+        <div style="justify-content: center; display: flex; margin: 10px 0;">
+          <button id="flash-toggle">📸 <span id="flash-state">off</span></button>
+          <button id="stop-button">Stop</button>
+        </div>
       </div>
 
       <div class="form-group">
@@ -154,8 +159,6 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
-<script src="{% static 'js/qrcodereader.js' %}" type="module"></script>
 <script>
   $('#loader').hide()
 
@@ -252,5 +255,48 @@
   //   mask: '+620000000000000'
   // };
   // var mask = IMask(element, maskOptions);
+
+  
+</script>
+
+<script type="module">
+  import QrScanner from "{% static '/js/qr-scanner.min.js' %}";
+  QrScanner.WORKER_PATH = "{% static '/js/qr-scanner-worker.min.js' %}";
+  const video = document.getElementById('qr-video');
+  const camHasFlash = document.getElementById('cam-has-flash');
+  const flashToggle = document.getElementById('flash-toggle');
+  const flashState = document.getElementById('flash-state');
+  document.getElementById("scannerArea").style.display = "none";
+  
+
+  // ####### Web Cam Scanning #######
+  const scanner = new QrScanner(video, result => {
+    document.getElementById("serial_number").value = result;
+    document.getElementById("scannerArea").style.display = "none";
+  });
+
+  const updateFlashAvailability = () => {
+      scanner.hasFlash().then(hasFlash => {
+          camHasFlash.textContent = hasFlash;
+          flashToggle.style.display = hasFlash ? 'inline-block' : 'none';
+      });
+  };
+
+  // for debugging
+  window.scanner = scanner;
+  flashToggle.addEventListener('click', () => {
+      scanner.toggleFlash().then(() => flashState.textContent = scanner.isFlashOn() ? 'on' : 'off');
+  });
+
+  document.getElementById('btn-scan-qr').addEventListener('click', () => {
+      document.getElementById("scannerArea").style.display = "block";
+      scanner.start();
+  });
+
+  document.getElementById('stop-button').addEventListener('click', () => {
+      scanner.stop();
+      document.getElementById("scannerArea").style.display = "none";
+  });
+
 </script>
 {% endblock extra_js %}
