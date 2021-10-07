@@ -60,7 +60,7 @@
         <video id="qr-video" style="display: none"></video>
         <canvas id="videoCanvas" style="align-self: center;"></canvas>
         <div style="justify-content: center; display: flex; margin: 10px 0;">
-          <button id="flash-toggle" class="btn-action">📸 <span id="flash-state">off</span></button>
+          <button id="flash-toggle" class="btn-action" style="display: none;">📸 <span id="flash-state">off</span></button>
           <button id="stop-button" class="btn-action">Stop</button>
         </div>
       </div>
@@ -264,7 +264,6 @@
   QrScanner.WORKER_PATH = "{% static '/js/qr-scanner-worker.min.js' %}";
   const video = document.getElementById('qr-video');
   const canvas = document.getElementById("videoCanvas");
-  const camHasFlash = document.getElementById('cam-has-flash');
   const flashToggle = document.getElementById('flash-toggle');
   const flashState = document.getElementById('flash-state');
   document.getElementById("scannerArea").style.display = "none";
@@ -277,6 +276,10 @@
     offFlash();
   });
 
+  scanner.hasFlash().then(hasFlash => {
+      flashToggle.style.display = hasFlash ? 'inline-block' : 'none';
+  });
+
   const offFlash = () => {
     if (scanner.isFlashOn()) {
         scanner.toggleFlash()
@@ -285,7 +288,6 @@
 
   const updateFlashAvailability = () => {
       scanner.hasFlash().then(hasFlash => {
-          camHasFlash.textContent = hasFlash;
           flashToggle.style.display = hasFlash ? 'inline-block' : 'none';
       });
   };
