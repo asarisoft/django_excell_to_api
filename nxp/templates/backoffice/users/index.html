@@ -18,6 +18,14 @@
               </div>
             </div>
             <div class="col-sm-2">
+              <div class="input-group">
+                <select class="form-control" name="action">
+                  <option value="filter" {% if filter.action == "filter" %} selected {% endif %} selected>Filter</option>
+                  <option value="export" {% if filter.action == "export" %} selected {% endif %} >Export CSV</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-2">
               <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
                 submit
               </button>

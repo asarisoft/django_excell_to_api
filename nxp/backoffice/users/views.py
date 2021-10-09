@@ -1,12 +1,11 @@
-from django.http import JsonResponse
+import csv
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from django.template.response import TemplateResponse
 from nxp.apps.user.models import User
 from nxp.apps.reward.models import Scan
 from nxp.apps.user.decorators import login_validate
-from django.shortcuts import get_object_or_404
-from django.utils import timezone
+from django.http import HttpResponse
 
 
 @login_validate
@@ -19,6 +18,20 @@ def users(request):
             Q(name__icontains=search) | Q(mobile_number__icontains=search) |
             Q(dealer_name__icontains=search)
         )
+
+    action = request.GET.get("action")
+    if action == 'export':
+        response = HttpResponse(
+            content_type='text/csv',
+        )
+        response['Content-Disposition'] = 'attachment; filename="users.csv"'
+        writer = csv.writer(response)
+        writer.writerow(['No', 'Name', 'Mobile Number', 'Dealer Name'])
+        idx = 0
+        for sr in users:
+            idx += 1
+            writer.writerow([idx, sr.name, sr.mobile_number, sr.dealer_name])
+        return response
 
     results_per_page = 30
     paginator = Paginator(users, results_per_page)

@@ -1,3 +1,4 @@
+import csv
 from django.http import JsonResponse
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
@@ -6,11 +7,12 @@ from nxp.apps.reward.models import Redeem, Scan
 from nxp.apps.user.decorators import login_validate
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
+from django.http import HttpResponse
 
 
 @login_validate
 def redeem(request):
-    redeems = Redeem.objects.all().order_by("-id")
+    redeems = Redeem.objects.select_related('user').order_by("-id")
     page = request.GET.get("page")
     search = request.GET.get("search", "")
     if search:
@@ -22,6 +24,21 @@ def redeem(request):
     status = request.GET.get("status")
     if status:
         redeems = redeems.filter(status=status)
+
+    action = request.GET.get("action")
+    if action == 'export':
+        response = HttpResponse(
+            content_type='text/csv',
+        )
+        response['Content-Disposition'] = 'attachment; filename="redeem.csv"'
+        writer = csv.writer(response)
+        writer.writerow(['No', 'Name', 'Mobile Number', 'Dealer Name', 'Nominal', 'E-Wallet', 'Status'])
+        idx = 0
+        for sr in redeems:
+            idx += 1
+            writer.writerow([idx, sr.user.name, sr.dealer_code, sr.user.mobile_number,
+                             sr.value, sr.get_wallet_type_display(), sr.status])
+        return response
 
     results_per_page = 30
     new_count = redeems.filter(status="new").count()
