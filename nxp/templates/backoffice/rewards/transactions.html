@@ -12,9 +12,29 @@
       <div class="box-title">
         <form method="GET" action="">
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-2">
               <div class="input-group">
                 <input type="text" name="search" class="form-control" placeholder="User / Mobile Number / Serial " value="{{ filter.search }}">
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <div class="input-group">
+                <input type="date" name="start" class="form-control" placeholder="Start" value="{{ filter.start }}">
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <input type="date" name="end" class="form-control" placeholder="End" value="{{ filter.end }}">
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <div class="input-group">
+                <select class="form-control" name="action">
+                  <option value="filter" {% if filter.action == "filter" %} selected {% endif %} selected>Filter</option>
+                  <option value="export" {% if filter.action == "export" %} selected {% endif %} >Export CSV</option>
+                </select>
               </div>
             </div>
 

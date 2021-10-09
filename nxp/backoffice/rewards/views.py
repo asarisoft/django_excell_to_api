@@ -1,4 +1,5 @@
 import csv
+import datetime
 from django.http import JsonResponse
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
@@ -66,12 +67,36 @@ def redeem(request):
 
 @login_validate
 def transactions(request):
-    scans = Scan.objects.all().order_by("-id").select_related('serial_number').order_by('-datetime')
+    scans = Scan.objects.all().order_by("-id").select_related('user')\
+        .select_related('serial_number').order_by('-datetime')
     page = request.GET.get("page")
     search = request.GET.get("search", "")
+    start = request.GET.get("start", "")
+    end = request.GET.get("end", "")
     if search:
         scans = scans.filter(
             Q(user__name__icontains=search) | Q(user__mobile_number__icontains=search) | Q(serial_number__serial_number__icontains=search))
+
+    if start and end:
+        scans = scans.filter(datetime__range=[start, end])
+
+    action = request.GET.get("action")
+    if action == 'export':
+        response = HttpResponse(
+            content_type='text/csv',
+        )
+        response['Content-Disposition'] = 'attachment; filename="transactions.csv"'
+        writer = csv.writer(response)
+        writer.writerow(['No', 'Serial', 'Name', 'Date', 'Value'])
+        idx = 0
+        
+        for sr in scans:
+            idx += 1
+            _datetime = sr.datetime.strftime("%m/%d/%Y, %H:%M")
+            _datetime = datetime.datetime.strptime(_datetime, "%m/%d/%Y, %H:%M")
+            writer.writerow([idx, sr.serial_number, sr.user.name, _datetime,
+                             sr.serial_number.value])
+        return response
 
     results_per_page = 30
     paginator = Paginator(scans, results_per_page)
@@ -85,7 +110,7 @@ def transactions(request):
     context = {
         "scans": scans,
         "title": "Transactions",
-        "filter": {"search": search},
+        "filter": {"search": search, "start": start, "end": end},
     }
     return TemplateResponse(request, "backoffice/rewards/transactions.html", context)
 
