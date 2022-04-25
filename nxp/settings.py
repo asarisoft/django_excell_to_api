@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 APPS = [
     "nxp.apps.user",
-    "nxp.apps.dealer",
     "nxp.apps.serial_number",
     "nxp.apps.reward",
 ]

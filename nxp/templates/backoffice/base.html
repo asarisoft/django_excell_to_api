@@ -48,15 +48,7 @@
           </ul>
 
 
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a href="{% url 'backoffice:generate_qrcode:index' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:generate_qrcode:index' %} active {% endif %}">
-                <i class="fa fa-check-square"></i><span>Generate QR-Code</span>
-              </a>
-            </li>
-          </ul>
-
-
+      
           <ul class="nav flex-column">
             <li class="nav-item">
               <a href="{% url 'backoffice:rewards:transactions' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:rewards:transactions' %} active {% endif %}">

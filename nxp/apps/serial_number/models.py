@@ -1,7 +1,6 @@
 from django.db import models
 
 
-
 class SerialNumber(models.Model):
     serial_number = models.CharField(max_length=50, unique=True, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)

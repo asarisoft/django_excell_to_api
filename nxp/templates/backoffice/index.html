@@ -4,81 +4,9 @@
 {% block content %}
 
 <div class="stats">
-  <h3>Status</h3>
-  <div class="row">
-    <div class="col-md-6 col-lg-4">
-      <a href="{% url 'backoffice:rewards:redeem'%}?status=new">
-        <div class="stat-box" style="background-color: #eea73f;">
-          <div class="stat-box-icon"><i class="fa fa-file"></i></div>
-          <strong> {{ new_count | default:'0' }}</strong>
-          <span>Formulir baru</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="col-md-6 col-lg-4">
-      <a href="{% url 'backoffice:rewards:redeem'%}?status=paid">
-        <div class="stat-box" style="background-color: #60a853;">
-          <div class="stat-box-icon"><i class="fa fa-file"></i></div>
-          <strong> {{ paid_count | default:'0' }}</strong>
-          <span>Formulir dibayar</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="col-md-6 col-lg-4">
-      <a href="{% url 'backoffice:rewards:redeem'%}?status=cancelled">
-        <div class="stat-box" style="background-color: hsl(2, 74%, 53%);">
-          <div class="stat-box-icon"><i class="fa fa-file"></i></div>
-          <strong>{{ cancelled_count | default:'0' }}</strong>
-          <span>Formulir di tolak</span>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <h3>e-Wallet</h3>
-  <div class="row">
-    <div class="col-md-6 col-lg-3">
-      <a href="{% url 'backoffice:rewards:redeem'%}?ewallet=ovo">
-        <div class="stat-box" style="background-color: #755dad;">
-          <div class="stat-box-icon"><i class="fa fa-map"></i></div>
-          <strong>{{ ovo_count | default:'0'}}</strong>
-          <span>OVO</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="col-md-6 col-lg-3">
-      <a href="{% url 'backoffice:rewards:redeem'%}?ewallet=gopay">
-        <div class="stat-box" style="background-color: #44aad0;">
-          <div class="stat-box-icon"><i class="fa fa-map"></i></div>
-          <strong> {{ gopay_count | default:'0' }}</strong>
-          <span>Gopay</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="col-md-6 col-lg-3">
-      <a href="{% url 'backoffice:rewards:redeem'%}?ewallet=dana">
-        <div class="stat-box" style="background-color: #2b8ae3;">
-          <div class="stat-box-icon"><i class="fa fa-map"></i></div>
-          <strong>{{ dana_count | default:'0' }}</strong>
-          <span>DANA</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="col-md-6 col-lg-3">
-      <a href="{% url 'backoffice:rewards:redeem'%}??ewallet=shopee_pay">
-        <div class="stat-box" style="background-color: #e64b32;">
-          <div class="stat-box-icon"><i class="fa fa-map"></i></div>
-          <strong>{{ shopee_pay_count | default:'0' }}</strong>
-          <span>Shopee Pay</span>
-        </div>
-      </a>
-    </div>
-  </div>
+  <h2 style="text-align: center; margin-bottom: 32px">Sistem Migrasi Data</h2>
+  <h5 style="text-align: center">sistem ini dibuat untuk mentrasfer data dari APP lama ke APP baru</h5>
+  <h5 style="text-align: center">dengan upload data dari excell dan diteruskan melalui API</h5>
 </div>
 
 {% endblock %}
