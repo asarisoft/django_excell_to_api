@@ -34,6 +34,7 @@ APPS = [
     "nxp.apps.user",
     "nxp.apps.serial_number",
     "nxp.apps.reward",
+    "nxp.apps.cashflow",
 ]
 
 INSTALLED_APPS = [

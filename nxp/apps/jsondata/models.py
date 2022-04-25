@@ -15,6 +15,7 @@ class JSONData(models.Model)
     )
     type_name = models.CharField(max_length=100, choices=TYPE, unique=True)
     json_data  = models.TextField(blank=True, null=True) #a
+    item_joined  = models.IntegerField(default=1, blank=True, null=True) #a
     response  = models.TextField(blank=True, null=True) #a
     STATUS = (
         ('new', 'New'),
