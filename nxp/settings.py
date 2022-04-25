@@ -34,7 +34,9 @@ APPS = [
     "nxp.apps.user",
     "nxp.apps.serial_number",
     "nxp.apps.reward",
+
     "nxp.apps.cashflow",
+    "nxp.apps.jsondata",
 ]
 
 INSTALLED_APPS = [
@@ -48,7 +50,8 @@ INSTALLED_APPS = [
     "django_summernote",
     "django.contrib.humanize",
     "qrcode",
-    'sequences.apps.SequencesConfig'
+    'sequences.apps.SequencesConfig',
+    'django_json_widget',
 ] + APPS
 
 MIDDLEWARE = [
