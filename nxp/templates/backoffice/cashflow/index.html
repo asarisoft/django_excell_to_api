@@ -25,6 +25,26 @@
             </div>
           </div>
         </form>
+
+      </div>
+      <div class="box-title">
+
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="input-group">
+                <input type="file" name="myfile" placeholder="File CSV" >
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
+                upload
+              </button>
+            </div>
+          </div>
+        </form>
+
       </div>
 
       <table class="table table-striped">

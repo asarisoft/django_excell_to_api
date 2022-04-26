@@ -7,7 +7,9 @@ from nxp.apps.user.decorators import login_validate
 from nxp.backoffice.forms import LoginForm, UploadExcellForm
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
+from tablib import Dataset
 from nxp.apps.cashflow.models import Cashflow
+from nxp.apps.cashflow.admin import CashflowResource
 
 get_model = apps.get_model
 
@@ -54,6 +56,17 @@ def cashflow(request):
         datas = paginator.get_page(1)
     except EmptyPage:
         datas = paginator.get_page(paginator.num_pages)
+
+
+    if request.method == 'POST':
+        resources = CashflowResource()
+        new_datas = request.FILES['myfile']
+        dataset = Dataset()
+        imported_data = dataset.load(new_datas.read().decode(), format='csv')
+        result = resources.import_data(dataset, dry_run=True)  # Test the data import
+        print(result.has_errors())
+        if not result.has_errors():
+            resources.import_data(dataset, dry_run=False)  # Actually import now
 
     context = {
         "datas": datas,

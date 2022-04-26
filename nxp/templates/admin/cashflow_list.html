@@ -1,0 +1,17 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+  <li>
+    <a href="" class="addlink">
+      {% blocktrans with cl.opts.verbose_name as name %}My Custom Action{% endblocktrans %}
+    </a>
+  </li>
+  <li>
+    {% url cl.opts|admin_urlname:'add' as add_url %}
+    <a href="" class="addlink">
+      {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
+    </a>
+  </li>
+{% endblock %}
