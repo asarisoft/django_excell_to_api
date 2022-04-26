@@ -1,0 +1,69 @@
+{% extends 'backoffice/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load templatehelpers %}
+{% block title%} {{ title }} {% endblock %}
+{% block content %}
+<div class="box">
+    <div class="box-inner">
+      <div class="box-title">
+        <h2>{{title}}</h2>
+      </div>
+      <div class="box-title">
+        <form method="GET" action="">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="input-group">
+                <input type="text" name="search" class="form-control" 
+                  placeholder="No Akun / Nama Akun / NO JV" value="{{ filter.search }}">
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
+                submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>No Akun</th>
+            <th>Nama Akun</th>
+            <th>No JV</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for data in datas %}
+          <tr>
+            <td>{{ data.no_akun }} </a></td>
+            <td>{{ data.nama_akun }}</td>
+            <td>{{ data.no_jv }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+  
+      <div class="pull-right">
+        <p>Page {{ datas.number }} of {{ datas.paginator.num_pages }}</p>
+        <nav aria-label="">
+          <ul class="pagination">
+            {% if datas.has_previous %}
+            <li class="page-item"><a class="page-link" href="{% relative_url 1 'page' request.GET.urlencode %}">First</a>
+            </li>
+            <li class="page-item"><a class="page-link"
+                href="{% relative_url datas.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
+            {% endif %}
+            {% if datas.has_next %}
+            <li class="page-item"><a class="page-link"
+                href="{% relative_url datas.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

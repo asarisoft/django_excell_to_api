@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     "qrcode",
     'sequences.apps.SequencesConfig',
-    'django_json_widget',
 ] + APPS
 
 MIDDLEWARE = [

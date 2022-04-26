@@ -8,3 +8,11 @@ class LoginForm(auth.forms.AuthenticationForm):
 
     def clean(self):
         return super(LoginForm, self).clean()
+
+
+class UploadExcellForm(auth.forms.AuthenticationForm):
+    username = forms.CharField(max_length=30)
+    password = forms.CharField(max_length=30)
+
+    def clean(self):
+        return super(LoginForm, self).clean()

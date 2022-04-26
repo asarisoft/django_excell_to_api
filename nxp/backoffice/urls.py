@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import login_view, log_out, index
+from .views import login_view, log_out, index, cashflow, upload_data
 
 app_name = "backoffice"
 urlpatterns = [
@@ -8,4 +8,8 @@ urlpatterns = [
     path('log_out/', log_out, name='log_out'),
     path('rewards/', include('nxp.backoffice.rewards.urls', namespace='rewards')),
     path('users/', include('nxp.backoffice.users.urls', namespace='users')),
+
+    # new
+    path('upload_data/', upload_data, name='upload_data'),
+    path('cashflow/', cashflow, name='cashflow'),
 ]
