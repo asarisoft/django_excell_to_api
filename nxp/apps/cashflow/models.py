@@ -5,6 +5,9 @@ from datetime import datetime, timedelta
 
 
 class Cashflow(models.Model):
+    class Meta:
+        verbose_name_plural = "Cashflow"
+
     tgl_jv = models.CharField(max_length=100, blank=True, null=True) #a
     no_akun = models.CharField(max_length=100, blank=True, null=True) #b
     nama_akun = models.CharField(max_length=100, blank=True, null=True) #c

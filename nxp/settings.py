@@ -32,8 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 APPS = [
     "nxp.apps.user",
-    "nxp.apps.serial_number",
-    "nxp.apps.reward",
+
 
     "nxp.apps.cashflow",
     "nxp.apps.jsondata",
@@ -47,10 +46,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_summernote",
     "django.contrib.humanize",
-    "qrcode",
-    'sequences.apps.SequencesConfig',
+    'import_export',
 ] + APPS
 
 MIDDLEWARE = [
