@@ -10,6 +10,9 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from tablib import Dataset
 from nxp.apps.cashflow.models import Cashflow
 from nxp.apps.cashflow.admin import CashflowResource
+from nxp.core.utils import save_to_json_data
+
+from django.http import JsonResponse
 
 get_model = apps.get_model
 
@@ -74,3 +77,39 @@ def cashflow(request):
         "filter": {"search": search},
     }
     return TemplateResponse(request, "backoffice/cashflow/index.html", context)
+
+
+@login_validate
+def json_data(request):
+    datas = Cashflow.objects.all().order_by("-id")
+    page = request.GET.get("page")
+    search = request.GET.get("search", "")
+    if search:
+        users = datas.filter(
+            Q(no_akun__icontains=search) | Q(nama_akun__icontains=search) |
+            Q(no_jv__icontains=search)
+        )
+    results_per_page = 30
+    paginator = Paginator(datas, results_per_page)
+    try:
+        datas = paginator.get_page(page)
+    except PageNotAnInteger:
+        datas = paginator.get_page(1)
+    except EmptyPage:
+        datas = paginator.get_page(paginator.num_pages)
+
+    context = {
+        "datas": datas,
+        "title": "JSON DATA",
+        "filter": {"search": search},
+    }
+    return TemplateResponse(request, "backoffice/cashflow/index.html", context)
+
+
+
+@login_validate
+def generate_json_data(request):
+    app = request.GET.get("app")
+    model = request.GET.get("model")
+    save_to_json_data(app, model)
+    return JsonResponse({"message": "Success"}, status=200)

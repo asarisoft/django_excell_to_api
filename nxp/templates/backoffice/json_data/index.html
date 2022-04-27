@@ -26,15 +26,13 @@
               </button>
             </div>
               <div class="col-sm-2">
-              <button id="GenerateButton" type="button"  class="btn btn-primary">
+              <button type="button" id="btn-search-fix-h" class="btn btn-primary">
                 Generate JSON DATA
               </button>
             </div>
           </div>
         </form>
       </div>
-
-      
 
       {% comment %} <div class="box-title">
         <form method="GET" action="">
@@ -93,22 +91,4 @@
     </div>
 
   </div>
-{% endblock %}
-
-{% block script %} 
-<script type="text/javascript"> 
-$("#GenerateButton").on('click', function () {
-  alert("sdfsdfsdfsd");
-  $.ajax({
-    type: 'GET',
-    url: "{% url 'backoffice:generate_json_data' %}?app=cashflow&&model=Cashflow",
-    success: function (response) {
-      alert("sdfsdfsd")
-    },
-    error: function (response) {
-      alert("error")
-    }
-  });
-})
-</script>
 {% endblock %}

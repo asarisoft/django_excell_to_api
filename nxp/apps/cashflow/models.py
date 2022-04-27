@@ -30,6 +30,7 @@ class Cashflow(models.Model):
                 "prjCode": "" #null
             }
             if data_to_summarize.get(dt.no_jv) is None:
+                nilai_assing = dt.nilai_asing.replace(".", "").replace(",","")
                 data_to_summarize[dt.no_jv] = {
                     "no": dt.no_jv, #H
                     "dt": dt.tgl_jv, #A
@@ -41,7 +42,7 @@ class Cashflow(models.Model):
                     "remark": "null", #null
                     "referenceNo": "1", #static
                     "bankIssuer": "2", #static
-                    "amount": int(dt.nilai_asing), #sum(e)
+                    "amount": int(nilai_assing), #sum(e)
                     "details": [dt_detil],                    
                     "item_joined": 1, #helper
                     # "details": [{
@@ -54,7 +55,7 @@ class Cashflow(models.Model):
                 }
             else: 
                 data_to_summarize[dt.no_jv]["item_joined"] += 1
-                data_to_summarize[dt.no_jv]["amount"] += int(dt.nilai_asing)
+                data_to_summarize[dt.no_jv]["amount"] += int(nilai_assing)
                 data_to_summarize[dt.no_jv]["details"].append(dt_detil)
 
         return data_to_summarize

@@ -24,5 +24,8 @@ class JSONData(models.Model):
     )
     status = models.CharField(max_length=100, choices=STATUS, default="new")
 
+    def __str__(self):
+        return f"{self.key} {self.model}"
+
     class Meta:
         unique_together = ('key', 'model',)
