@@ -165,6 +165,7 @@
 
   function process(total, key, status) {
     var counter = 0;
+    {% comment %} pr masukkan counter ke url, dan ubah model sesuai excell dulu, {% endcomment %}
     function processNext() {
       var url = `{% url 'backoffice:process_data' %}?&model=Cashflow`
       if (key) url = `${url}&key=${key}` 
