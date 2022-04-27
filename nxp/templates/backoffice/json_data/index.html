@@ -11,61 +11,105 @@
       </div>
 
       <div class="box-title">
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
+        <form method="GET" action="">
           <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-2">
               <div class="input-group">
-                <input type="file" name="myfile" 
-                placeholder="File CSV" >
+                <input type="text" name="search" class="form-control" placeholder="Key" value="{{ filter.search }}">
               </div>
             </div>
+
+
+            <div class="col-sm-2">
+              <div class="input-group">
+                <select class="form-control" name="model">
+                  <option value="Cashflow" {% if filter.model == "Cashflow" %} selected {% endif %}>Cashflow</option>
+                  <option value="paid" {% if filter.model == "paid" %} selected {% endif %}>Paid</option>
+                  <option value="cancelled" {% if filter.model == "cancelled" %} selected {% endif %}>Cancelled</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <div class="input-group">
+                <select class="form-control" name="status">
+                  <option value="new" {% if filter.status == "new" %} selected {% endif %}>New</option>
+                  <option value="paid" {% if filter.status == "success" %} selected  {% endif %}>Paid</option>
+                  <option value="cancelled" {% if filter.status == "failed" %} selected {% endif %}>Cancelled</option>
+                </select>
+              </div>
+            </div>
+
+
             <div class="col-sm-2">
               <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
-                Import CSV
+                submit
               </button>
             </div>
-              <div class="col-sm-2">
-              <button type="button" id="btn-search-fix-h" class="btn btn-primary">
-                Generate JSON DATA
-              </button>
+
+            <div class="col-sm-12">
+              <P>Total Item: {{total_item}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Item After Joined: {{item_joined}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; New: {{new_count}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Success: {{success_count}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Failed: {{failed_count}} </P>
             </div>
+
+
           </div>
         </form>
       </div>
 
-      {% comment %} <div class="box-title">
-        <form method="GET" action="">
+      <div class="box-title">
+        <form class="search-form" method="POST" id="main-search-form" name="search-form" action="">
           <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-2">
               <div class="input-group">
-                <input type="text" name="search" class="form-control" 
-                  placeholder="No Akun / Nama Akun / NO JV" value="{{ filter.search }}">
+                <input type="number" name="number" class="form-control" placeholder="Number To Process" value="1">
               </div>
             </div>
+
+            <div class="col-sm-2">
+              <div class="input-group">
+                <select class="form-control" name="model">
+                  <option value="Cashflow" {% if filter.model == "cashflow" %} selected {% endif %}>Cashflow</option>
+                  <option value="paid" {% if filter.model == "paid" %} selected {% endif %}>Paid</option>
+                  <option value="cancelled" {% if filter.model == "cancelled" %} selected {% endif %}>Cancelled</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-5">
+              <p>Loading Progress : <span id="progress"> 0 </span> / <span id="total"> 0 </span> <br/>
+              Please don't reload page when processing data </p>
+            </div>
+
+
             <div class="col-sm-2">
               <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
-                CARI DATA
+                Process
               </button>
             </div>
+
           </div>
         </form>
-      </div>  {% endcomment %}
-
+      </div>
+      
+        
       <table class="table table-striped">
         <thead>
           <tr>
             <th>No Akun</th>
             <th>Nama Akun</th>
             <th>No JV</th>
+            <th>Status</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
         {% for data in datas %}
           <tr>
-            <td>{{ data.no_akun }} </a></td>
-            <td>{{ data.nama_akun }}</td>
-            <td>{{ data.no_jv }}</td>
+            <td>{{ data.key }} </a></td>
+            <td>{{ data.model }}</td>
+            <td>{{ data.item_joined }}</td>
+            <td>{{ data.status }}</td>
+            <th><Button class="btn btn-primary">Manual Process</Button></th>
           </tr>
         {% endfor %}
         </tbody>
@@ -92,3 +136,39 @@
 
   </div>
 {% endblock %}
+
+
+{% block script %} 
+{% comment %} get value from form on submit, hit to server, get_data, every hit update number {% endcomment %}
+<script type="text/javascript"> 
+$("#main-search-form").submit(function (e) {
+    e.preventDefault();
+    var serializeArray = $(this).serializeArray();
+    const number = serializeArray[0].value
+    const model = serializeArray[1].value
+    console.log(number, model)
+
+    {% comment %} get data to hit ke server {% endcomment %}
+    var url = `https://finance.cakap.com/cakap_trn/api/${serializeArray[1].value}/savetran`
+    
+    {% comment %} 
+    $("#progress").html("10");
+    $("#total").html("12");
+    
+    var url = `https://finance.cakap.com/cakap_trn/api/${serializeArray[1].value}/savetran`
+    console.log(url)
+
+     $.ajax({
+      type: 'POST',
+      url: "https://google.com",
+      success: function (response) {
+        console.log(response)
+      },
+      error: function (response) {
+       console.log(response)
+      }
+    }); {% endcomment %}
+  });
+</script>
+{% endblock %}
+

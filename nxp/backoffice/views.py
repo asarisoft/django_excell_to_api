@@ -9,8 +9,11 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from tablib import Dataset
 from nxp.apps.cashflow.models import Cashflow
+from nxp.apps.jsondata.models import JSONData
+
 from nxp.apps.cashflow.admin import CashflowResource
 from nxp.core.utils import save_to_json_data
+from django.db.models import Sum
 
 from django.http import JsonResponse
 
@@ -47,7 +50,7 @@ def cashflow(request):
     page = request.GET.get("page")
     search = request.GET.get("search", "")
     if search:
-        users = datas.filter(
+        datas = datas.filter(
             Q(no_akun__icontains=search) | Q(nama_akun__icontains=search) |
             Q(no_jv__icontains=search)
         )
@@ -60,16 +63,17 @@ def cashflow(request):
     except EmptyPage:
         datas = paginator.get_page(paginator.num_pages)
 
-
     if request.method == 'POST':
         resources = CashflowResource()
         new_datas = request.FILES['myfile']
         dataset = Dataset()
         imported_data = dataset.load(new_datas.read().decode(), format='csv')
-        result = resources.import_data(dataset, dry_run=True)  # Test the data import
+        result = resources.import_data(
+            dataset, dry_run=True)  # Test the data import
         print(result.has_errors())
         if not result.has_errors():
-            resources.import_data(dataset, dry_run=False)  # Actually import now
+            # Actually import now
+            resources.import_data(dataset, dry_run=False)
 
     context = {
         "datas": datas,
@@ -81,14 +85,27 @@ def cashflow(request):
 
 @login_validate
 def json_data(request):
-    datas = Cashflow.objects.all().order_by("-id")
+    datas = JSONData.objects.all().order_by("-id")
     page = request.GET.get("page")
+
+    model = request.GET.get("model", "Cashflow")
+    datas = datas.filter(model=model)
+
+    status = request.GET.get("status", "New")
+    datas = datas.filter(status=status)
+
     search = request.GET.get("search", "")
     if search:
-        users = datas.filter(
-            Q(no_akun__icontains=search) | Q(nama_akun__icontains=search) |
-            Q(no_jv__icontains=search)
+        datas = datas.filter(
+            Q(key__icontains=search)
         )
+
+    total_item = datas.aggregate(Sum('item_joined'))["item_joined__sum"]
+    item_joined = datas.count()
+    new_count = datas.filter(status="new").count()
+    success_count = datas.filter(status="success").count()
+    failed_count =  datas.filter(status="failed").count()
+
     results_per_page = 30
     paginator = Paginator(datas, results_per_page)
     try:
@@ -101,10 +118,18 @@ def json_data(request):
     context = {
         "datas": datas,
         "title": "JSON DATA",
-        "filter": {"search": search},
+        "filter": {
+            "search": search,
+            "status": status,
+            "model": model,
+        },
+        "total_item":total_item,
+        "item_joined": item_joined,
+        "new_count": new_count,
+        "success_count": success_count,
+        "failed_count": failed_count
     }
-    return TemplateResponse(request, "backoffice/cashflow/index.html", context)
-
+    return TemplateResponse(request, "backoffice/json_data/index.html", context)
 
 
 @login_validate

@@ -1,0 +1,51 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Imam Asari">
+  <title>ENEOS NXP OIL</title>
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/lightbox.css' %}" rel="stylesheet">
+  <link href="{% static 'css/mystyle.css' %}" rel="stylesheet">
+  <link href="{% static 'css/float-labels.css' %}" rel="stylesheet">
+  <link href="{% static 'css/qrcode.css' %}" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+  <link rel="shortcut icon" href="{{settings.favicon.img_value}}">
+  <script type="text/javascript">
+    window.CSRF_TOKEN = "{{ csrf_token }}";
+  </script>
+  {% block extra_header %} {% endblock %}
+</head>
+<body>
+  <header class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 logo-container">
+      <img src="{% static '/images/logo.jpeg' %}" style="width: 20%;"/>
+    </div>
+  </header>
+
+  {% block content %} {% endblock %}
+
+  <footer  class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 content footer">
+      <p>Copyright © 2021</br>PT Nippon Oil Indonesia</p>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/wow.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/float-labels.min.js' %}"></script>
+  <script src="https://unpkg.com/imask"></script>
+  <script type="text/javascript">
+    new FloatLabels('.my-form');
+    new FloatLabels('.search-form');
+    // $('#exampleModalCenter').modal('show');
+  </script>
+  {% block extra_js %} {% endblock %}
+</body>
+</html>

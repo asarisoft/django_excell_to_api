@@ -1,0 +1,200 @@
+
+{% extends 'frontend/base.html' %}
+{% load humanize %}
+{% load static %}
+{% block content %}
+<section  class="row justify-content-lg-center">
+  <div class="col-sm-12 col-md-6 col-lg-4 content scan-qrcode">
+    <p> Scan Reward QR Code! </p>
+    <img class="infomation-img" src="{% static '/images/information.png' %}" />
+  </div>
+</section>
+<section  class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4 content present">
+    <img class="checklist-img" src="{% static '/images/checklist.png' %}" />
+    <p class="hallo">Hallo Sahabat ENEOS NXP,</p>
+    <p class="thank-you">Terima kasih sudah <br/> memilih oli ENEOS NXP sebagai <br/> produk bengkel mu!</p>
+  </div>
+</section>
+<section  class="row " >
+  <div class="col-sm-12 col-md-6 col-lg-4 content apreciation">
+    <img class="reward-img" src="{% static '/images/reward.png' %}" />
+    <p class="reward-text">Sebagai bentuk apresiasi ENEOS NXP, kamu <br/> mendapatkan e-wallet sebesar</p>
+  </div>
+</section>
+<section  class="row  " >
+  <div class="col-sm-12 col-md-6 col-lg-4 content imageinfowrapper">
+    <img class="imageinfo" src="{% static '/images/idr.png' %}" />
+    <img class="imageinfo" src="{% static '/images/group_pay.png' %}" />
+  </div>
+</section>
+<section  class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4 content fillcontent">
+    <p>Mohon mengisi formulir dibawah ini</p>
+  </div>
+</section>
+
+<section  class="row" >
+  <div class="col-sm-12 col-md-6 col-lg-4 content formcontent" >
+    <form class="my-form"  id="formulir-form" method="POST" action="{% url 'frontend:index' %}"
+      id="main-contact-form" name="contact-form" method="post" action="#">
+      {% csrf_token %}
+      
+      <div id="container">
+        <canvas hidden="" id="qr-canvas"></canvas>
+      </div>
+
+      <div class="form-group">
+        <label for="serial_number">QR-Code *</label>
+        <div >
+          <input type="text" name="serial_number" id="serial_number" placeholder="Serial Number" required="required" style="width: 77%; float: left">
+          <a id="btn-scan-qr">
+            <img src="{% static 'images/qr.svg' %}">
+          <a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="product">Produk *</label>
+        <input type="text" name="product" id="product" placeholder="Nama Produk" required="required">
+      </div>
+      <div class="form-group">
+        <label for="name">Nama *</label>
+        <input type="text" name="name" id="name" placeholder="Nama" required="required">
+      </div>
+      <div class="form-group">
+        <label for="mobile_number" >Nomor HP *</label>
+        <input type="text" name="mobile_number" id="mobile_number" placeholder="Nomor HP" required="required">
+      </div>
+      <div class="form-group">
+        <label for="olitype" >Jenis Oli *</label>
+        <input type="text" id="olitype" name="oil_type" placeholder="Jenis Oli" required="required">
+      </div>
+
+      <p style="color: rgb(100, 100, 100);">Wajib diisi jika redeem QR-Code untuk dealer (D-XXX)</p>
+      <div class="form-group">
+        <label for="dealer_code">Kode Dealer</label>
+        <input type="text" name="dealer_code" id="dealer_code" placeholder="Kode Dealer" >
+      </div>
+      <div class="row" >
+        <div class="col-sm-6 form-check">
+          <label class="from-check-wrapper">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios1" value="gopay" checked>
+            <img class="payment-img" src="{% static '/images/gopay.png' %}" />
+          </label>
+        </div>
+        <div class="col-sm-6 form-check ">
+          <label class="from-check-wrapper">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios2" value="ovo">
+            <img class="payment-img" src="{% static '/images/ovo.png' %}" />
+          </label>
+        </div>
+        <div class="col-sm-6 form-check ">
+          <label class="from-check-wrapper">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios2" value="dana">
+            <img class="payment-img" src="{% static '/images/dana.png' %}" />
+          </label>
+        </div>
+        <div class="col-sm-6 form-check ">
+          <label class="from-check-wrapper">
+            <input class="form-check-input" type="radio" name="wallet_type" id="exampleRadios2" value="shopee_pay">
+            <img class="payment-img" src="{% static '/images/shopee.png' %}" />
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn-submit">Kirim Formulir</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section  class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4 content privasi">
+    <img class="ENEOS NXP-gray" src="{% static '/images/logo_putih.png' %}" style="width: 20%; margin-bottom: 16px;" />
+    <p>Kami menjaga privasi segala bentuk <br/> informasi yang diterima</p>
+    <p class="privasi-title">KEBIJAKAN PRIVASI</p>
+  </div>
+</section>
+
+<section  class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4 content backto-main">
+    <p>Halaman Utama</p>
+    <img class="payment-img" src="{% static '/images/back.png' %}" />
+  </div>
+</section>
+
+<div class="modal fade" id="ModalCenter"  >
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-body top-body1">
+        <img class="image1" src="{% static '/images/icon_big.png' %}" />
+        <img class="image2" src="{% static '/images/reward_green.png' %}" />
+      </div>
+
+      <div class="modal-body bottom-body">
+        <button type="button" class="btn-submit">Bagikan ke teman kamu</button>
+        <button type="button" class="btn-close" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ModalCenter2"  >
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-body">
+        <h4 style="text-align: center;"> Error ! </h4>
+      </div>
+      <div class="modal-body bottom-body">
+        <div id="errorMessage" >Bagikan ke teman kamu</div>
+        <button type="button" class="btn-close" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
+<script src="{% static 'js/qrcodereader.js' %}" type="module"></script>
+<script>
+    $("#formulir-form").submit(function (e) {
+        e.preventDefault();
+        var serializedData = $(this).serialize();
+        console.log(serializedData);
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'frontend:post_formulir' %}",
+            data: serializedData,
+            success: function (response) {
+              $('#ModalCenter').modal('show');
+              document.getElementById("formulir-form").reset();
+            },
+            error: function (response) {
+              let messageComp = document.getElementById("errorMessage");
+              error = "Terjadi Kesalahan Server!"
+              try {
+                errorJSON = JSON.parse(response.responseText);
+                error = ""
+                for (var key in errorJSON) {
+                  error += `<p style="color: red;"> ${errorJSON[key][0]}</p>`;
+                }
+              }
+              catch(err) {
+                console.log(err)
+              }
+              messageComp.innerHTML= error;
+              $('#ModalCenter2').modal('show');
+            }
+        });
+    });
+
+    var element = document.getElementById('mobile_number');
+    var maskOptions = {
+      mask: '+620000000000000'
+    };
+    var mask = IMask(element, maskOptions);
+</script>
+{% endblock extra_js %}

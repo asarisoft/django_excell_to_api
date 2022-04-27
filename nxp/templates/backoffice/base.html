@@ -59,7 +59,7 @@
 
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a href="{% url 'backoffice:cashflow' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:rewards:transactions' %} active {% endif %}">
+              <a href="{% url 'backoffice:json_data' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:rewards:transactions' %} active {% endif %}">
                 <i class="fa fa-check-square"></i><span>Json Data</span>
               </a>
             </li>
