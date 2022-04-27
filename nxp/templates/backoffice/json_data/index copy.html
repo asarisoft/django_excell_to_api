@@ -144,41 +144,25 @@
 $("#main-search-form").submit(function (e) {
     e.preventDefault();
     var serializeArray = $(this).serializeArray();
-    const total = serializeArray[0].value
+    const number = serializeArray[0].value
     const model = serializeArray[1].value
-    $("#total").html(total);
-    process(parseInt(total))
+
+    $.ajax({
+      type: 'GET',
+      url: `{% url 'backoffice:get_json_data' %}?number=${number}&model=Cashflow`,
+      success: function (response) {
+        $("#total").html(response.length);
+        loop(response, model)
+      },
+      error: function (response) {
+        alert("error")
+      }
+    });
+    
+
   });
 
-  function process(total) {
-    var counter = 0;
-    function processNext() {
-      $.ajax({
-        type: 'GET',
-        url: `{% url 'backoffice:process_data' %}?number=${total}&model=Cashflow`,
-        async: true,
-        success: function (response) {
-          console.log(response)
-          counter++;
-          $("#progress").html(counter);
-          if (counter < total) {
-            processNext();
-          }
-        },
-        error: function (response) {
-          console.log(response)
-          counter++;
-          $("#progress").html(counter);
-          if (counter < total) {
-            processNext();
-          }
-        }
-      }); 
-    }
-    processNext();
-  }
-
-  {% comment %} function loop(data, model) {
+  function loop(data, model) {
     console.log(data)
     var i = 0 
     while (i <= data.length) {
@@ -206,8 +190,10 @@ $("#main-search-form").submit(function (e) {
           }
         })
       }
+
+
     }
-  } {% endcomment %}
+  }
 
 </script>
 {% endblock %}

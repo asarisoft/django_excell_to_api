@@ -15,7 +15,9 @@ from nxp.apps.cashflow.admin import CashflowResource
 from nxp.core.utils import save_to_json_data
 from django.db.models import Sum
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 get_model = apps.get_model
 
@@ -132,9 +134,18 @@ def json_data(request):
     return TemplateResponse(request, "backoffice/json_data/index.html", context)
 
 
-@login_validate
 def generate_json_data(request):
     app = request.GET.get("app")
     model = request.GET.get("model")
     save_to_json_data(app, model)
     return JsonResponse({"message": "Success"}, status=200)
+
+@csrf_exempt
+def process_data(request):
+    model = request.GET.get("model")
+    datas = []
+    qs = JSONData.objects.filter(model=model)\
+        .filter(status='new').order_by('-id').first()
+    datas.append(qs)
+    qs_json = serializers.serialize('json', datas)
+    return HttpResponse(qs_json, content_type='application/json')
