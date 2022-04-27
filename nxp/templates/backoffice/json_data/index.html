@@ -118,7 +118,8 @@
             <td>{{ data.model }}</td>
             <td>{{ data.item_joined }}</td>
             <td>{{ data.status }}</td>
-            <th><Button class="btn btn-primary">Manual Process</Button></th>
+            <th><Button 
+              class="btn btn-primary" onClick="processMan({{data.key}})">Manual Process</Button></th>
           </tr>
         {% endfor %}
         </tbody>
@@ -154,17 +155,20 @@
     e.preventDefault();
     var serializeArray = $(this).serializeArray();
     const total = serializeArray[0].value
-    $("#total").html(total);
     const model = serializeArray[1].value
     const status = serializeArray[2].value
+
+    $("#total").html(total);
     process(parseInt(total), false, status)
   });
 
 
-  function process(total, id, status) {
+  function process(total, key, status) {
     var counter = 0;
     function processNext() {
-      var url = `{% url 'backoffice:process_data' %}?&model=Cashflow&Id=${id}&status=${status}`
+      var url = `{% url 'backoffice:process_data' %}?&model=Cashflow`
+      if (key) url = `${url}&key=${key}` 
+      if (status) url = `${url}&status=${status}` 
       $.ajax({
         type: 'GET',
         url: url,
@@ -175,6 +179,8 @@
           $("#progress").html(counter);
           if (counter < total) {
             processNext();
+          } else {
+            window.location.reload()
           }
         },
         error: function (response) {
@@ -183,6 +189,8 @@
           $("#progress").html(counter);
           if (counter < total) {
             processNext();
+          } else {
+            window.location.reload()
           }
         }
       }); 
@@ -190,36 +198,9 @@
     processNext();
   }
 
-  {% comment %} function loop(data, model) {
-    console.log(data)
-    var i = 0 
-    while (i <= data.length) {
-      payload = data[i]["fields"]["json_data"]   
-      const new_url = `https://finance.cakap.com/cakap_trn/api/${model}/savetran`;
-      console.log(new_url)
-      
-      function getNextImage() {
-        $.ajax({
-          type: 'POST',
-          url: new_url,
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-          dataType: 'json',
-          async: true,
-          data: {"doc": payload},
-          success: function (response) {
-            i++
-            console.log(i, response);
-            $("#progress").html(i);
-          }, error: function (response) {
-            i++;
-            $("#progress").html(i);
-            console.log(i, response)
-          }
-        })
-      }
-    }
-  } {% endcomment %}
+  function processMan(key) {
+    process(1, key, '');
+  }
 
 </script>
 {% endblock %}

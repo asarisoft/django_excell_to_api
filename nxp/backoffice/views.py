@@ -154,7 +154,7 @@ def process_data(request):
     qs = JSONData.objects.filter(model=model).order_by('-id')
     if key:
         qs = qs.filter(key=key)
-    else:
+    if status:
         qs = qs.filter(status=status)
     qs = qs.first()
     if qs:
