@@ -1,3 +1,6 @@
+import requests
+import json
+from urllib import response
 from django.apps.registry import apps
 from django.contrib import messages
 from django.contrib.auth import login, logout
@@ -106,7 +109,7 @@ def json_data(request):
     item_joined = datas.count()
     new_count = datas.filter(status="new").count()
     success_count = datas.filter(status="success").count()
-    failed_count =  datas.filter(status="failed").count()
+    failed_count = datas.filter(status="failed").count()
 
     results_per_page = 30
     paginator = Paginator(datas, results_per_page)
@@ -125,7 +128,7 @@ def json_data(request):
             "status": status,
             "model": model,
         },
-        "total_item":total_item,
+        "total_item": total_item,
         "item_joined": item_joined,
         "new_count": new_count,
         "success_count": success_count,
@@ -134,18 +137,62 @@ def json_data(request):
     return TemplateResponse(request, "backoffice/json_data/index.html", context)
 
 
+# for every model to generate json data 
 def generate_json_data(request):
     app = request.GET.get("app")
     model = request.GET.get("model")
     save_to_json_data(app, model)
     return JsonResponse({"message": "Success"}, status=200)
 
+
+# process data to server
 @csrf_exempt
 def process_data(request):
     model = request.GET.get("model")
-    datas = []
-    qs = JSONData.objects.filter(model=model)\
-        .filter(status='new').order_by('-id').first()
-    datas.append(qs)
-    qs_json = serializers.serialize('json', datas)
-    return HttpResponse(qs_json, content_type='application/json')
+    key = request.GET.get("key")
+    status = request.GET.get("status", "")
+    qs = JSONData.objects.filter(model=model).order_by('-id')
+    if key:
+        qs = qs.filter(key=key)
+    else:
+        qs = qs.filter(status=status)
+    qs = qs.first()
+    if qs:
+        response = send_to_server(model, qs)
+    else:
+        response = {"status": "error", "data": {"message": "no data found"}}
+    
+    print("RESPOSSSS", response)
+    if response["status"] == "success":
+        qs.status="success"
+        qs.response=response["data"]
+        qs.save()
+        return JsonResponse(response, status=200)
+    else: 
+        if qs:
+            qs.status="failed"
+            qs.response=response["data"]
+            qs.save()
+        return JsonResponse(response, status=400)
+
+
+def send_to_server(model, data):
+    url = f"https://finance.cakap.com/cakap_trn/api/{model.lower()}/savetrans/"
+    print(url)
+    payload = {
+        "doc": data.json_data
+    }
+    print(payload)
+    headers = {
+        'usr': 'admin',
+        'token': 'AmeZqgA4ogPXKQT9EXjpyQRtqDT2ngrd',
+        'content-type': 'application/x-www-form-urlencoded'
+    }
+    request = requests.post(url, payload, headers=headers)
+    response = request.json()
+    print(response)
+    if response["status"] == 200:
+        return {"status": "success", "data": response}
+    else:
+        return {"status": "failed", "body": payload, "data": response}
+        

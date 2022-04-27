@@ -34,8 +34,8 @@
               <div class="input-group">
                 <select class="form-control" name="status">
                   <option value="new" {% if filter.status == "new" %} selected {% endif %}>New</option>
-                  <option value="paid" {% if filter.status == "success" %} selected  {% endif %}>Paid</option>
-                  <option value="cancelled" {% if filter.status == "failed" %} selected {% endif %}>Cancelled</option>
+                  <option value="success" {% if filter.status == "success" %} selected  {% endif %}>Success</option>
+                  <option value="failed" {% if filter.status == "failed" %} selected {% endif %}>Failed</option>
                 </select>
               </div>
             </div>
@@ -71,6 +71,15 @@
                   <option value="cashflow" {% if filter.model == "cashflow" %} selected {% endif %}>Cashflow</option>
                   <option value="paid" {% if filter.model == "paid" %} selected {% endif %}>Paid</option>
                   <option value="cancelled" {% if filter.model == "cancelled" %} selected {% endif %}>Cancelled</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <div class="input-group">
+                <select class="form-control" name="status">
+                  <option value="new" {% if filter.status == "new" %} selected {% endif %}>New</option>
+                  <option value="failed" {% if filter.status == "failed" %} selected {% endif %}>Failed</option>
                 </select>
               </div>
             </div>
@@ -141,21 +150,24 @@
 {% block script %} 
 {% comment %} get value from form on submit, hit to server, get_data, every hit update number {% endcomment %}
 <script type="text/javascript"> 
-$("#main-search-form").submit(function (e) {
+  $("#main-search-form").submit(function (e) {
     e.preventDefault();
     var serializeArray = $(this).serializeArray();
     const total = serializeArray[0].value
-    const model = serializeArray[1].value
     $("#total").html(total);
-    process(parseInt(total))
+    const model = serializeArray[1].value
+    const status = serializeArray[2].value
+    process(parseInt(total), false, status)
   });
 
-  function process(total) {
+
+  function process(total, id, status) {
     var counter = 0;
     function processNext() {
+      var url = `{% url 'backoffice:process_data' %}?&model=Cashflow&Id=${id}&status=${status}`
       $.ajax({
         type: 'GET',
-        url: `{% url 'backoffice:process_data' %}?number=${total}&model=Cashflow`,
+        url: url,
         async: true,
         success: function (response) {
           console.log(response)
