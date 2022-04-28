@@ -42,7 +42,7 @@ def custom_slugify(string):
 def save_to_json_data():
     datas = generate_json_all_data()
 
-def save_to_json_data(app_label, model_name):
+def save_to_json_data(app_label, model_name, type):
     model = apps.get_model(app_label=app_label, model_name=model_name)
     instance = model()
     datas = model().generate_json_all_data()
@@ -53,7 +53,7 @@ def save_to_json_data(app_label, model_name):
         obj, created = JSONData.objects.update_or_create(
             item_joined=item_joined,
             json_data=data,
-            defaults={'key': key, 'model': model_name},
+            defaults={'key': key, 'model': model_name, 'type': type},
         )
 
 

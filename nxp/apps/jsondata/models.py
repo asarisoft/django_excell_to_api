@@ -7,11 +7,18 @@ from datetime import datetime, timedelta
 class JSONData(models.Model):
     key = models.CharField(max_length=100)
     TYPE = (
-        ('invoice', 'invoice'),
         ('purchaseinvoice', 'purchaseinvoice'),
         ('cashflow', 'cashflow'),
         ('jv', 'jv'),
-        # ('sales', 'sales'),
+        ('invoice', 'invoice'),
+    )
+    type = models.CharField(max_length=100, choices=TYPE, null=True)
+    MODEL = (
+        ('purchaseinvoiceitem', 'purchaseinvoiceitem'),
+        ('purchaseinvoiceexpense', 'purchaseinvoiceexpense'),
+        ('cashflow', 'cashflow'),
+        ('jv', 'jv'),
+        ('invoice', 'invoice'),
     )
     model = models.CharField(max_length=100, choices=TYPE, null=True)
     json_data  = models.TextField(blank=True, null=True) #a
@@ -28,4 +35,4 @@ class JSONData(models.Model):
         return f"{self.key} {self.model}"
 
     class Meta:
-        unique_together = ('key', 'model',)
+        unique_together = ('key', 'model', 'type')

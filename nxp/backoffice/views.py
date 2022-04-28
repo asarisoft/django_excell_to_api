@@ -141,7 +141,8 @@ def json_data(request):
 def generate_json_data(request):
     app = request.GET.get("app")
     model = request.GET.get("model")
-    save_to_json_data(app, model)
+    type = request.GET.get("type")
+    save_to_json_data(app, model, type)
     return JsonResponse({"message": "Success"}, status=200)
 
 
