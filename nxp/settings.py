@@ -32,9 +32,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 APPS = [
     "nxp.apps.user",
-
-
     "nxp.apps.cashflow",
+    # "nxp.apps.jv", #
+    "nxp.apps.invoice",
     "nxp.apps.jsondata",
 ]
 
@@ -74,7 +74,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
-            "libraries": {"templatehelpers": "nxp.apps.templatetags.templatehelpers",},
+            "libraries": {"templatehelpers": "nxp.apps.templatetags.templatehelpers", },
         },
     },
 ]
@@ -89,9 +89,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
 ]
 
 
@@ -122,13 +122,13 @@ STATICFILES_DIRS = [
 # django summernote
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
-AUTH_USER_MODEL = "user.User" 
+AUTH_USER_MODEL = "user.User"
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATA_UPLOAD_MAX_NUMBER_FIELDS=100000
-SITE_ID=1 
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 100000
+SITE_ID = 1
 
 try:
     from .local_settings import *

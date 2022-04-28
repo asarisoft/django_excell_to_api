@@ -10,7 +10,7 @@ class CashflowResource(resources.ModelResource):
         # fields = ("id", "tgl_jv","no_akun","nama_akun","catatan","nilai_asing","nama_dep","nama_proyek","no_jv","bank_code","nama_bank")
         
 @admin.register(Cashflow)
-class PersonAdmin(ImportExportModelAdmin):
+class CashflowAdmin(ImportExportModelAdmin):
     list_display=["tgl_jv","no_akun","nama_akun","catatan","nilai_asing","nama_dep","nama_proyek","no_jv","bank_code","nama_bank"]
     # resource_class = CashflowResource
     # change_list_template = "admin/cashflow_list.html"

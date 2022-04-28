@@ -19,6 +19,9 @@ class Cashflow(models.Model):
     bank_code = models.CharField(max_length=100, blank=True, null=True) #i
     nama_bank = models.CharField(max_length=100, blank=True, null=True) #j
 
+    def __str__(self):
+        return f"{self.no_jv}"
+
     def generate_json_all_data(self):
         data_to_summarize = {}
         for dt in Cashflow.objects.all():
