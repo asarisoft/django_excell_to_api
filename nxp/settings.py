@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['*']
 APPS = [
     "nxp.apps.user",
     "nxp.apps.cashflow",
-    # "nxp.apps.jv", #
+    "nxp.apps.jv", #
     "nxp.apps.invoice",
     "nxp.apps.jsondata",
 ]
