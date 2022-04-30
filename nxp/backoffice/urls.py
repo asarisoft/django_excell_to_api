@@ -1,11 +1,15 @@
 from django.urls import path, include
 from .views import (
     login_view, log_out, index, 
-    cashflow, json_data, 
     generate_json_data,
     process_data,
+    json_data, 
+
     purchase_invoice_item,
-    purchase_invoice_expense
+    purchase_invoice_expense,
+    cashflow, 
+    jv,
+    invoice
 )
 
 app_name = "backoffice"
@@ -17,8 +21,8 @@ urlpatterns = [
     path('purchase-invoice-item/', purchase_invoice_item, name='purchase_invoice_item'),
     path('purchase-invoice-expense/', purchase_invoice_expense, name='purchase_invoice_expense'),
     path('cashflow/', cashflow, name='cashflow'),
-    # path('purchase-invoice-item/', purchase_invoice_item, name='jv'),
-    # path('purchase-invoice-item/', purchase_invoice_item, name='invoice'),
+    path('jv/', jv, name='jv'),
+    path('invoice/', invoice, name='invoice'),
 
     path('generate-json-data/', generate_json_data, name='generate_json_data'),
     path('json_data/', json_data, name='json_data'),
