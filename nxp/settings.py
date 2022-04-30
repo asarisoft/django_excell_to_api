@@ -32,8 +32,10 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 APPS = [
     "nxp.apps.user",
+    "nxp.apps.purchase_invoice_item",
+    "nxp.apps.purchase_invoice_expense",
     "nxp.apps.cashflow",
-    "nxp.apps.jv", #
+    "nxp.apps.jv", 
     "nxp.apps.invoice",
     "nxp.apps.jsondata",
 ]
