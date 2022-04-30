@@ -5,8 +5,6 @@ from datetime import datetime, timedelta
 
 
 class PurchaseInvoiceItem(models.Model):
-    class Meta:
-        verbose_name_plural = "Cashflow"
 
     no_pemasok = models.CharField(max_length=100, blank=True, null=True)  # a
     date = models.CharField(max_length=100, blank=True, null=True)  # b
@@ -33,8 +31,8 @@ class PurchaseInvoiceItem(models.Model):
 
     def generate_json_all_data(self):
         data_to_summarize = {}
-        for dt in PurchaseInvoiceItem().objects.all():
-            key = no_purchase_invoice;
+        for dt in PurchaseInvoiceItem.objects.all():
+            key = dt.no_purchase_invoice;
             jumlah = dt.jumlah.replace(",","").replace(".","")
             item = {
                 "itemId": dt.no_barang,  # k
@@ -53,14 +51,14 @@ class PurchaseInvoiceItem(models.Model):
             }
             if data_to_summarize.get(key) is None:
                 data_to_summarize[key] = {
-                    "no": no_purchase_invoice,  # e
-                    "dt": date,  # b
+                    "no": key,  # e
+                    "dt": dt.date,  # b
                     "locId": "164664240939100037530",  # static
-                    "vendCode": no_pemasok,  # a
+                    "vendCode": dt.no_pemasok,  # a
                     "ptypeId": "HO164664374309602505821",  # static
                     "ptermId": "HO164664383888902573434",  # static
                     "userName": "WEB",  # static
-                    "remark": keterangan,  # G
+                    "remark": dt.keterangan,  # G
                     "sourceTransId": "",  # null
                     "vendInvNo": dt.no_faktur_vendor,  # f
                     "items": [item],
@@ -69,7 +67,7 @@ class PurchaseInvoiceItem(models.Model):
                 }
             else:
                 data_to_summarize[key]["item_joined"] += 1
-                data_to_summarize[key]["items"].append(dt_detil)
-                data_to_summarize[key]["expenses"].append(dt_detil)
+                data_to_summarize[key]["items"].append(item)
+                data_to_summarize[key]["expenses"].append(expense)
 
         return data_to_summarize

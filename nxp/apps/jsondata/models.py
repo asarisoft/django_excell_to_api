@@ -14,13 +14,13 @@ class JSONData(models.Model):
     )
     type = models.CharField(max_length=100, choices=TYPE, null=True)
     MODEL = (
-        ('purchaseinvoiceitem', 'purchaseinvoiceitem'),
-        ('purchaseinvoiceexpense', 'purchaseinvoiceexpense'),
-        ('cashflow', 'cashflow'),
-        ('jv', 'jv'),
-        ('invoice', 'invoice'),
+        ('PurchaseInvoiceItem', 'PurchaseInvoiceItem'),
+        ('PurchaseInvoiceExpense', 'PurchaseInvoiceExpense'),
+        ('Cashflow', 'Cashflow'),
+        ('JV', 'JV'),
+        ('Invoice', 'Invoice'),
     )
-    model = models.CharField(max_length=100, choices=TYPE, null=True)
+    model = models.CharField(max_length=100, choices=MODEL, null=True)
     json_data  = models.TextField(blank=True, null=True) #a
     item_joined  = models.IntegerField(default=1, blank=True, null=True) #a
     response  = models.TextField(blank=True, null=True) #a

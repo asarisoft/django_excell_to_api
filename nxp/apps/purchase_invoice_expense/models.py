@@ -5,8 +5,6 @@ from datetime import datetime, timedelta
 
 
 class PurchaseInvoiceExpense(models.Model):
-    class Meta:
-        verbose_name_plural = "Cashflow"
 
     tgl_faktur = models.CharField(max_length=100, blank=True, null=True)  # a
     no_purchase_invoice = models.CharField(

@@ -13,5 +13,5 @@ class PurchaseInvoiceItemResources(resources.ModelResource):
         
 @admin.register(PurchaseInvoiceItem)
 class PurchaseInvoiceItemAdmin(ImportExportModelAdmin):
-    list_display=["no_pemasok","nama_pemasok"]
+    list_display=["no_purchase_invoice","nama_pemasok"]
     pass

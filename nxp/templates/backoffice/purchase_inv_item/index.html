@@ -99,7 +99,7 @@ $("#GenerateButton").on('click', function () {
   alert("sdfsdfsdfsd");
   $.ajax({
     type: 'GET',
-    url: "{% url 'backoffice:generate_json_data' %}?app=cashflow&&model=Cashflow",
+    url: "{% url 'backoffice:generate_json_data' %}?app=purchase_invoice_item&model=PurchaseInvoiceItem&type=purchaseinvoice",
     success: function (response) {
       alert("sdfsdfsd")
     },
