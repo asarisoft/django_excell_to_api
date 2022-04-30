@@ -32,13 +32,12 @@ class PurchaseInvoiceExpense(models.Model):
     def generate_json_all_data(self):
         data_to_summarize = {}
         for dt in PurchaseInvoiceExpense.objects.all():
-            key = no_purchase_invoice;
-            nilai_beban = dt.jumlah.replace(",","").replace(".","")
+            key = dt.no_purchase_invoice;
             item = {
                 "itemId": dt.item_id, #k 
                 "description": dt.item_name, #l
                 "qty": dt.qty, #m
-                "itemPrice": nilai_beban, #j
+                "itemPrice": dt.nilai_beban, #j
                 "unitCode": dt.unit, #n
                 "discount": "",
                 "discountId": "",
@@ -50,9 +49,8 @@ class PurchaseInvoiceExpense(models.Model):
                 "amount": dt.nilai_beban #j
             }
             if data_to_summarize.get(key) is None:
-                nilai_assing = dt.nilai_asing.replace(".", "").replace(",", "")
                 data_to_summarize[key] = {
-                    "no": dt.no_purchase_invoice, #b
+                    "no": key, #b
                     "dt": dt.tgl_faktur, #a
                     "locId": "164664240939100037530", #static
                     "vendCode": dt.vendor_code, #c
@@ -62,14 +60,14 @@ class PurchaseInvoiceExpense(models.Model):
                     "remark": dt.no_akun_beban, #h
                     "sourceTransId": "", #null
                     "vendInvNo": dt.no_faktur_vendor, #f
-                    "items": [dt_detil],
-                    "expenses": [dt_detil],
+                    "items": [item],
+                    "expenses": [expense],
                     "item_joined": 1,  # helper
                 }
             else:
                 data_to_summarize[key]["item_joined"] += 1
-                data_to_summarize[key]["items"].append(dt_detil)
-                data_to_summarize[key]["expenses"].append(dt_detil)
+                data_to_summarize[key]["items"].append(item)
+                data_to_summarize[key]["expenses"].append(expense)
 
         return data_to_summarize
 

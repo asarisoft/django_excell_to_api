@@ -13,5 +13,5 @@ class PurchaseInvoiceExpenseResources(resources.ModelResource):
 
 @admin.register(PurchaseInvoiceExpense)
 class PurchaseInvoiceExpenseAdmin(ImportExportModelAdmin):
-    list_display=["tgl_faktur","no_purchase_invoice"]
+    list_display=["no_purchase_invoice"]
     pass
