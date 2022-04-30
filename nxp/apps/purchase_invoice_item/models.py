@@ -29,11 +29,11 @@ class PurchaseInvoiceItem(models.Model):
     unit = models.CharField(max_length=100, blank=True, null=True)  # o
 
     def __str__(self):
-        return f"{self.no_jv}"
+        return f"{self.no_purchase_invoice}"
 
     def generate_json_all_data(self):
         data_to_summarize = {}
-        for dt in Cashflow.objects.all():
+        for dt in PurchaseInvoiceItem().objects.all():
             key = no_purchase_invoice;
             jumlah = dt.jumlah.replace(",","").replace(".","")
             item = {

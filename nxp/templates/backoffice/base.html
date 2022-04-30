@@ -48,7 +48,23 @@
           </ul>
 
 
-      
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a href="{% url 'backoffice:purchase_invoice_item' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:rewards:transactions' %} active {% endif %}">
+                <i class="fa fa-check-square"></i><span>Purchase Inv Item</span>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a href="{% url 'backoffice:purchase_invoice_expense' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:rewards:transactions' %} active {% endif %}">
+                <i class="fa fa-check-square"></i><span>Purchase Inv Expense</span>
+              </a>
+            </li>
+          </ul>
+
+
           <ul class="nav flex-column">
             <li class="nav-item">
               <a href="{% url 'backoffice:cashflow' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:rewards:transactions' %} active {% endif %}">

@@ -1,0 +1,112 @@
+{% extends 'backoffice/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load templatehelpers %}
+{% block title%} {{ title }} {% endblock %}
+{% block content %}
+<div class="box">
+    <div class="box-inner">
+      <div class="box-title">
+        <h2>{{title}}</h2>
+      </div>
+
+      <div class="box-title">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="input-group">
+                <input type="file" name="myfile" 
+                placeholder="File CSV" >
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
+                Import CSV
+              </button>
+            </div>
+              <div class="col-sm-2">
+              <button id="GenerateButton" type="button"  class="btn btn-primary">
+                Generate JSON DATA
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      
+
+      {% comment %} <div class="box-title">
+        <form method="GET" action="">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="input-group">
+                <input type="text" name="search" class="form-control" 
+                  placeholder="No Akun / Nama Akun / NO JV" value="{{ filter.search }}">
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
+                CARI DATA
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>  {% endcomment %}
+      
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>No Purchase</th>
+            <th>Id Barang</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for data in datas %}
+          <tr>
+            <td>{{ data.no_purchase_invoice }} </a></td>
+            <td>{{ data.item_id }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+  
+      <div class="pull-right">
+        <p>Page {{ datas.number }} of {{ datas.paginator.num_pages }}</p>
+        <nav aria-label="">
+          <ul class="pagination">
+            {% if datas.has_previous %}
+            <li class="page-item"><a class="page-link" href="{% relative_url 1 'page' request.GET.urlencode %}">First</a>
+            </li>
+            <li class="page-item"><a class="page-link"
+                href="{% relative_url datas.previous_page_number 'page' request.GET.urlencode %}">Previous</a></li>
+            {% endif %}
+            {% if datas.has_next %}
+            <li class="page-item"><a class="page-link"
+                href="{% relative_url datas.next_page_number 'page' request.GET.urlencode %}">Next</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block script %} 
+<script type="text/javascript"> 
+$("#GenerateButton").on('click', function () {
+  alert("sdfsdfsdfsd");
+  $.ajax({
+    type: 'GET',
+    url: "{% url 'backoffice:generate_json_data' %}?app=cashflow&&model=Cashflow",
+    success: function (response) {
+      alert("sdfsdfsd")
+    },
+    error: function (response) {
+      alert("error")
+    }
+  });
+})
+</script>
+{% endblock %}

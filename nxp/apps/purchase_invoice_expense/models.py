@@ -4,7 +4,7 @@ from .models import *
 from datetime import datetime, timedelta
 
 
-class PurhaseInvoiceExpense(models.Model):
+class PurchaseInvoiceExpense(models.Model):
     class Meta:
         verbose_name_plural = "Cashflow"
 
@@ -27,13 +27,13 @@ class PurhaseInvoiceExpense(models.Model):
     unit = models.CharField(max_length=100, blank=True, null=True)  # n
 
     def __str__(self):
-        return f"{self.no_jv}"
+        return f"{self.no_purchase_invoice}"
 
         
 
     def generate_json_all_data(self):
         data_to_summarize = {}
-        for dt in Cashflow.objects.all():
+        for dt in PurchaseInvoiceExpense.objects.all():
             key = no_purchase_invoice;
             nilai_beban = dt.jumlah.replace(",","").replace(".","")
             item = {

@@ -11,10 +11,22 @@ from nxp.backoffice.forms import LoginForm, UploadExcellForm
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from tablib import Dataset
-from nxp.apps.cashflow.models import Cashflow
 from nxp.apps.jsondata.models import JSONData
+from nxp.apps.purchase_invoice_item.models import PurchaseInvoiceItem
+from nxp.apps.purchase_invoice_item.admin import PurchaseInvoiceItemResources
 
+from nxp.apps.purchase_invoice_expense.models import PurchaseInvoiceExpense
+from nxp.apps.purchase_invoice_expense.admin import PurchaseInvoiceExpenseResources
+
+from nxp.apps.cashflow.models import Cashflow
 from nxp.apps.cashflow.admin import CashflowResource
+
+from nxp.apps.jv.models import JV
+from nxp.apps.jv.admin import JVResources
+
+from nxp.apps.invoice.models import Invoice
+from nxp.apps.invoice.admin import InvoiceResources
+
 from nxp.core.utils import save_to_json_data
 from django.db.models import Sum
 
@@ -48,6 +60,83 @@ def log_out(request):
 def index(request):
     return TemplateResponse(request, "backoffice/index.html")
 
+
+@login_validate
+def purchase_invoice_item(request):
+    datas = PurchaseInvoiceItem.objects.all().order_by("-id")
+    page = request.GET.get("page")
+    search = request.GET.get("search", "")
+    if search:
+        datas = datas.filter(
+            Q(no_purchase_invoice__icontains=search)
+        )
+    results_per_page = 30
+    paginator = Paginator(datas, results_per_page)
+    try:
+        datas = paginator.get_page(page)
+    except PageNotAnInteger:
+        datas = paginator.get_page(1)
+    except EmptyPage:
+        datas = paginator.get_page(paginator.num_pages)
+
+    if request.method == 'POST':
+        resources = PurchaseInvoiceItemResources()
+        new_datas = request.FILES['myfile']
+        dataset = Dataset()
+        imported_data = dataset.load(new_datas.read().decode(), format='csv')
+        result = resources.import_data(
+            dataset, dry_run=True)  # Test the data import
+        print(result.has_errors())
+        if not result.has_errors():
+            # Actually import now
+            resources.import_data(dataset, dry_run=False)
+
+    context = {
+        "datas": datas,
+        "title": "Purchase Invoice Item",
+        "filter": {"search": search},
+    }
+    return TemplateResponse(
+        request, "backoffice/purchase_inv_item/index.html", context)
+
+
+@login_validate
+def purchase_invoice_expense(request):
+    datas = PurchaseInvoiceExpense.objects.all().order_by("-id")
+    page = request.GET.get("page")
+    search = request.GET.get("search", "")
+    if search:
+        datas = datas.filter(
+            Q(no_purchase_invoice__icontains=search)
+        )
+    results_per_page = 30
+    paginator = Paginator(datas, results_per_page)
+    try:
+        datas = paginator.get_page(page)
+    except PageNotAnInteger:
+        datas = paginator.get_page(1)
+    except EmptyPage:
+        datas = paginator.get_page(paginator.num_pages)
+
+    if request.method == 'POST':
+        resources = PurchaseInvoiceItemResources()
+        new_datas = request.FILES['myfile']
+        dataset = Dataset()
+        imported_data = dataset.load(new_datas.read().decode(), format='csv')
+        result = resources.import_data(
+            dataset, dry_run=True)  # Test the data import
+        print(result.has_errors())
+        if not result.has_errors():
+            # Actually import now
+            resources.import_data(dataset, dry_run=False)
+
+    context = {
+        "datas": datas,
+        "title": "Purchase Invoice Expense",
+        "filter": {"search": search},
+    }
+    return TemplateResponse(
+        request, "backoffice/purchase_inv_expense/index.html", context)
 
 @login_validate
 def cashflow(request):
