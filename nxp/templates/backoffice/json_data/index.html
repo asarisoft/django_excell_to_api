@@ -23,9 +23,11 @@
             <div class="col-sm-2">
               <div class="input-group">
                 <select class="form-control" name="model">
+                  <option value="PurchaseInvoiceItem" {% if filter.model == "PurchaseInvoiceItem" %} selected {% endif %}>PurchaseInvoiceItem</option>
+                  <option value="PurchaseInvoiceExpense" {% if filter.model == "PurchaseInvoiceExpense" %} selected {% endif %}>PurchaseInvoiceExpense</option>
                   <option value="Cashflow" {% if filter.model == "Cashflow" %} selected {% endif %}>Cashflow</option>
-                  <option value="paid" {% if filter.model == "paid" %} selected {% endif %}>Paid</option>
-                  <option value="cancelled" {% if filter.model == "cancelled" %} selected {% endif %}>Cancelled</option>
+                  <option value="jv" {% if filter.model == "jv" %} selected {% endif %}>JV</option>
+                  <option value="invoice" {% if filter.model == "invoice" %} selected {% endif %}>Invoice</option>
                 </select>
               </div>
             </div>

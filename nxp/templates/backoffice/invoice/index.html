@@ -57,12 +57,14 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>Nomor Faktur</th>
             <th>Nama Pelanggan</th>
           </tr>
         </thead>
         <tbody>
         {% for data in datas %}
           <tr>
+            <td>{{ data.no_faktur }}</td>
             <td>{{ data.nama_pelanggan }}</td>
           </tr>
         {% endfor %}
@@ -94,12 +96,11 @@
 {% block script %} 
 <script type="text/javascript"> 
 $("#GenerateButton").on('click', function () {
-  alert("sdfsdfsdfsd");
   $.ajax({
     type: 'GET',
-    url: "{% url 'backoffice:generate_json_data' %}?app=cashflow&&model=Cashflow",
+    url: "{% url 'backoffice:generate_json_data' %}?app=invoice&model=Invoice&type=invoice",
     success: function (response) {
-      alert("sdfsdfsd")
+      alert("Berhasil")
     },
     error: function (response) {
       alert("error")

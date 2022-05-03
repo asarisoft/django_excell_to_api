@@ -22,10 +22,11 @@ class Invoice(models.Model):
     def __str__(self):
         return f"{self.nama_pelanggan}"
 
-    def generate_json_all_date(self):
+    def generate_json_all_data(self):
         data_to_summarize = {}
         for dt in Invoice.objects.all():
             jumlah = dt.jumlah.replace(".", "").replace(",","")
+            key = dt.no_faktur
             item = {
                 "itemId": dt.id_barang,  # G
                 "itemCode": dt.no_barang,  # H
@@ -49,9 +50,9 @@ class Invoice(models.Model):
                 "terminalId": ""  # null
             }
 
-            if data_to_summarize.get(dt.nama_pelanggan) is None:
-                {
-                    "no": dt.nama_pelanggan,  # D
+            if data_to_summarize.get(key) is None:
+                data_to_summarize[key] = {
+                    "no": key,  # D
                     "dt": dt.tgl_faktur,  # A
                     "locId": "FC01156274702276500063818",  # static
                     "custId": dt.id_pelanggan,  # C

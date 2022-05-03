@@ -16,11 +16,12 @@ class JV(models.Model):
     nama_dep = models.CharField(max_length=100, blank=True, null=True)  # h
 
     def __str__(self):
-        return f"{self.nama_pelanggan}"
+        return f"{self.no_jv}"
 
-    def generate_json_all_date(self):
+    def generate_json_all_data(self):
         data_to_summarize = {}
-        for dt in Invoice().objects.all():
+        for dt in JV.objects.all():
+            key = dt.no_jv
             debit = dt.debit.replace(".", "").replace(",","")
             kredit = dt.kredit.replace(".", "").replace(",","")
             detil = {
@@ -34,9 +35,9 @@ class JV(models.Model):
                 "deptCode": dt.nama_dep,  # H
                 "prjCode": ""  # null
             }
-            if data_to_summarize.get(dt.nama_pelanggan) is None:
-                {
-                    "no": dt.no_jv,  # A
+            if data_to_summarize.get(key) is None:
+                data_to_summarize[key]={
+                    "no": key,  # A
                     "dt": dt.tgl_jv,  # C
                     "reviewDate": dt.tgl_jv,  # C
                     "approveddDate": dt.tgl_jv,  # C
@@ -50,7 +51,7 @@ class JV(models.Model):
                     "item_joined": 1,  # helper
                 }
             else:
-                data_to_summarize[dt.nama_pelanggan]["item_joined"] += 1
-                data_to_summarize[dt.nama_pelanggan]["details"].append(detail)
-
+                data_to_summarize[key]["item_joined"] += 1
+                data_to_summarize[key]["details"].append(detil)
+        print(data_to_summarize)
         return data_to_summarize

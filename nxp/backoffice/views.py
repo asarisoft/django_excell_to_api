@@ -195,7 +195,7 @@ def jv(request):
         datas = paginator.get_page(paginator.num_pages)
 
     if request.method == 'POST':
-        resources = JVResources()()
+        resources = JVResources()
         new_datas = request.FILES['myfile']
         dataset = Dataset()
         imported_data = dataset.load(new_datas.read().decode(), format='csv')
@@ -249,7 +249,7 @@ def invoice(request):
         "title": "Invoice",
         "filter": {"search": search},
     }
-    return TemplateResponse(request, "backoffice/cashflow/index.html", context)
+    return TemplateResponse(request, "backoffice/invoice/index.html", context)
 @login_validate
 def json_data(request):
     datas = JSONData.objects.all().order_by("-id")
