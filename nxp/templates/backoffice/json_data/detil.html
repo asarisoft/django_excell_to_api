@@ -1,0 +1,34 @@
+{% extends 'backoffice/base.html' %}
+{% load static %}
+{% block title%} {{ title }} {% endblock %}
+{% block extra_header %} 
+  <link href="{% static 'css/json-viewer.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+{% load humanize %}
+<div class="box margin-top-profile">
+    <h4>Key: {{ data.key }}</h4>
+    <h4>Model: {{ data.model }}</h4>
+    <h4>Item Joined: {{ data.item_joined }}</h4>
+    <h4>Status: {{ data.status }}</h4>
+    <h4>Response Server: {{ data.response }}</h4>
+    <h4>URL: {{ data.response }}</h4>
+    <h4>JSON DATA:</h4>
+    <div id="json"></div>
+    {% comment %} <pre id="json"></pre> {% endcomment %}
+</div>
+{% endblock %}
+
+{$}
+
+{% block script %} 
+
+<script type="text/javascript" src="{% static 'js/json-viewer.js' %}"></script>
+{% comment %} get value from form on submit, hit to server, get_data, every hit update number {% endcomment %}
+<script>
+  {% comment %} $('#json').html('{{data.json_data|escapejs}}'); {% endcomment %}
+  var jsonViewer = new JSONViewer();
+	document.querySelector("#json").appendChild(jsonViewer.getContainer());
+  jsonViewer.showJSON({{data.json_data|safe}});
+</script>
+{% endblock %}

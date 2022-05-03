@@ -4,6 +4,7 @@ from .views import (
     generate_json_data,
     process_data,
     json_data, 
+    json_data_detail,
 
     purchase_invoice_item,
     purchase_invoice_expense,
@@ -25,6 +26,7 @@ urlpatterns = [
     path('invoice/', invoice, name='invoice'),
 
     path('generate-json-data/', generate_json_data, name='generate_json_data'),
-    path('json_data/', json_data, name='json_data'),
+    path('json-data/', json_data, name='json_data'),
+    path('<int:id>/json-data-detail/', json_data_detail, name='json_data_detail'),
     path('process-data/', process_data, name='process_data'),
 ]

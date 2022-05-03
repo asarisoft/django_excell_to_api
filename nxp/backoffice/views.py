@@ -250,6 +250,7 @@ def invoice(request):
         "filter": {"search": search},
     }
     return TemplateResponse(request, "backoffice/invoice/index.html", context)
+
 @login_validate
 def json_data(request):
     datas = JSONData.objects.all().order_by("-id")
@@ -298,6 +299,14 @@ def json_data(request):
     }
     return TemplateResponse(request, "backoffice/json_data/index.html", context)
 
+@login_validate
+def json_data_detail(request, id):
+    data = JSONData.objects.get(id=id)
+    context = {
+        "data": data,
+    }
+    return TemplateResponse(request, "backoffice/json_data/detil.html", context)
+
 
 # for every model to generate json data 
 def generate_json_data(request):
@@ -306,7 +315,6 @@ def generate_json_data(request):
     type = request.GET.get("type")
     save_to_json_data(app, model, type)
     return JsonResponse({"message": "Success"}, status=200)
-
 
 # process data to server
 @csrf_exempt

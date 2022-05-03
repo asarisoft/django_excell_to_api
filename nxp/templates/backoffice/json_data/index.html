@@ -26,8 +26,8 @@
                   <option value="PurchaseInvoiceItem" {% if filter.model == "PurchaseInvoiceItem" %} selected {% endif %}>PurchaseInvoiceItem</option>
                   <option value="PurchaseInvoiceExpense" {% if filter.model == "PurchaseInvoiceExpense" %} selected {% endif %}>PurchaseInvoiceExpense</option>
                   <option value="Cashflow" {% if filter.model == "Cashflow" %} selected {% endif %}>Cashflow</option>
-                  <option value="jv" {% if filter.model == "jv" %} selected {% endif %}>JV</option>
-                  <option value="invoice" {% if filter.model == "invoice" %} selected {% endif %}>Invoice</option>
+                  <option value="JV" {% if filter.model == "JV" %} selected {% endif %}>JV</option>
+                  <option value="Invoice" {% if filter.model == "Invoice" %} selected {% endif %}>Invoice</option>
                 </select>
               </div>
             </div>
@@ -45,7 +45,7 @@
 
             <div class="col-sm-2">
               <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
-                submit
+                Filter
               </button>
             </div>
 
@@ -66,13 +66,14 @@
                 <input type="number" name="number" class="form-control" placeholder="Number To Process" value="1">
               </div>
             </div>
-
             <div class="col-sm-2">
               <div class="input-group">
                 <select class="form-control" name="model">
-                  <option value="cashflow" {% if filter.model == "cashflow" %} selected {% endif %}>Cashflow</option>
-                  <option value="paid" {% if filter.model == "paid" %} selected {% endif %}>Paid</option>
-                  <option value="cancelled" {% if filter.model == "cancelled" %} selected {% endif %}>Cancelled</option>
+                  <option value="PurchaseInvoiceItem" {% if filter.model == "PurchaseInvoiceItem" %} selected {% endif %}>PurchaseInvoiceItem</option>
+                  <option value="PurchaseInvoiceExpense" {% if filter.model == "PurchaseInvoiceExpense" %} selected {% endif %}>PurchaseInvoiceExpense</option>
+                  <option value="Cashflow" {% if filter.model == "Cashflow" %} selected {% endif %}>Cashflow</option>
+                  <option value="JV" {% if filter.model == "JV" %} selected {% endif %}>JV</option>
+                  <option value="Invoice" {% if filter.model == "Invoice" %} selected {% endif %}>Invoice</option>
                 </select>
               </div>
             </div>
@@ -81,6 +82,7 @@
               <div class="input-group">
                 <select class="form-control" name="status">
                   <option value="new" {% if filter.status == "new" %} selected {% endif %}>New</option>
+                  <option value="success" {% if filter.status == "success" %} selected  {% endif %}>Success</option>
                   <option value="failed" {% if filter.status == "failed" %} selected {% endif %}>Failed</option>
                 </select>
               </div>
@@ -120,8 +122,12 @@
             <td>{{ data.model }}</td>
             <td>{{ data.item_joined }}</td>
             <td>{{ data.status }}</td>
-            <th><Button 
-              class="btn btn-primary" onClick="processMan({{data.key}})">Manual Process</Button></th>
+            <th>
+              <Button 
+              class="btn btn-primary" onClick="processMan({{data.key}})">Process</Button>
+              <a 
+              class="btn btn-primary" href="{% url 'backoffice:json_data_detail' data.id %}">Detil</Button>
+            </th>
           </tr>
         {% endfor %}
         </tbody>
