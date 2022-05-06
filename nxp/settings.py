@@ -38,6 +38,7 @@ APPS = [
     "nxp.apps.jv", 
     "nxp.apps.invoice",
     "nxp.apps.jsondata",
+    "nxp.apps.lastkey",
 ]
 
 INSTALLED_APPS = [

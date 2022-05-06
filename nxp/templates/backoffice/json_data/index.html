@@ -59,7 +59,7 @@
       </div>
 
       <div class="box-title">
-        <form class="search-form" method="POST" id="main-search-form" name="search-form" >
+        <form class="search-form" method="POST" id="main-search-form2" name="search-form" action="#" >
           <div class="row">
             <div class="col-sm-2">
               <div class="input-group">
@@ -123,10 +123,11 @@
             <td>{{ data.item_joined }}</td>
             <td>{{ data.status }}</td>
             <th>
-              <Button 
-              class="btn btn-primary" onClick="processMan({{data.key}})">Process</Button>
+              <button  class="btn btn-primary" onClick="processMan('{{data.key}}', '{{data.type}}', '{{data.model}}', '')">
+                Process
+              </button>
               <a 
-              class="btn btn-primary" href="{% url 'backoffice:json_data_detail' data.id %}">Detil</Button>
+              class="btn btn-primary" href="{% url 'backoffice:json_data_detail' data.id %}" target="blank">Detil</Button>
             </th>
           </tr>
         {% endfor %}
@@ -159,7 +160,7 @@
 {% block script %} 
 {% comment %} get value from form on submit, hit to server, get_data, every hit update number {% endcomment %}
 <script type="text/javascript"> 
-  $("#main-search-form").submit(function (e) {
+  $("#main-search-form2").submit(function (e) {
     e.preventDefault();
     var serializeArray = $(this).serializeArray();
     const total = serializeArray[0].value
@@ -167,50 +168,55 @@
     const status = serializeArray[2].value
 
     $("#total").html(total);
-    process(parseInt(total), false, status)
+    console.log(total, model, status)
+    process(parseInt(total), '', '', model, status)
   });
 
 
-  function process(total, key, status) {
+  function process(total, key, type, model, status) {
+    console.log(total, key, type, model, status)
     var counter = 0;
-    {% comment %} pr masukkan counter ke url, dan ubah model sesuai excell dulu, {% endcomment %}
-    function processNext() {
-      var url = `{% url 'backoffice:process_data' %}?&model=Cashflow`
-      if (key) url = `${url}&key=${key}` 
-      if (status) url = `${url}&status=${status}` 
+    function processNext(total, key, type, model, status) {
+      console.log(total, key, type, model, status)
+      console.log("imam")
+      const url = `{% url 'backoffice:process_data' %}?key=${key}&type=${type}&model=${model}&status=${status}`
+      console.log(url)
       $.ajax({
         type: 'GET',
         url: url,
         async: true,
         success: function (response) {
           console.log(response)
+          if (total == 1) {
+            alert("success")
+          }
           counter++;
           $("#progress").html(counter);
           if (counter < total) {
-            processNext();
+            processNext(total, key, type, model, status);
           } else {
             window.location.reload()
           }
         },
         error: function (response) {
-          console.log(response)
+          console.log(response?.responseText)
+          if (total == 1) {
+            alert("Failed, read detail")
+          }
           counter++;
           $("#progress").html(counter);
           if (counter < total) {
-            processNext();
-          } else {
-            window.location.reload()
-          }
+            processNext(total, key, type, model, status);
+          } 
         }
-      }); 
+      });
     }
-    processNext();
+    processNext(total, key, type, model, status);
   }
 
-  function processMan(key) {
-    process(1, key, '');
+  function processMan(key, type, model, status) {
+    process(1, key, type, model, status);
   }
-
 </script>
 {% endblock %}
 

@@ -27,6 +27,8 @@ from nxp.apps.jv.admin import JVResources
 from nxp.apps.invoice.models import Invoice
 from nxp.apps.invoice.admin import InvoiceResources
 
+from nxp.apps.lastkey.models import LastKey
+
 from nxp.core.utils import save_to_json_data
 from django.db.models import Sum
 
@@ -138,6 +140,7 @@ def purchase_invoice_expense(request):
     return TemplateResponse(
         request, "backoffice/purchase_inv_expense/index.html", context)
 
+
 @login_validate
 def cashflow(request):
     datas = Cashflow.objects.all().order_by("-id")
@@ -175,6 +178,7 @@ def cashflow(request):
         "filter": {"search": search},
     }
     return TemplateResponse(request, "backoffice/cashflow/index.html", context)
+
 
 @login_validate
 def jv(request):
@@ -251,6 +255,7 @@ def invoice(request):
     }
     return TemplateResponse(request, "backoffice/invoice/index.html", context)
 
+
 @login_validate
 def json_data(request):
     datas = JSONData.objects.all().order_by("-id")
@@ -299,6 +304,7 @@ def json_data(request):
     }
     return TemplateResponse(request, "backoffice/json_data/index.html", context)
 
+
 @login_validate
 def json_data_detail(request, id):
     data = JSONData.objects.get(id=id)
@@ -309,7 +315,7 @@ def json_data_detail(request, id):
     return TemplateResponse(request, "backoffice/json_data/detil.html", context)
 
 
-# for every model to generate json data 
+# for every model to generate json data
 def generate_json_data(request):
     app = request.GET.get("app")
     model = request.GET.get("model")
@@ -318,19 +324,36 @@ def generate_json_data(request):
     return JsonResponse({"message": "Success"}, status=200)
 
 # process data to server
+
+
 @csrf_exempt
 def process_data(request):
-    type = request.GET.get("type", False)
-    status = request.GET.get("status", False)
     key = request.GET.get("key", False)
+    type = request.GET.get("type", False)
+    model = request.GET.get("model", False)
+    status = request.GET.get("status", False)
 
-    qs = JSONData.objects.filter(type=type).order_by('-id')
+    qs = JSONData.objects.order_by('-id')
     if key:
         qs = qs.filter(key=key)
+    if type:
+        qs = qs.filter(type=type)
+    if model:
+        qs = qs.filter(model=model)
     if status:
         qs = qs.filter(status=status)
+    if not key:
+        last_key = LastKey.objects.first()
+        key = last_key.last_key
+        qs = qs.exclude(key=key)
     qs = qs.first()
+    print(qs)
+
     if qs:
+        LastKey.objects.all().update(last_key=qs.key)
+        type=model.lower()
+        if type not in ['cashflow', 'jv', 'invoice']:
+            type = 'purchaseinvoice'
         response = send_to_server(type, qs)
     else:
         response = {"status": "error", "data": {"message": "no data found"}}
@@ -363,7 +386,6 @@ def send_to_server(type, data):
     }
     request = requests.post(url, payload, headers=headers)
     response = request.json()
-    print(response)
     if response["status"] == 200:
         return {"status": "success", "data": response}
     else:
