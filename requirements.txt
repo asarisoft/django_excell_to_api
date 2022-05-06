@@ -7,7 +7,7 @@ charset-normalizer==2.0.12
 defusedxml==0.7.1
 diff-match-patch==20200713
 distlib==0.3.1
-Django==4.0.4
+Django==3.2
 django-import-export==2.8.0
 django-qrcode==0.3
 django-sequences==2.6
@@ -22,7 +22,7 @@ MarkupPy==1.14
 nodeenv==1.5.0
 odfpy==1.4.1
 openpyxl==3.0.9
-Pillow==9.1.0
+Pillow==8.0.0
 pre-commit==2.9.3
 pyexcel==0.7.0
 pyexcel-io==0.6.6

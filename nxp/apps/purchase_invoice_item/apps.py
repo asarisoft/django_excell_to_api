@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class PurchaseInvoiceItemConfig(AppConfig):
-    name = 'purchase_invoice_item'
+    name = 'nxp.apps.purchase_invoice_item'

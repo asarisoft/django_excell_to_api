@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 
 class PurchaseInvoiceItem(models.Model):
-
+    id = models.AutoField(primary_key=True)
     no_pemasok = models.CharField(max_length=100, blank=True, null=True)  # a
     date = models.CharField(max_length=100, blank=True, null=True)  # b
     nama_pemasok = models.CharField(max_length=100, blank=True, null=True)  # c

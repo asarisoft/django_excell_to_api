@@ -5,6 +5,7 @@ from django.db import models
 
 # Create your models here.
 class JV(models.Model):
+    id = models.AutoField(primary_key=True)
     no_jv = models.CharField(max_length=100, blank=True, null=True)  # a
     no_akun = models.CharField(max_length=100, blank=True, null=True)  # b
     tgl_jv = models.CharField(max_length=100, blank=True, null=True)  # c

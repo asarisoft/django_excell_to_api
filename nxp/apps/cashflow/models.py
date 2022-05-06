@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 class Cashflow(models.Model):
     class Meta:
         verbose_name_plural = "Cashflow"
-
+    id = models.AutoField(primary_key=True)
     tgl_jv = models.CharField(max_length=100, blank=True, null=True) #a
     no_akun = models.CharField(max_length=100, blank=True, null=True) #b
     nama_akun = models.CharField(max_length=100, blank=True, null=True) #c
@@ -48,13 +48,6 @@ class Cashflow(models.Model):
                     "amount": int(nilai_assing), #sum(e)
                     "details": [dt_detil],                    
                     "item_joined": 1, #helper
-                    # "details": [{
-                    #     "accountCode": dt.no_akun, #b
-                    #     "amount": dt.nilai_asing, #e
-                    #     "description": dt.catatan, #d
-                    #     "deptCode": dt.nama_dep, #f
-                    #     "prjCode": "" #null
-                    # }]
                 }
             else: 
                 data_to_summarize[dt.no_jv]["item_joined"] += 1

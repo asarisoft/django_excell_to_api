@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class CashflowConfig(AppConfig):
-    name = 'cashflow'
+    name = 'nxp.apps.cashflow'

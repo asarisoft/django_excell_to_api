@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 
 class PurchaseInvoiceExpense(models.Model):
-
+    id = models.AutoField(primary_key=True)
     tgl_faktur = models.CharField(max_length=100, blank=True, null=True)  # a
     no_purchase_invoice = models.CharField(
         max_length=100, blank=True, null=True)  # b

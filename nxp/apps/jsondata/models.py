@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 
 
 class JSONData(models.Model):
+    id = models.AutoField(primary_key=True)
     key = models.CharField(max_length=100)
     TYPE = (
         ('purchaseinvoice', 'purchaseinvoice'),

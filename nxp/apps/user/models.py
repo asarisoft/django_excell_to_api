@@ -29,6 +29,7 @@ class CustomUserManager(UserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=50, unique=True, db_index=True)
     name = models.CharField(max_length=50, null=True)
     is_active = models.BooleanField('active', default=True)

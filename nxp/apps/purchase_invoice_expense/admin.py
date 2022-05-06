@@ -7,11 +7,13 @@ from import_export import resources
 class PurchaseInvoiceExpenseResources(resources.ModelResource):
     class Meta:
         model = PurchaseInvoiceExpense
-        # fields = ("id", "tgl_jv","no_akun","nama_akun","catatan","nilai_asing","nama_dep","nama_proyek","no_jv","bank_code","nama_bank")
+        exclude = ('id')
+        import_id_fields = ('no_purchase_invoice','item_id','item_name','qty', 'nilai_beban', 'no_akun_beban')
        
         
 
 @admin.register(PurchaseInvoiceExpense)
 class PurchaseInvoiceExpenseAdmin(ImportExportModelAdmin):
     list_display=["no_purchase_invoice"]
+    resource_class = PurchaseInvoiceExpenseResources
     pass
