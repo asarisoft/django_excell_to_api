@@ -304,6 +304,7 @@ def json_data_detail(request, id):
     data = JSONData.objects.get(id=id)
     context = {
         "data": data,
+        "title": "JSON DETIL"
     }
     return TemplateResponse(request, "backoffice/json_data/detil.html", context)
 
@@ -319,21 +320,21 @@ def generate_json_data(request):
 # process data to server
 @csrf_exempt
 def process_data(request):
-    model = request.GET.get("model")
-    key = request.GET.get("key")
-    status = request.GET.get("status", "")
-    qs = JSONData.objects.filter(model=model).order_by('-id')
+    type = request.GET.get("type", False)
+    status = request.GET.get("status", False)
+    key = request.GET.get("key", False)
+
+    qs = JSONData.objects.filter(type=type).order_by('-id')
     if key:
         qs = qs.filter(key=key)
     if status:
         qs = qs.filter(status=status)
     qs = qs.first()
     if qs:
-        response = send_to_server(model, qs)
+        response = send_to_server(type, qs)
     else:
         response = {"status": "error", "data": {"message": "no data found"}}
     
-    print("RESPOSSSS", response)
     if response["status"] == "success":
         qs.status="success"
         qs.response=response["data"]
@@ -342,18 +343,19 @@ def process_data(request):
     else: 
         if qs:
             qs.status="failed"
-            qs.response=response["data"]
+            qs.response=response
             qs.save()
         return JsonResponse(response, status=400)
 
 
-def send_to_server(model, data):
-    url = f"https://finance.cakap.com/cakap_trn/api/{model.lower()}/savetrans/"
-    print(url)
+def send_to_server(type, data):
+    url = f"https://finance.cakap.com/cakap_trn/api/{type.lower()}/savetrans/";
+    body = data.json_data
+    body = body.replace("'", '"')
+    # body = json.loads(body)
     payload = {
-        "doc": data.json_data
+        "doc": body
     }
-    print(payload)
     headers = {
         'usr': 'admin',
         'token': 'AmeZqgA4ogPXKQT9EXjpyQRtqDT2ngrd',
@@ -365,5 +367,5 @@ def send_to_server(model, data):
     if response["status"] == 200:
         return {"status": "success", "data": response}
     else:
-        return {"status": "failed", "body": payload, "data": response}
+        return {"status": "failed", "data": response}
         
