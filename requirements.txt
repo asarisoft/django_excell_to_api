@@ -9,6 +9,7 @@ diff-match-patch==20200713
 distlib==0.3.1
 Django==3.2
 django-import-export==2.8.0
+django-light==0.1.0.post3
 django-qrcode==0.3
 django-sequences==2.6
 django-summernote==0.8.11.6
