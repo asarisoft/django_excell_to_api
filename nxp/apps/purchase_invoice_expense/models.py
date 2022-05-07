@@ -56,7 +56,7 @@ class PurchaseInvoiceExpense(models.Model):
                     "vendCode": dt.vendor_code, #c
                     "ptypeId": "HO164664374309602505821", #static
                     "ptermId": "HO164664383888902573434", #static
-                    "userName": "WEB", #static
+                    "userName": "admin", #static
                     "remark": dt.no_akun_beban, #h
                     "sourceTransId": "", #null
                     "vendInvNo": dt.no_faktur_vendor, #f

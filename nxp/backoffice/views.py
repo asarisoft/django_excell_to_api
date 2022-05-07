@@ -121,7 +121,7 @@ def purchase_invoice_expense(request):
         datas = paginator.get_page(paginator.num_pages)
 
     if request.method == 'POST':
-        resources = PurchaseInvoiceItemResources()
+        resources = PurchaseInvoiceExpenseResources()
         new_datas = request.FILES['myfile']
         dataset = Dataset()
         imported_data = dataset.load(new_datas.read().decode(), format='csv')
@@ -261,11 +261,12 @@ def json_data(request):
     datas = JSONData.objects.all().order_by("-id")
     page = request.GET.get("page")
 
-    model = request.GET.get("model", "Cashflow")
+    model = request.GET.get("model", "")
     datas = datas.filter(model=model)
 
-    status = request.GET.get("status", "New")
-    datas = datas.filter(status=status)
+    status = request.GET.get("status", "All")
+    if status and not status == 'All':
+        datas = datas.filter(status=status)
 
     search = request.GET.get("search", "")
     if search:
@@ -322,9 +323,6 @@ def generate_json_data(request):
     type = request.GET.get("type")
     save_to_json_data(app, model, type)
     return JsonResponse({"message": "Success"}, status=200)
-
-# process data to server
-
 
 @csrf_exempt
 def process_data(request):

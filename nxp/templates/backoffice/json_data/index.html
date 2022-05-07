@@ -35,6 +35,7 @@
             <div class="col-sm-2">
               <div class="input-group">
                 <select class="form-control" name="status">
+                  <option value="All" {% if filter.status == "all" %} selected {% endif %}>All</option>
                   <option value="new" {% if filter.status == "new" %} selected {% endif %}>New</option>
                   <option value="success" {% if filter.status == "success" %} selected  {% endif %}>Success</option>
                   <option value="failed" {% if filter.status == "failed" %} selected {% endif %}>Failed</option>
