@@ -25,23 +25,23 @@ class Cashflow(models.Model):
     def generate_json_all_data(self):
         data_to_summarize = {}
         for dt in Cashflow.objects.all():
+            nilai_assing = dt.nilai_asing.replace(".", "").replace(",","")
             dt_detil = {
                 "accountCode": dt.no_akun, #b
-                "amount": dt.nilai_asing, #e
+                "amount": int(nilai_assing), #e
                 "description": dt.catatan, #d
                 "deptCode": dt.nama_dep, #f
                 "prjCode": "" #null
             }
             if data_to_summarize.get(dt.no_jv) is None:
-                nilai_assing = dt.nilai_asing.replace(".", "").replace(",","")
                 data_to_summarize[dt.no_jv] = {
                     "no": dt.no_jv, #H
                     "dt": dt.tgl_jv, #A
                     "type": "1", #st
                     "locCode": "HO", #st
                     "bankCode": dt.bank_code, #i
-                    "createBy": "retailsoft", #st
-                    "confirmBy": "retailsoft", #st
+                    "createBy": "admin", #st
+                    "confirmBy": "admin", #st
                     "remark": "null", #null
                     "referenceNo": "1", #static
                     "bankIssuer": "2", #static
