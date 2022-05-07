@@ -35,7 +35,7 @@ class PurchaseInvoiceItem(models.Model):
             key = dt.no_purchase_invoice;
             jumlah = dt.jumlah.replace(",","").replace(".","")
             item = {
-                "itemId": dt.no_barang,  # k
+                "itemId": dt.id_barang,  # k
                 "description": dt.keterangan,  # m
                 "qty": dt.qty,  # n
                 "itemPrice": jumlah,  # j
@@ -57,7 +57,7 @@ class PurchaseInvoiceItem(models.Model):
                     "vendCode": dt.no_pemasok,  # a
                     "ptypeId": "HO164664374309602505821",  # static
                     "ptermId": "HO164664383888902573434",  # static
-                    "userName": "WEB",  # static
+                    "userName": "admin",  # static
                     "remark": dt.keterangan,  # G
                     "sourceTransId": "",  # null
                     "vendInvNo": dt.no_faktur_vendor,  # f

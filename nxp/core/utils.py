@@ -50,10 +50,15 @@ def save_to_json_data(app_label, model_name, type):
         data = datas[key]
         item_joined = data["item_joined"]
         data.pop("item_joined")
+        print(key, model_name, type)
         obj, created = JSONData.objects.update_or_create(
-            item_joined=item_joined,
-            json_data=data,
-            defaults={'key': key, 'model': model_name, 'type': type},
+            key=key,
+            model=model_name,
+            type=type,
+            defaults={
+                "item_joined": item_joined,
+                "json_data": data
+            }
         )
 
 

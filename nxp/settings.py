@@ -43,6 +43,7 @@ APPS = [
 
 INSTALLED_APPS = [
     "django.contrib.sites",
+    'django_light',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
