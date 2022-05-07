@@ -237,7 +237,7 @@ def invoice(request):
         datas = paginator.get_page(paginator.num_pages)
 
     if request.method == 'POST':
-        resources = InvoiceResources()()
+        resources = InvoiceResources()
         new_datas = request.FILES['myfile']
         dataset = Dataset()
         imported_data = dataset.load(new_datas.read().decode(), format='csv')

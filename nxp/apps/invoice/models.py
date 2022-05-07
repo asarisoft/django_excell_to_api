@@ -32,8 +32,8 @@ class Invoice(models.Model):
                 "itemId": dt.id_barang,  # G
                 "itemCode": dt.no_barang,  # H
                 "description": dt.keterangan_barang,  # I
-                "qty": dt.kuantitas,  # J
-                "itemPrice": jumlah,  # K
+                "qty": int(dt.kuantitas),  # J
+                "itemPrice": int(jumlah),  # K
                 "discount": "0",  # null
                 "discountId": "",  # null
                 "taxId": ""  # static
@@ -43,7 +43,7 @@ class Invoice(models.Model):
                 "ptypeId": "FC01155920071225100011937",  # static
                 "ptermId": "",  # stati
                 "voucherId": "",  # static
-                "paymentAmount": jumlah,  # K
+                "paymentAmount": int(dt.kuantitas) * int(jumlah),  # J * K
                 "bankIssuer": "",  # null
                 "referenceNo": "",  # null
                 "approvalNo": "",  # null
@@ -57,9 +57,9 @@ class Invoice(models.Model):
                     "dt": dt.tgl_faktur,  # A
                     "locId": "FC01156274702276500063818",  # static
                     "custId": dt.id_pelanggan,  # C
-                    "ptypeId": "",  # static
-                    "ptermId": "",  # static
-                    "cashier": "Topup Cashier 1",  # static
+                    "ptypeId": "HO164664374309602505821",  # static
+                    "ptermId": "HO164664383888902573434",  # static
+                    "cashier": "admin",  # static
                     "remark": dt.keterangan,  # F
                     "sourceTransId": "",  # null
                     "items": [item],
