@@ -27,8 +27,8 @@ class JV(models.Model):
             kredit = dt.kredit.replace(".", "").replace(",","")
             detil = {
                 "accountCode": dt.no_akun,  # B
-                "debitAmount": debit,  # F
-                "creditAmount": kredit,  # G
+                "debitAmount": int(debit),  # F
+                "creditAmount": int(kredit),  # G
                 "currencyCode": "IDR",  # static
                 "currencyRate": 1,  # static
                 "description": dt.keterangan,  # E
@@ -44,10 +44,10 @@ class JV(models.Model):
                     "approveddDate": dt.tgl_jv,  # C
                     "type": "1",  # static
                     "locCode": "HO",  # static
-                    "createBy": "retailsoft",  # static
-                    "reviewedBy": "retailsoft",  # static
-                    "approvedBy": "retailsoft",  # static
-                    "remark": "TEST ",  # static
+                    "createBy": "admin",  # static
+                    "reviewedBy": "admin",  # static
+                    "approvedBy": "admin",  # static
+                    "remark": "",  # static
                     "details": [detil],
                     "item_joined": 1,  # helper
                 }
