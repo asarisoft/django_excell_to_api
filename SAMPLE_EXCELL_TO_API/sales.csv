@@ -1,0 +1,11 @@
+id,tgl_faktur,no_pelanggan,id_pelanggan,nama_pelanggan,no_faktur,keterangan,id_barang,no_barang,keterangan_barang,kuantitas,jumlah
+1,12-Jan-22,53,HO165124309461900014163,PT Bank Syariah Indonesia Tbk.,INV/CDN-BSI/22/I/003,,,ACC - 006,English Group Class Termin I,1,172.500.000
+2,28-Jan-22,ADX,,ADX Asia,CRN/CDN-ADX/22/I/001,,,ACC - 008,Placement Test,-1,-102.325.000
+3,28-Jan-22,MARI,,PT Mahaka Radio Integra,CRN/CDN-MARI/22/I/001,,,ACC - 008,Placement Test,-1,-25.000.000
+4,4-Feb-22,OPP,,PT Onsu Pangan Perkasa,CRN/CDN-OPP/22/II/01,,,ACC - 008,Placement Test,-1,-75.000.000
+5,10-Feb-22,BBLI,,PT. Global Digital Niaga,CRN/CDN-GDN/22/II/02,,,ACC - 008,Placement Test,-1,-1.137.500.000
+6,10-Feb-22,BCT,,PT. Bina Citra Talenta,CRN/CDN-BCT/22/II/01,,,ACC - 008,Placement Test,-1,-62.800.000
+7,25-Feb-22,JIM1,,PT Jayakarta Inti Manajemen,CRN/CDN-JIM/22/II/0I,,,ACC - 008,Placement Test,-1,-200.100.000
+8,25-Mar-22,FER,,PT Ferron Pharmaceuticals,INV/CDN-FPC/22/III/0I,,,ACC - 057,English Group Class,1,52.000.000
+9,10-Feb-22,BBLI,,PT. Global Digital Niaga,INV/CDN-GDN/22/II/01,,,ACC - 057,English Group Class,4,104.000.000
+10,27-Jan-22,PPT,,PT. Paragon Pratama Teknologi,INV/CDN-PPT/22/I/001,,,ACC - 057,English Group Class,1,76.875.000
