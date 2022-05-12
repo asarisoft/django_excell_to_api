@@ -22,9 +22,15 @@
   {% endcomment %}
   <h4>Status: <b style="color: blue">{{ data.status }}</b></h4>
   <h4>Response Server: {{ data.response }}</h4>
-  <button class="btn btn-primary" onClick="processMan('{{data.key}}', '{{data.type}}', '{{data.model}}')">
-    Process
-  </button>
+  {% if not data.status == "success" %}
+    <button class="btn btn-primary" onClick="processMan('{{data.key}}', '{{data.type}}', '{{data.model}}')">
+      Process
+    </button>
+  {% else %}
+    <button class="btn btn-secondary" disabled >
+      Process
+    </button>
+  {% endif %}
 </div>
 {% endblock %} 
 

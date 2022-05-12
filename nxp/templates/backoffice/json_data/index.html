@@ -35,7 +35,7 @@
             <div class="col-sm-2">
               <div class="input-group">
                 <select class="form-control" name="status">
-                  <option value="All" {% if filter.status == "all" %} selected {% endif %}>All</option>
+                  <option value="All" {% if filter.status == "All" %} selected {% endif %}>All</option>
                   <option value="new" {% if filter.status == "new" %} selected {% endif %}>New</option>
                   <option value="success" {% if filter.status == "success" %} selected  {% endif %}>Success</option>
                   <option value="failed" {% if filter.status == "failed" %} selected {% endif %}>Failed</option>
@@ -82,9 +82,9 @@
             <div class="col-sm-2">
               <div class="input-group">
                 <select class="form-control" name="status">
-                  <option value="new" {% if filter.status == "new" %} selected {% endif %}>New</option>
-                  <option value="success" {% if filter.status == "success" %} selected  {% endif %}>Success</option>
-                  <option value="failed" {% if filter.status == "failed" %} selected {% endif %}>Failed</option>
+                  <option value="new">New</option>
+                  {% comment %} <option value="success" {% if filter.status == "success" %} selected  {% endif %}>Success</option> {% endcomment %}
+                  <option value="failed" >Failed</option>
                 </select>
               </div>
             </div>
@@ -124,9 +124,15 @@
             <td>{{ data.item_joined }}</td>
             <td>{{ data.status }}</td>
             <th>
-              <button  class="btn btn-primary" onClick="processMan('{{data.key}}', '{{data.type}}', '{{data.model}}', '')">
-                Process
-              </button>
+              {% if not data.status == "success" %}
+                <button  class="btn btn-primary" onClick="processMan('{{data.key}}', '{{data.type}}', '{{data.model}}', '')">
+                  Process
+                </button>
+              {% else %}
+                <button class="btn btn-secondary" disabled>
+                  Process
+                </button>
+              {% endif %}
               <a 
               class="btn btn-primary" href="{% url 'backoffice:json_data_detail' data.id %}" target="blank">Detil</Button>
             </th>
