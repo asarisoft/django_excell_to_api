@@ -45,7 +45,7 @@
 
   var jsonViewer2 = new JSONViewer();
   document.querySelector("#jsonResponse").appendChild(jsonViewer2.getContainer());
-  jsonViewer2.showJSON({{data.response|safe}});
+  jsonViewer2.showJSON(JSON.parse(JSON.stringify({{data.response|safe}})));
 </script>
 
 <script>
