@@ -52,7 +52,7 @@ class PurchaseInvoiceItem(models.Model):
             if data_to_summarize.get(key) is None:
                 data_to_summarize[key] = {
                     "no": key,  # e
-                    "dt": dt.date,  # b
+                    "dt": f"{dt.date} 00:00:00",  # b
                     "locId": "164664240939100037530",  # static
                     "vendCode": dt.no_pemasok,  # a
                     "ptypeId": "HO164664374309602505821",  # static

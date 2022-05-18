@@ -36,7 +36,7 @@ class Cashflow(models.Model):
             if data_to_summarize.get(dt.no_jv) is None:
                 data_to_summarize[dt.no_jv] = {
                     "no": dt.no_jv, #H
-                    "dt": dt.tgl_jv, #A
+                    "dt": f"{dt.tgl_jv} 00:00:00", #A
                     "type": "1", #st
                     "locCode": "HO", #st
                     "bankCode": dt.bank_code, #i

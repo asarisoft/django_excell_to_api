@@ -54,7 +54,7 @@ class Invoice(models.Model):
             if data_to_summarize.get(key) is None:
                 data_to_summarize[key] = {
                     "no": key,  # D
-                    "dt": dt.tgl_faktur,  # A
+                    "dt": f"{dt.tgl_faktur} 00:00:00", #A
                     "locId": "FC01156274702276500063818",  # static
                     "custId": dt.id_pelanggan,  # C
                     "ptypeId": "HO164664374309602505821",  # static

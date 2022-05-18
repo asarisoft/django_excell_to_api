@@ -39,9 +39,9 @@ class JV(models.Model):
             if data_to_summarize.get(key) is None:
                 data_to_summarize[key]={
                     "no": key,  # A
-                    "dt": dt.tgl_jv,  # C
-                    "reviewDate": dt.tgl_jv,  # C
-                    "approveddDate": dt.tgl_jv,  # C
+                    "dt": f"{dt.tgl_jv} 00:00:00",  # C
+                    "reviewDate": f"{dt.tgl_jv} 00:00:00",  # C
+                    "approveddDate": f"{dt.tgl_jv} 00:00:00",  # C
                     "type": "1",  # static
                     "locCode": "HO",  # static
                     "createBy": "admin",  # static
