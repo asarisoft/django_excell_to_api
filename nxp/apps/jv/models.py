@@ -27,8 +27,8 @@ class JV(models.Model):
             kredit = dt.kredit.replace(".", "").replace(",","")
             detil = {
                 "accountCode": dt.no_akun,  # B
-                "debitAmount": int(debit),  # F
-                "creditAmount": int(kredit),  # G
+                "debit": int(debit),  # F
+                "credit": int(kredit),  # G
                 "currencyCode": "IDR",  # static
                 "currencyRate": 1,  # static
                 "description": dt.keterangan,  # E

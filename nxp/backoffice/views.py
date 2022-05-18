@@ -35,6 +35,7 @@ from django.db.models import Sum
 from django.http import JsonResponse, HttpResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
 
 get_model = apps.get_model
 
@@ -270,7 +271,9 @@ def json_data(request):
 
     search = request.GET.get("search", "")
     if search:
-        datas = datas.filter(key__icontains=search)
+        datas = datas.filter(
+            Q(key__icontains=search) |  Q(json_data__icontains=search) 
+        )
 
     total_item = datas.aggregate(Sum('item_joined'))["item_joined__sum"]
     item_joined = datas.count()
@@ -291,6 +294,7 @@ def json_data(request):
         "datas": datas,
         "title": "JSON DATA",
         "filter": {
+            "key": search,
             "search": search,
             "status": status,
             "model": model,
