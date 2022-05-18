@@ -21,9 +21,9 @@
   <pre id="json"></pre>
   {% endcomment %}
   <h4>Status: <b style="color: blue">{{ data.status }}</b></h4>
-  <h4>{{ data.response }}</h4>
   <h4>RESPONSE DATA:</h4>
-  <div id="jsonResponse"></div>
+  <h4>{{ data.response }}</h4>
+  {% comment %} <div id="jsonResponse"></div> {% endcomment %}
   {% if not data.status == "success" %}
     <button class="btn btn-primary" onClick="processMan('{{data.key}}', '{{data.type}}', '{{data.model}}')">
       Process
@@ -43,9 +43,9 @@
   document.querySelector("#json").appendChild(jsonViewer.getContainer());
   jsonViewer.showJSON({{data.json_data|safe}});
 
-  var jsonViewer2 = new JSONViewer();
+  {% comment %} var jsonViewer2 = new JSONViewer();
   document.querySelector("#jsonResponse").appendChild(jsonViewer2.getContainer());
-  jsonViewer2.showJSON(JSON.parse(JSON.stringify({{data.response|safe}})));
+  jsonViewer2.showJSON(JSON.parse(JSON.stringify({{data.response|safe}}))); {% endcomment %}
 </script>
 
 <script>
