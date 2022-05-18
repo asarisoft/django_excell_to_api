@@ -29,7 +29,7 @@ class Cashflow(models.Model):
             dt_detil = {
                 "accountCode": dt.no_akun, #b
                 "amount": int(nilai_assing), #e
-                "description": dt.catatan, #d
+                "description": dt.nama_akun, #c
                 "deptCode": dt.nama_dep, #f
                 "prjCode": "" #null
             }
@@ -42,7 +42,7 @@ class Cashflow(models.Model):
                     "bankCode": dt.bank_code, #i
                     "createBy": "admin", #st
                     "confirmBy": "admin", #st
-                    "remark": "null", #null
+                    "remark": dt.catatan, #d
                     "referenceNo": "0", #static
                     "bankIssuer": "0", #static
                     "amount": int(nilai_assing), #sum(e)
