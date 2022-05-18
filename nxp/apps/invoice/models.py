@@ -55,7 +55,7 @@ class Invoice(models.Model):
                 data_to_summarize[key] = {
                     "no": key,  # D
                     "dt": f"{dt.tgl_faktur} 00:00:00", #A
-                    "locId": "FC01156274702276500063818",  # static
+                    "locId": "164664240939100037530",  # static
                     "custId": dt.id_pelanggan,  # C
                     "ptypeId": "HO164664374309602505821",  # static
                     "ptermId": "HO164664383888902573434",  # static

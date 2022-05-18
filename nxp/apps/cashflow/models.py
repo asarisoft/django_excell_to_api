@@ -43,8 +43,8 @@ class Cashflow(models.Model):
                     "createBy": "admin", #st
                     "confirmBy": "admin", #st
                     "remark": "null", #null
-                    "referenceNo": "1", #static
-                    "bankIssuer": "2", #static
+                    "referenceNo": "0", #static
+                    "bankIssuer": "0", #static
                     "amount": int(nilai_assing), #sum(e)
                     "details": [dt_detil],                    
                     "item_joined": 1, #helper
