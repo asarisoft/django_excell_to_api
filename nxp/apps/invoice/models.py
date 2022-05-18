@@ -40,8 +40,8 @@ class Invoice(models.Model):
             }
 
             payment = {
-                "ptypeId": "FC01155920071225100011937",  # static
-                "ptermId": "",  # stati
+                "ptypeId": "HO164664374309602505821",  # static
+                "ptermId": "HO164664383888902573434",  # stati
                 "voucherId": "",  # static
                 "paymentAmount": int(dt.kuantitas) * int(jumlah),  # J * K
                 "bankIssuer": "",  # null
