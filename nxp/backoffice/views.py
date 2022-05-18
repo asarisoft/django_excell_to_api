@@ -270,9 +270,7 @@ def json_data(request):
 
     search = request.GET.get("search", "")
     if search:
-        datas = datas.filter(
-            Q(key__icontains=search)
-        )
+        datas = datas.filter(key__icontains=search)
 
     total_item = datas.aggregate(Sum('item_joined'))["item_joined__sum"]
     item_joined = datas.count()
