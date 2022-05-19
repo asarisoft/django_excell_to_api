@@ -47,7 +47,7 @@ class JV(models.Model):
                     "createBy": "admin",  # static
                     "reviewedBy": "admin",  # static
                     "approvedBy": "admin",  # static
-                    "remark": "null",  # E
+                    "remark": "",  # E
                     "details": [detil],
                     "item_joined": 1,  # helper
                 }

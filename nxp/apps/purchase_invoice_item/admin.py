@@ -9,7 +9,7 @@ class PurchaseInvoiceItemResources(resources.ModelResource):
     class Meta:
         model = PurchaseInvoiceItem
         exclude = ('id')
-        import_id_fields = ('no_purchase_invoice','no_barang','no_akun_persediaan_barang','jumlah')
+        import_id_fields = ('no_purchase_invoice','no_barang','no_akun_persediaan_barang','jumlah', 'keterangan')
         
         
 @admin.register(PurchaseInvoiceItem)
