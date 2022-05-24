@@ -8,7 +8,21 @@ class PurchaseInvoiceExpenseResources(resources.ModelResource):
     class Meta:
         model = PurchaseInvoiceExpense
         exclude = ('id')
-        import_id_fields = ('no_purchase_invoice','item_id','item_name','qty', 'nilai_beban', 'no_akun_beban')
+        import_id_fields = (
+            'tgl_faktur',
+            'no_purchase_invoice',
+            'vendor_code',
+            'nama_pemasok', 
+            'no_faktur_vendor', 
+            'keterangan',
+            'no_akun_beban',
+            'nama_akun_beban',
+            'nilai_beban',
+            'item_id',
+            'item_name',
+            'qty',
+            'unit',
+        )
        
         
 
