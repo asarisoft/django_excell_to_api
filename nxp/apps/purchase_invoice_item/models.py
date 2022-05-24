@@ -35,32 +35,32 @@ class PurchaseInvoiceItem(models.Model):
             key = dt.no_purchase_invoice;
             jumlah = dt.jumlah.replace(",","").replace(".","")
             item = {
-                "itemId": dt.id_barang,  # k
-                "description": dt.keterangan,  # m
-                "qty": dt.qty,  # n
-                "itemPrice": jumlah,  # j
-                "unitCode": dt.unit,  # o
+                "itemId": dt.id_barang or "",  # k
+                "description": dt.keterangan or "",  # m
+                "qty": dt.qty or "",  # n
+                "itemPrice": jumlah or "",  # j
+                "unitCode": dt.unit or "",  # o
                 "discount": "",  # null
                 "discountId": "",  # null
                 "taxId": ""  # null
             }
             expense = {
-                "accountCode": dt.no_akun_persediaan_barang,  # h
-                "description": dt.nama_akun_persediaan_barang,  # i
-                "amount": jumlah  # j
+                "accountCode": dt.no_akun_persediaan_barang or "",  # h
+                "description": dt.nama_akun_persediaan_barang or "",  # i
+                "amount": jumlah or ""  # j
             }
             if data_to_summarize.get(key) is None:
                 data_to_summarize[key] = {
                     "no": key,  # e
                     "dt": f"{dt.date} 00:00:00",  # b
                     "locId": "164664240939100037530",  # static
-                    "vendCode": dt.no_pemasok,  # a
+                    "vendCode": dt.no_pemasok or "",  # a
                     "ptypeId": "HO164664374309602505821",  # static
                     "ptermId": "HO164664383888902573434",  # static
                     "userName": "admin",  # static
-                    "remark": dt.keterangan,  # G
+                    "remark": dt.keterangan or "",  # G
                     "sourceTransId": "",  # null
-                    "vendInvNo": dt.no_faktur_vendor,  # f
+                    "vendInvNo": dt.no_faktur_vendor or "",  # f
                     "items": [item],
                     "expenses": [expense],
                     "item_joined": 1,  # helper

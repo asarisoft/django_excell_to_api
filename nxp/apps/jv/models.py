@@ -22,23 +22,23 @@ class JV(models.Model):
     def generate_json_all_data(self):
         data_to_summarize = {}
         for dt in JV.objects.all():
-            key = dt.no_jv
+            key = dt.no_jv or ""
             debit = dt.debit.replace(".", "").replace(",","")
             kredit = dt.kredit.replace(".", "").replace(",","")
             detil = {
-                "accountCode": dt.no_akun,  # B
+                "accountCode": dt.no_akun or "",  # B
                 "debit": int(debit),  # F
                 "credit": int(kredit),  # G
                 "currencyCode": "IDR",  # static
                 "currencyRate": 1,  # static
-                "description": dt.keterangan,  # E
+                "description": dt.keterangan or "",  # E
                 "locCode": "HO",  # static
-                "deptCode": dt.nama_dep,  # H
+                "deptCode": dt.nama_dep or "",  # H
                 "prjCode": ""  # null
             }
             if data_to_summarize.get(key) is None:
                 data_to_summarize[key]={
-                    "no": key,  # A
+                    "no": key or "",  # A
                     "dt": f"{dt.tgl_jv} 00:00:00",  # C
                     "reviewDate": f"{dt.tgl_jv} 00:00:00",  # C
                     "approveddDate": f"{dt.tgl_jv} 00:00:00",  # C

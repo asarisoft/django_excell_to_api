@@ -28,26 +28,26 @@ class Cashflow(models.Model):
         for dt in Cashflow.objects.all():
             nilai_assing = dt.nilai_asing.replace(".", "").replace(",","")
             dt_detil = {
-                "accountCode": dt.no_akun, #b
-                "amount": int(nilai_assing), #e
-                "description": dt.nama_akun, #c
-                "deptCode": dt.nama_dep, #f
+                "accountCode": dt.no_akun or "", #b
+                "amount": int(nilai_assing) or "", #e
+                "description": dt.nama_akun or "", #c
+                "deptCode": dt.nama_dep or "", #f
                 "prjCode": "" #null
             }
             if data_to_summarize.get(dt.no_jv) is None:
                 data_to_summarize[dt.no_jv] = {
-                    "no": dt.no_jv, #H
+                    "no": dt.no_jv or "", #H
                     "dt": f"{dt.tgl_jv} 00:00:00", #A
-                    "type": dt.type, #st
+                    "type": dt.type or "", #st
                     "locCode": "HO", #st
-                    "bankCode": dt.bank_code, #i
+                    "bankCode": dt.bank_code or "", #i
                     "createBy": "admin", #st
                     "confirmBy": "admin", #st
-                    "remark": dt.catatan, #d
+                    "remark": dt.catatan or "", #d
                     "referenceNo": "0", #static
                     "bankIssuer": "0", #static
-                    "amount": int(nilai_assing), #sum(e)
-                    "details": [dt_detil],                    
+                    "amount": int(nilai_assing) or "", #sum(e)
+                    "details": [dt_detil] or "",                    
                     "item_joined": 1, #helper
                 }
             else: 

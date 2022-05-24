@@ -99,7 +99,7 @@ $("#GenerateButton").on('click', function () {
     type: 'GET',
     url: "{% url 'backoffice:generate_json_data' %}?app=jv&model=JV&type=jv",
     success: function (response) {
-      alert("berhasil")
+      alert("Success")
     },
     error: function (response) {
       alert("error")

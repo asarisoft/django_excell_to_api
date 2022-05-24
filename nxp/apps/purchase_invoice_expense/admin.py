@@ -4,6 +4,7 @@ from django.contrib import admin
 from .models import PurchaseInvoiceExpense
 from import_export import resources
 
+
 class PurchaseInvoiceExpenseResources(resources.ModelResource):
     class Meta:
         model = PurchaseInvoiceExpense
@@ -12,8 +13,8 @@ class PurchaseInvoiceExpenseResources(resources.ModelResource):
             'tgl_faktur',
             'no_purchase_invoice',
             'vendor_code',
-            'nama_pemasok', 
-            'no_faktur_vendor', 
+            'nama_pemasok',
+            'no_faktur_vendor',
             'keterangan',
             'no_akun_beban',
             'nama_akun_beban',
@@ -23,11 +24,10 @@ class PurchaseInvoiceExpenseResources(resources.ModelResource):
             'qty',
             'unit',
         )
-       
-        
+
 
 @admin.register(PurchaseInvoiceExpense)
 class PurchaseInvoiceExpenseAdmin(ImportExportModelAdmin):
-    list_display=["no_purchase_invoice"]
+    list_display = ["no_purchase_invoice"]
     resource_class = PurchaseInvoiceExpenseResources
     pass

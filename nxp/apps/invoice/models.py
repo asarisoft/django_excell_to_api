@@ -29,11 +29,11 @@ class Invoice(models.Model):
             jumlah = dt.jumlah.replace(".", "").replace(",","")
             key = dt.no_faktur
             item = {
-                "itemId": dt.id_barang,  # G
-                "itemCode": dt.no_barang,  # H
-                "description": dt.keterangan_barang,  # I
-                "qty": int(dt.kuantitas),  # J
-                "itemPrice": int(jumlah),  # K
+                "itemId": dt.id_barang or "",  # G
+                "itemCode": dt.no_barang or "",  # H
+                "description": dt.keterangan_barang or "",  # I
+                "qty": int(dt.kuantitas) or "",  # J
+                "itemPrice": int(jumlah) or "",  # K
                 "discount": "0",  # null
                 "discountId": "",  # null
                 "taxId": ""  # static
@@ -53,14 +53,14 @@ class Invoice(models.Model):
 
             if data_to_summarize.get(key) is None:
                 data_to_summarize[key] = {
-                    "no": key,  # D
+                    "no": key or "",  # D
                     "dt": f"{dt.tgl_faktur} 00:00:00", #A
                     "locId": "164664240939100037530",  # static
-                    "custId": dt.id_pelanggan,  # C
+                    "custId": dt.id_pelanggan or "",  # C
                     "ptypeId": "HO164664374309602505821",  # static
                     "ptermId": "HO164664383888902573434",  # static
                     "cashier": "admin",  # static
-                    "remark": dt.keterangan,  # F
+                    "remark": dt.keterangan or "",  # F
                     "sourceTransId": "",  # null
                     "items": [item],
                     "payments": [payment],
