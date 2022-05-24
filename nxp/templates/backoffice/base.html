@@ -30,8 +30,8 @@
               <!-- <img src="{% static 'img/logo/logo.png' %}" class="svg" alt="Home"> -->
             </a>
             <a href="/" class="admin-sidebar-logo-title">
-              <strong>ENEOS NXP OIL</strong>
-              <span>-------------------------------</span>
+              <strong>DATA MIGRATION</strong>
+              <span>---------------------------------------</span>
             </a>
           </div>
           <!-- /.admin-sidebar-logo -->
@@ -51,18 +51,18 @@
           <ul class="nav flex-column">
             <li class="nav-item">
               <a href="{% url 'backoffice:purchase_invoice_item' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:rewards:transactions' %} active {% endif %}">
-                <i class="fa fa-check-square"></i><span>Purchase Inv Item</span>
+                <i class="fa fa-check-square"></i><span>Purchase Invoice</span>
               </a>
             </li>
           </ul>
 
-          <ul class="nav flex-column">
+          {% comment %} <ul class="nav flex-column">
             <li class="nav-item">
               <a href="{% url 'backoffice:purchase_invoice_expense' %}" class="nav-link {% if request.resolver_match.view_name == 'backoffice:rewards:transactions' %} active {% endif %}">
                 <i class="fa fa-check-square"></i><span>Purchase Inv Expense</span>
               </a>
             </li>
-          </ul>
+          </ul> {% endcomment %}
 
 
           <ul class="nav flex-column">

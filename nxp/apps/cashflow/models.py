@@ -18,6 +18,7 @@ class Cashflow(models.Model):
     no_jv = models.CharField(max_length=100, blank=True, null=True) #h
     bank_code = models.CharField(max_length=100, blank=True, null=True) #i
     nama_bank = models.CharField(max_length=100, blank=True, null=True) #j
+    type = models.CharField(max_length=100, blank=True, null=True) #k
 
     def __str__(self):
         return f"{self.no_jv}"
@@ -37,7 +38,7 @@ class Cashflow(models.Model):
                 data_to_summarize[dt.no_jv] = {
                     "no": dt.no_jv, #H
                     "dt": f"{dt.tgl_jv} 00:00:00", #A
-                    "type": "1", #st
+                    "type": dt.type, #st
                     "locCode": "HO", #st
                     "bankCode": dt.bank_code, #i
                     "createBy": "admin", #st
