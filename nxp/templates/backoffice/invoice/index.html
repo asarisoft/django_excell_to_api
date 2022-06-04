@@ -101,7 +101,7 @@ $("#GenerateButton").on('click', function () {
     type: 'GET',
     url: "{% url 'backoffice:generate_json_data' %}?app=invoice&model=Invoice&type=invoice",
     success: function (response) {
-      alert("Berhasil")
+      alert("Success")
     },
     error: function (response) {
       alert("error")

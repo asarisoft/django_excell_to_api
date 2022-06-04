@@ -28,5 +28,7 @@ class InvoiceResources(resources.ModelResource):
 class InvoiceAdmin(ImportExportModelAdmin):
     list_display = ["tgl_faktur", "no_pelanggan",
                     "id_pelanggan", "nama_pelanggan"]
+    search_fields = ["tgl_faktur", "no_pelanggan",
+                    "id_pelanggan", "nama_pelanggan"]
     resource_class = InvoiceResources
     pass

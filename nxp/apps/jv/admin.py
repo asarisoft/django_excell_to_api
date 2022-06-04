@@ -15,5 +15,6 @@ class JVResources(resources.ModelResource):
 @admin.register(JV)
 class JVAdmin(ImportExportModelAdmin):
     list_display = ["no_jv", "no_akun", "tgl_jv", "nama_akun"]
+    search_fields = ["no_jv", "no_akun", "tgl_jv", "nama_akun"]
     resource_class = JVResources
     pass

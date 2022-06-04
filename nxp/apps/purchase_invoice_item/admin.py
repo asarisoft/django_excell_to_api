@@ -23,12 +23,14 @@ class PurchaseInvoiceItemResources(resources.ModelResource):
             'no_barang',
             'keterangan_barang',
             'qty',
-            'unit'
+            'unit',
+            'item_price'
         )
 
 
 @admin.register(PurchaseInvoiceItem)
 class PurchaseInvoiceItemAdmin(ImportExportModelAdmin):
     list_display = ["no_purchase_invoice", "nama_pemasok"]
+    search_fields = ["no_purchase_invoice", "nama_pemasok"]
     resource_class = PurchaseInvoiceItemResources
     pass
