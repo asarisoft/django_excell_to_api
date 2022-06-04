@@ -23,8 +23,7 @@ class PurchaseInvoiceItemResources(resources.ModelResource):
             'no_barang',
             'keterangan_barang',
             'qty',
-            'unit',
-            'item_price'
+            'unit'
         )
 
 
