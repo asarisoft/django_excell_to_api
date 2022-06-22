@@ -67,8 +67,8 @@ class Invoice(models.Model):
                     "item_joined": 1,  # helper
                 }
             else:
-                data_to_summarize[dt.nama_pelanggan]["item_joined"] += 1
-                data_to_summarize[dt.nama_pelanggan]["items"].append(item)
-                data_to_summarize[dt.nama_pelanggan]["payments"].append(payment)
+                data_to_summarize[key]["item_joined"] += 1
+                data_to_summarize[key]["items"].append(item)
+                data_to_summarize[key]["payments"].append(payment)
 
         return data_to_summarize
