@@ -21,7 +21,8 @@
                 placeholder="File CSV" >
               </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-4">
+              <a class="btn btn-primary" href="{% url 'backoffice:download_file' filename='Invoice.csv' %}">Download Sample CSV</a>
               <button type="submit" id="btn-search-fix-h" class="btn btn-primary">
                 Import CSV
               </button>
