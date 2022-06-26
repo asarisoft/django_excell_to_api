@@ -31,7 +31,7 @@ class JV(models.Model):
                 "credit": int(kredit),  # G
                 "currencyCode": "IDR",  # static
                 "currencyRate": 1,  # static
-                "description": dt.keterangan or "",  # E
+                "description": dt.nama_akun or "",  # D
                 "locCode": "HO",  # static
                 "deptCode": dt.nama_dep or "",  # H
                 "prjCode": ""  # null
@@ -47,7 +47,7 @@ class JV(models.Model):
                     "createBy": "admin",  # static
                     "reviewedBy": "admin",  # static
                     "approvedBy": "admin",  # static
-                    "remark": "",  # E
+                    "remark": dt.keterangan or "",  # E
                     "details": [detil],
                     "item_joined": 1,  # helper
                 }
