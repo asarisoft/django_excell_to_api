@@ -10,7 +10,8 @@ from .views import (
     purchase_invoice_expense,
     cashflow, 
     jv,
-    invoice
+    invoice,
+    download_file
 )
 
 app_name = "backoffice"
@@ -29,4 +30,6 @@ urlpatterns = [
     path('json-data/', json_data, name='json_data'),
     path('<int:id>/json-data-detail/', json_data_detail, name='json_data_detail'),
     path('process-data/', process_data, name='process_data'),
+    path('download/<str:filename>', download_file, name="download_file"),
 ]
+

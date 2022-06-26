@@ -1,3 +1,5 @@
+import os
+import mimetypes
 import requests
 import json
 from urllib import response
@@ -393,3 +395,24 @@ def send_to_server(type, data):
     else:
         return {"status": "failed", "data": response}
         
+
+def download_file(request, filename=''):
+    if filename != '':
+        # Define Django project base directory
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        print(BASE_DIR)
+        # Define the full file path
+        filepath = BASE_DIR + '/filedownloads/' + filename
+        # Open the file for reading content
+        path = open(filepath, 'rb')
+        # Set the mime type
+        mime_type, _ = mimetypes.guess_type(filepath)
+        # Set the return value of the HttpResponse
+        response = HttpResponse(path, content_type=mime_type)
+        # Set the HTTP header for sending to browser
+        response['Content-Disposition'] = "attachment; filename=%s" % filename
+        # Return the response value
+        return response
+    else:
+        # Load the template
+        return render(request, 'file.html')
