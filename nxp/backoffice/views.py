@@ -23,11 +23,10 @@ from nxp.apps.cashflow.admin import CashflowResource
 
 from nxp.apps.jv.models import JV
 from nxp.apps.jv.admin import JVResources
-
 from nxp.apps.invoice.models import Invoice
 from nxp.apps.invoice.admin import InvoiceResources
-
 from nxp.apps.lastkey.models import LastKey
+from nxp.apps.settings.models import Settings
 
 from nxp.core.utils import save_to_json_data
 from django.db.models import Sum
@@ -372,7 +371,10 @@ def process_data(request):
 
 
 def send_to_server(type, data):
-    url = f"https://finance.cakap.com/cakap_trn/api/{type.lower()}/savetrans/";
+    sett = Settings.objects.filter(name='url_save').first()
+    default = f"https://finance.cakap.com/cakap_trn/api/{type.lower()}/savetrans/";
+    url = f"{sett.text_value}/api/{type.lower()}/savetrans/";
+    print("sssss", url)
     body = data.json_data
     body = body.replace("'", '"')
     # body = json.loads(body)
