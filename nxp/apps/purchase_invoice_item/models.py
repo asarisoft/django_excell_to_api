@@ -34,7 +34,8 @@ class PurchaseInvoiceItem(models.Model):
         data_to_summarize = {}
         for dt in PurchaseInvoiceItem.objects.all():
             key = dt.no_purchase_invoice;
-            jumlah = dt.jumlah.replace(",","").replace(".","")
+            # jumlah = dt.jumlah.replace(",","").replace(".","")
+            jumlah = dt.jumlah
             item = {
                 "itemId": dt.id_barang or "",  # j
                 "description": dt.keterangan or "",  # l

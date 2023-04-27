@@ -207,7 +207,6 @@ def jv(request):
         imported_data = dataset.load(new_datas.read().decode(), format='csv')
         result = resources.import_data(
             dataset, dry_run=True)  # Test the data import
-        print(result.has_errors())
         if not result.has_errors():
             # Actually import now
             resources.import_data(dataset, dry_run=False)
@@ -356,6 +355,7 @@ def process_data(request):
         if type not in ['cashflow', 'jv', 'invoice']:
             type = 'purchaseinvoice'
         response = send_to_server(type, qs)
+        print(response)
     else:
         response = {"status": "error", "data": {"message": "no data found"}}
     

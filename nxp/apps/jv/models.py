@@ -23,12 +23,14 @@ class JV(models.Model):
         data_to_summarize = {}
         for dt in JV.objects.all():
             key = dt.no_jv or ""
-            debit = dt.debit.replace(".", "").replace(",","")
-            kredit = dt.kredit.replace(".", "").replace(",","")
+            # debit = dt.debit.replace(".", "").replace(",","")
+            # kredit = dt.kredit.replace(".", "").replace(",","")
+            debit = dt.debit
+            kredit = dt.kredit
             detil = {
                 "accountCode": dt.no_akun or "",  # B
-                "debit": int(debit),  # F
-                "credit": int(kredit),  # G
+                "debit": debit,  # F
+                "credit": kredit,  # G
                 "currencyCode": "IDR",  # static
                 "currencyRate": 1,  # static
                 "description": dt.nama_akun or "",  # D
@@ -54,5 +56,4 @@ class JV(models.Model):
             else:
                 data_to_summarize[key]["item_joined"] += 1
                 data_to_summarize[key]["details"].append(detil)
-        print(data_to_summarize)
         return data_to_summarize

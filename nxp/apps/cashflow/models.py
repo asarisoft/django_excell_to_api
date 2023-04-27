@@ -26,7 +26,8 @@ class Cashflow(models.Model):
     def generate_json_all_data(self):
         data_to_summarize = {}
         for dt in Cashflow.objects.all():
-            nilai_assing = dt.nilai_asing.replace(".", "").replace(",","")
+            # nilai_assing = dt.nilai_asing.replace(".", "").replace(",","")
+            nilai_assing = dt.nilai_asing
             dt_detil = {
                 "accountCode": dt.no_akun or "", #b
                 "amount": int(nilai_assing) or "", #e

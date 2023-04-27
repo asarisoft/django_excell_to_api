@@ -26,7 +26,8 @@ class Invoice(models.Model):
     def generate_json_all_data(self):
         data_to_summarize = {}
         for dt in Invoice.objects.all():
-            jumlah = dt.jumlah.replace(".", "").replace(",","")
+            # jumlah = dt.jumlah.replace(".", "").replace(",","")
+            jumlah = dt.jumlah
             key = dt.no_faktur
             item = {
                 "itemId": dt.id_barang or "",  # G
